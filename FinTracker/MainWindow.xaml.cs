@@ -21,8 +21,10 @@ namespace FinTracker
     public partial class MainWindow : Window
     {
         public List<User> Users = new List<User>();
-        public User actualUser;
+        public User actualUser = new User("admin"); // убрать хардкод
         public Asset actualAsset;
+
+
         public MainWindow()
         {
             InitializeComponent();
