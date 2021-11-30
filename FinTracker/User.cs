@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    internal class User
+    public class User
     {
         public string Name;
         public List<string> Categories;

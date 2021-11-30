@@ -20,6 +20,9 @@ namespace FinTracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<User> Users = new List<User>();
+        public User actualUser;
+        public Asset actualAsset;
         public MainWindow()
         {
             InitializeComponent();
