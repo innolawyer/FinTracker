@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    internal class Transaction
+    public class Transaction
     {
         public double Amount;
         public string Category;
