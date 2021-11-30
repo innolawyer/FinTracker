@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    internal class Asset
+    public class Asset
     {
         public string Name; //Название
         public double Amount; //Состояние счета
@@ -27,7 +27,12 @@ namespace FinTracker
 
         }
 
-        private void Send(Asset reciver) // Отправляет деньги на другой счет
+        public void Send(double amount, Asset sender)
+        {
+
+        }
+
+        public void EditTransaction(Transaction transaction)
         {
 
         }
