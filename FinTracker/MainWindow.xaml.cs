@@ -23,13 +23,30 @@ namespace FinTracker
         public List<User> Users = new List<User>();
         public User actualUser = new User("admin"); // убрать хардкод
         public Asset actualAsset;
-
+        public static User user = new User("admin"); // просто проверка, потом убрать
 
         public MainWindow()
         {
             InitializeComponent();
+            DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
+            DatePickerTransaction.SelectedDate = DateTime.Today;
+            Users.Add(user); // проверка, убрать
+            FillingComboBoxUser();
+        }
+        public void FillingComboBoxUser()
+        {
+            ComboBoxChangeUser.Items.Clear();
+            foreach (User user in Users)
+            {
+                ComboBoxChangeUser.Items.Add($"{user.Name}");
+            }
         }
 
-      
+        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
+        {
+            User user = new User(TextBoxUserName.Text);
+            Users.Add(user);
+            FillingComboBoxUser();
+        }
     }
 }
