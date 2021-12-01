@@ -193,5 +193,17 @@ namespace FinTracker
             AddCategories addCategories = new AddCategories(this);
             addCategories.Show();
         }
+        public bool IsUniqeUser(string name)
+        {
+            bool uniq = true;
+            foreach(User user in Users)
+            {
+                if (name == user.Name)
+                {
+                    uniq = false;
+                }
+            }
+            return uniq;
+        }
     }
 }
