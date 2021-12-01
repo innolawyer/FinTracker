@@ -78,5 +78,10 @@ namespace FinTracker
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             StackPanelTransactionList.Children.Add(nTransactionButton);
         }
+        private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)
+        {
+            AddAssetWindow addAssetWindow = new AddAssetWindow(this);
+            addAssetWindow.Show();
+        }
     }
 }
