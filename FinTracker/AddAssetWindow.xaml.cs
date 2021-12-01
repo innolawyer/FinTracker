@@ -48,5 +48,10 @@ namespace FinTracker
             buttonAsset.Content = TextBoxAssetName.Text;
             _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _mainWindow.IsEnabled = true;
+        }
     }
 }
