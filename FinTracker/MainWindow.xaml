@@ -19,10 +19,10 @@
                     <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged"/>
                     <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
-                    <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120" Click="ButtonDeleteUser_Copy_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabItemAssets" Header="Счета">
+            <TabItem x:Name="TabItemAssets" Header="Счета" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"/>
@@ -46,8 +46,8 @@
                     <Button Grid.Column="2" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="140"/>
                     <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0" Grid.ColumnSpan="2"/>
                     <StackPanel x:Name="StackPanelTransactionList" Grid.Column="3" Margin="0,45,0,0"/>
-                    <Button x:Name="ButtonAddCategory" Grid.Column="2" Content="+" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold"/>
-                    <Button x:Name="ButtonDeleteCategory" Grid.Column="2" Content="-" HorizontalAlignment="Left" Margin="135,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold"/>
+                    <Button x:Name="ButtonAddCategory" Grid.Column="2" Content="+" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold" Click="ButtonAddCategory_Click"/>
+                    <Button x:Name="ButtonDeleteCategory" Grid.Column="2" Content="-" HorizontalAlignment="Left" Margin="135,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold" Click="ButtonDeleteCategory_Click"/>
 
 
                 </Grid>
