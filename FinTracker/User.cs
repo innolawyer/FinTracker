@@ -10,7 +10,7 @@ namespace FinTracker
     {
         public string Name;
         public List<string> Categories;
-        public List<Asset> Assets;
+        public List<Asset> Assets = new List<Asset>();
 
         public User(string name) // проверка на уникальность (?)
         {

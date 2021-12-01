@@ -22,7 +22,7 @@ namespace FinTracker
     {
         public List<User> Users = new List<User>();
         public User actualUser = new User("admin"); // убрать хардкод
-        public Asset actualAsset;
+        public Asset actualAsset = new Asset("firstAsset", 0);
 
 
         public MainWindow()
@@ -30,6 +30,18 @@ namespace FinTracker
             InitializeComponent();
         }
 
-      
+        private void ButtonSpend_Click(object sender, RoutedEventArgs e)
+        {
+            Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        "qwe"); //ComboBoxCategoriesTransaction.SelectedValue.ToString()
+
+            actualAsset.AddTransactions(nTransaction);
+
+            Button nTransactionButton = new Button();
+            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Category} {nTransaction.Amount}";
+            StackPanelTransactionList.Children.Add(nTransactionButton);
+        }
     }
 }
