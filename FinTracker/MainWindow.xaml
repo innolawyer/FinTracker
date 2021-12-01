@@ -19,7 +19,7 @@
                 <Grid Background="#FFE5E5E5">
                     <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="192,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="ButtonCreateNewUser" Content="Button" HorizontalAlignment="Left" Margin="192,64,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="ButtonCreateNewUser" Content="Button" HorizontalAlignment="Left" Margin="192,64,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Счета">
