@@ -32,7 +32,7 @@
 
                     <Button x:Name="ButtonAddAsset" Grid.Column="0" Content="Создать счет" HorizontalAlignment="Left" Margin="27,14,0,0" VerticalAlignment="Top" Width="140" Click="ButtonAddAsset_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
-                    <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Label" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Баланс текущего счета" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" HorizontalAlignment="Left" Height="24" Margin="197,10,0,0" VerticalAlignment="Top" Width="93"/>
                     <Button x:Name="ButtonIncome" Grid.Column="1" Content="Доход" HorizontalAlignment="Left" Margin="10,0,0,143" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonIncome_Click"/>
                     <DatePicker x:Name="DatePickerTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="140"/>

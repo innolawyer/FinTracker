@@ -8,6 +8,7 @@ namespace FinTracker
 {
     public class Asset
     {
+        MainWindow _mainWindow;
         public string Name; //Название
         public double Amount; //Состояние счета
         public double YearInterest; //Процент на остаток // узать как считаеться
@@ -56,6 +57,12 @@ namespace FinTracker
         {
             Transactions.Add(nTransaction);
             Amount = GetAmount();
+        }
+
+        public void LabelCurrentAmount_Display(MainWindow mainWindow)
+        {
+            _mainWindow = mainWindow;
+            _mainWindow.LabelCurrentAmount.Content = GetAmount();
         }
     }
 }

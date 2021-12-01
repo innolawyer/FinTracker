@@ -57,6 +57,7 @@ namespace FinTracker
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
             User user = _mainWindow.actualUser;
+            Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
             user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text), 
                                                 Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
@@ -66,6 +67,8 @@ namespace FinTracker
             buttonAsset.Click += FillingTransactionsStackPanel;
 
             _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+            asset.LabelCurrentAmount_Display(_mainWindow);
+            this.Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)
