@@ -38,6 +38,7 @@ namespace FinTracker
                 ComboBoxCategoriesTransaction.Items.Add(category);
             }
             //Users.Add(user); // проверка, убрать
+            ComboBoxChangeUser_SelectionDone();
             FillingComboBoxUser();
         }
 
@@ -122,8 +123,25 @@ namespace FinTracker
         {
             actualUser = GetUserByName(ComboBoxChangeUser.SelectedItem.ToString());
             actualAsset = null; // Так можно?
+            ComboBoxChangeUser_SelectionDone();
 
 
+        }
+
+        private void ComboBoxChangeUser_SelectionDone()
+        {
+            if(ComboBoxChangeUser.SelectedIndex == -1)
+            {
+                TabItemAssets.IsEnabled = false;
+                TabItemRegularPayments.IsEnabled = false;
+                TabItemAnalytics.IsEnabled = false;
+            }
+            else
+            {
+                TabItemAssets.IsEnabled = true;
+                TabItemRegularPayments.IsEnabled = true;
+                TabItemAnalytics.IsEnabled = true;
+            }
         }
     }
 }
