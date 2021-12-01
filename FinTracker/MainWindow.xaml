@@ -31,7 +31,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <Button x:Name="ButtonAddAsset" Grid.Column="1" Content="Создать счет" HorizontalAlignment="Left" Margin="12,14,0,0" VerticalAlignment="Top" Width="140" Click="ButtonAddAsset_Click"/>
+                    <Button x:Name="ButtonAddAsset" Content="Создать счет" HorizontalAlignment="Left" Margin="8,14,0,0" VerticalAlignment="Top" Width="80" Click="ButtonAddAsset_Click" Grid.ColumnSpan="2"/>
                     <Button x:Name="ButtonSpend" Grid.Column="2" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
                     <Label Grid.Column="3" x:Name="LabelCurrentAmount" Content="Баланс текущего счета" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" HorizontalAlignment="Left" Height="24" Margin="182,10,0,0" VerticalAlignment="Top" Width="93" Grid.Column="1"/>
@@ -48,6 +48,7 @@
                     <StackPanel x:Name="StackPanelTransactionList" Grid.Column="3" Margin="0,45,0,0"/>
                     <Button x:Name="ButtonAddCategory" Grid.Column="2" Content="+" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold" Click="ButtonAddCategory_Click"/>
                     <Button x:Name="ButtonDeleteCategory" Grid.Column="2" Content="-" HorizontalAlignment="Left" Margin="135,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold" Click="ButtonDeleteCategory_Click"/>
+                    <Button x:Name="ButtonDeleteAsset" Content="Удалить счет" HorizontalAlignment="Left" Margin="78,14,0,0" VerticalAlignment="Top" Width="80" Grid.Column="1" Click="ButtonDeleteAsset_Click"/>
 
 
                 </Grid>

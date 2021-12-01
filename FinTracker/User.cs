@@ -12,7 +12,7 @@ namespace FinTracker
         public List<string> Categories;
         public List<Asset> Assets = new List<Asset>();
 
-        public User(string name) // проверка на уникальность (?)
+        public User(string name) 
         {
             Name = name;
             Categories = new List<string>() {"Супермаркет", "Транспорт", "Коммунальные платежи", "Снятия",
@@ -20,7 +20,7 @@ namespace FinTracker
             "Связь и интернет", "Дом и ремонт", "Животные", "Прочие расходы", "Подарки"};
         }
 
-        public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) // Добавляет счета
+        public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) 
         {
             Assets.Add(new Asset(name, startAmount)); // это бумажные деньги. Надом исправить как таока научимся делать другие счета
         }
@@ -39,7 +39,7 @@ namespace FinTracker
 
         public bool IsUniqeAsset(string name)
         {
-            if (GetAssetByName(name) == null)
+            if (GetAssetByName(name) == null) // если имя равно имя - фолс
             {
                 return true;
             }

@@ -24,7 +24,6 @@ namespace FinTracker
         public User actualUser;
         public Asset actualAsset;
 
-
         public MainWindow()
         {
             InitializeComponent();
@@ -76,7 +75,7 @@ namespace FinTracker
             }
             return null; // Подумать над этим
         }
-
+        
         public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
         {
             LabelCurrentAmount.Content = actualAsset.GetAmount();
@@ -110,9 +109,17 @@ namespace FinTracker
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
+            if (IsUniqeUser(TextBoxUserName.Text) == true)
+            {
             User user = new User(TextBoxUserName.Text);
             Users.Add(user);
             FillingComboBoxUser();
+            }
+            else
+            {
+                MessageBox.Show("Пользователь с таким именем уже создан");
+            }
+
         }
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -193,6 +200,7 @@ namespace FinTracker
             AddCategories addCategories = new AddCategories(this);
             addCategories.Show();
         }
+
         public bool IsUniqeUser(string name)
         {
             bool uniq = true;
@@ -205,5 +213,6 @@ namespace FinTracker
             }
             return uniq;
         }
+
     }
 }
