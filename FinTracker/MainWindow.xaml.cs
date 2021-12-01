@@ -22,7 +22,7 @@ namespace FinTracker
     {
         public List<User> Users = new List<User>();
         public User actualUser = new User("admin"); // убрать хардкод
-        public static User user = new User("admin"); // просто проверка, потом убрать
+        //public static User user = new User("admin"); // просто проверка, потом убрать
         public Asset actualAsset = new Asset("firstAsset", 0);
 
 
@@ -33,11 +33,11 @@ namespace FinTracker
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
 
-            foreach (string category in MainWindow.user.Categories)
+            foreach (string category in actualUser.Categories)
             {
                 ComboBoxCategoriesTransaction.Items.Add(category);
             }
-            Users.Add(user); // проверка, убрать
+            //Users.Add(user); // проверка, убрать
             FillingComboBoxUser();
         }
 
@@ -47,6 +47,19 @@ namespace FinTracker
             foreach (User user in Users)
             {
                 ComboBoxChangeUser.Items.Add($"{user.Name}");
+            }
+        }
+
+        public void FillingTransactionsStackPanel()
+        {
+            StackPanelTransactionList.Children.Clear();
+            foreach (Transaction transaction in actualAsset.Transactions)
+            {
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+
+                StackPanelTransactionList.Children.Add(nTransactionButton);
             }
         }
 
@@ -97,6 +110,14 @@ namespace FinTracker
         {
             AddAssetWindow addAssetWindow = new AddAssetWindow(this);
             addAssetWindow.Show();
+        }
+
+        private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            actualUser = GetUserByName(ComboBoxChangeUser.SelectedItem.ToString());
+            actualAsset = null; // Так можно?
+
+
         }
     }
 }

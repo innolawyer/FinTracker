@@ -16,7 +16,7 @@
                 </TabItem.Background>
 
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged"/>
                     <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
                     <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120"/>
