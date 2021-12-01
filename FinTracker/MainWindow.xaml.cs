@@ -21,7 +21,7 @@ namespace FinTracker
     public partial class MainWindow : Window
     {
         public List<User> Users = new List<User>();
-        public User actualUser = new User("admin"); // убрать хардкод
+        public User actualUser; // убрать хардкод
         //public static User user = new User("admin"); // просто проверка, потом убрать
         public Asset actualAsset;
 
@@ -32,14 +32,11 @@ namespace FinTracker
 
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
-
-            foreach (string category in actualUser.Categories)
-            {
-                ComboBoxCategoriesTransaction.Items.Add(category);
-            }
+            
             //Users.Add(user); // проверка, убрать
             ComboBoxChangeUser_SelectionDone();
             FillingComboBoxUser();
+            FillCategories();
         }
 
         public void FillingComboBoxUser()
@@ -78,6 +75,18 @@ namespace FinTracker
         public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
         {
             LabelCurrentAmount.Content = actualAsset.GetAmount();
+        }
+
+        public void FillCategories()
+        {
+            ComboBoxCategoriesTransaction.Items.Clear();
+            if (actualUser != null)
+            {
+                foreach (string category in actualUser.Categories)
+                {
+                    ComboBoxCategoriesTransaction.Items.Add(category);
+                }
+            }
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -124,6 +133,7 @@ namespace FinTracker
             actualUser = GetUserByName(ComboBoxChangeUser.SelectedItem.ToString());
             actualAsset = null; // Так можно?
             ComboBoxChangeUser_SelectionDone();
+            FillCategories();
 
 
         }
