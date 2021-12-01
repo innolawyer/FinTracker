@@ -22,7 +22,7 @@
                     <Button x:Name="ButtonCreateNewUser" Content="Button" HorizontalAlignment="Left" Margin="192,64,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Счета" Height="20" VerticalAlignment="Bottom">
+            <TabItem Header="Счета">
                 <Grid Background="#FFE5E5E5" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
@@ -30,7 +30,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     
-                    <Button Grid.Column="0" Content="Создать счет" HorizontalAlignment="Left" Margin="27,14,0,0" VerticalAlignment="Top" Width="140"/>
+                    <Button x:Name="ButtonAddAsset" Grid.Column="0" Content="Создать счет" HorizontalAlignment="Left" Margin="27,14,0,0" VerticalAlignment="Top" Width="140" Click="ButtonAddAsset_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
                     <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Label" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" HorizontalAlignment="Left" Height="24" Margin="197,10,0,0" VerticalAlignment="Top" Width="93"/>
