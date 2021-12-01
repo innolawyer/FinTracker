@@ -37,6 +37,13 @@ namespace FinTracker
             return null; //отбить это говно (так быть не должно)
         }
 
-
+        public bool IsUniqeAsset(string name)
+        {
+            if (GetAssetByName(name) == null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
