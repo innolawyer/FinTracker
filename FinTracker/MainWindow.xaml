@@ -31,16 +31,16 @@
                     </Grid.ColumnDefinitions>
                     
                     <Button Grid.Column="0" Content="Создать счет" HorizontalAlignment="Left" Margin="27,14,0,0" VerticalAlignment="Top" Width="140"/>
-                    <Button Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="Button_Click"/>
+                    <Button x:Name="ButtonSpend" Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
                     <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Label" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" HorizontalAlignment="Left" Height="24" Margin="197,10,0,0" VerticalAlignment="Top" Width="93"/>
                     <Button Grid.Column="1" Content="Доход" HorizontalAlignment="Left" Margin="10,0,0,143" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140"/>
-                    <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="140"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
-                    <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+                    <DatePicker x:Name="DatePickerTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="140"/>
+                    <TextBox x:Name="TextBoxComment" Grid.Column="1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+                    <TextBox x:Name="TextBoxAmount" Grid.Column="1" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Комментарий" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Сумма" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="140"/>
-                    <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="140"/>
+                    <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Добавить транзакцию" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top"/>
                     <Button Grid.Column="1" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="140"/>
                     <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0"/>
