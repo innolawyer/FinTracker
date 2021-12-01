@@ -48,19 +48,17 @@ namespace FinTracker
             Users.Add(user);
             FillingComboBoxUser();
         }
-
-        private void ButtonSpend_Click(object sender, RoutedEventArgs e)
-        {
+
+        private void ButtonSpend_Click(object sender, RoutedEventArgs e)
+        {
             Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
-                                        Convert.ToDateTime(DatePickerTransaction.Text),
-                                        TextBoxComment.Text,
-                                        "qwe"); //ComboBoxCategoriesTransaction.SelectedValue.ToString()
-
-            actualAsset.AddTransactions(nTransaction);
-
-            Button nTransactionButton = new Button();
-            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Category} {nTransaction.Amount}";
-            StackPanelTransactionList.Children.Add(nTransactionButton);
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        "qwe"); //ComboBoxCategoriesTransaction.SelectedValue.ToString()
+            actualAsset.AddTransactions(nTransaction);
+            Button nTransactionButton = new Button();
+            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Category} {nTransaction.Amount}";
+            StackPanelTransactionList.Children.Add(nTransactionButton);
         }
     }
 }
