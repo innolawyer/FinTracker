@@ -56,7 +56,8 @@ namespace FinTracker
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (_mainWindow.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
+             { 
                 User user = _mainWindow.actualUser;
                 Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
@@ -71,6 +72,11 @@ namespace FinTracker
 
                 _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
                 this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Счет с таким именем уже существует");
+            }
             
         }
 
