@@ -28,8 +28,14 @@ namespace FinTracker
         public MainWindow()
         {
             InitializeComponent();
+
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
+
+            foreach (string category in MainWindow.user.Categories)
+            {
+                ComboBoxCategoriesTransaction.Items.Add(category);
+            }
             Users.Add(user); // проверка, убрать
             FillingComboBoxUser();
         }
@@ -51,14 +57,26 @@ namespace FinTracker
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
         {
-            Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
+            Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
-                                        "qwe"); //ComboBoxCategoriesTransaction.SelectedValue.ToString()
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
             actualAsset.AddTransactions(nTransaction);
             Button nTransactionButton = new Button();
-            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Category} {nTransaction.Amount}";
+            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             StackPanelTransactionList.Children.Add(nTransactionButton);
-        }
+        }
+
+        private void ButtonIncome_Click(object sender, RoutedEventArgs e) // категории доходов должны быть другие
+        {
+            Transaction nTransaction = new Transaction("+", Convert.ToDouble(TextBoxAmount.Text),
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
+            actualAsset.AddTransactions(nTransaction);
+            Button nTransactionButton = new Button();
+            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+            StackPanelTransactionList.Children.Add(nTransactionButton);
+        }
     }
 }

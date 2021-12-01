@@ -22,7 +22,7 @@
                     <Button x:Name="ButtonCreateNewUser" Content="Button" HorizontalAlignment="Left" Margin="192,64,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Счета">
+            <TabItem Header="Счета" Height="20" VerticalAlignment="Bottom">
                 <Grid Background="#FFE5E5E5" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
@@ -34,10 +34,10 @@
                     <Button x:Name="ButtonSpend" Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
                     <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Label" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" HorizontalAlignment="Left" Height="24" Margin="197,10,0,0" VerticalAlignment="Top" Width="93"/>
-                    <Button Grid.Column="1" Content="Доход" HorizontalAlignment="Left" Margin="10,0,0,143" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140"/>
+                    <Button x:Name="ButtonIncome" Grid.Column="1" Content="Доход" HorizontalAlignment="Left" Margin="10,0,0,143" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonIncome_Click"/>
                     <DatePicker x:Name="DatePickerTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,180,0,0" VerticalAlignment="Top" Width="140"/>
-                    <TextBox x:Name="TextBoxComment" Grid.Column="1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
-                    <TextBox x:Name="TextBoxAmount" Grid.Column="1" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="140"/>
+                    <TextBox x:Name="TextBoxComment" Grid.Column="1" HorizontalAlignment="Left" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
+                    <TextBox x:Name="TextBoxAmount" Grid.Column="1" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Комментарий" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Сумма" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="140"/>
                     <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="140"/>
