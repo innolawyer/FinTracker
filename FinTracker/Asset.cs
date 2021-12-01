@@ -16,15 +16,30 @@ namespace FinTracker
         public double ServiceFee;
         public List<Transaction> Transactions = new List<Transaction>();
 
+        private double _StartAmount; //Состояние счета
+
         public Asset(string name, double amount) // конструктор для бумагжных денег
         {
             Name = name;
             Amount = amount;
+            _StartAmount = amount;
         }
 
-        private void GetAmount() // должен вернуть дабл
+        private double GetAmount()
         {
-
+            double result = _StartAmount;
+            foreach (Transaction transaction in Transactions)
+            {
+                if (transaction.Sign == "+")
+                {
+                    result += transaction.Amount;
+                }
+                else if (transaction.Sign == "-")
+                {
+                    result -= transaction.Amount;
+                }
+            }
+            return result;
         }
 
         public void Send(double amount, Asset sender)
@@ -35,6 +50,12 @@ namespace FinTracker
         public void EditTransaction(Transaction transaction)
         {
 
+        }
+
+        public void AddTransactions(Transaction nTransaction)
+        {
+            Transactions.Add(nTransaction);
+            Amount = GetAmount();
         }
     }
 }
