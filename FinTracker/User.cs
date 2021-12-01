@@ -20,21 +20,6 @@ namespace FinTracker
             "Связь и интернет", "Дом и ремонт", "Животные", "Прочие расходы", "Подарки"};
         }
 
-        //public void SetCategory(string name)
-        //{
-        //    Categories.Add(name);
-        //}
-
-        //public void DropCategory(string name)
-        //{
-        //    Categories.Remove(name);
-        //}
-
-        //public void DropAllCategories()
-        //{
-        //    Categories.Clear();
-        //}
-
         public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) // Добавляет счета
         {
             Assets.Add(new Asset(name, startAmount)); // это бумажные деньги. Надом исправить как таока научимся делать другие счета

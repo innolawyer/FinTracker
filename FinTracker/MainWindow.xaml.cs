@@ -39,7 +39,7 @@ namespace FinTracker
                 ButtonIncome.IsEnabled = false;
                 ButtonSpend.IsEnabled = false;
             }
-            //
+
             FillingComboBoxUser();
             FillCategories();
         }
@@ -64,7 +64,7 @@ namespace FinTracker
             }
             return null; // Подумать над этим
         }
-
+       
         public Asset GetAssetByName(string name)
         {
             foreach (Asset asset in actualUser.Assets)
@@ -173,6 +173,25 @@ namespace FinTracker
                 TabItemRegularPayments.IsEnabled = true;
                 TabItemAnalytics.IsEnabled = true;
             }
+        }
+
+        private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
+        {           
+                User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+                Users.Remove(user);
+                FillingComboBoxUser();         
+        }
+
+        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+            actualUser.Categories.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+            FillCategories();
+        }
+
+        private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            AddCategories addCategories = new AddCategories(this);
+            addCategories.Show();
         }
     }
 }
