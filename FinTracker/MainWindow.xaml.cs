@@ -50,6 +50,18 @@ namespace FinTracker
             }
         }
 
+        public User GetUserByName(string name)
+        {
+            foreach (User  user in Users)
+            {
+                if (user.Name == name)
+                {
+                    return user;
+                }
+            }
+            return null; // Подумать над этим
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             User user = new User(TextBoxUserName.Text);

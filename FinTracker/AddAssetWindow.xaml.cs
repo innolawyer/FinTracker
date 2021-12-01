@@ -46,6 +46,7 @@ namespace FinTracker
                                                 Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
             Button buttonAsset = new Button();
             buttonAsset.Content = TextBoxAssetName.Text;
+
             _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
         }
 
