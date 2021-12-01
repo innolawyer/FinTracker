@@ -33,6 +33,22 @@ namespace FinTracker
             _mainWindow.IsEnabled = false;
         }
 
+        private void FillingTransactionsStackPanel(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.StackPanelTransactionList.Children.Clear();
+            foreach (Transaction transaction in _mainWindow.actualAsset.Transactions)
+            {
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
+                _mainWindow.StackPanelTransactionList.Children.Add(nTransactionButton);
+            }
+        }
+
+        private void SetActualAsset(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.actualAsset = _mainWindow.GetAssetByName(Convert.ToString(((Button)sender).Content));
+        }
+
         private void TextBoxAmount_GotFocus(object sender, RoutedEventArgs e)
         {
             ((TextBox)sender).Text = "";           
@@ -46,6 +62,8 @@ namespace FinTracker
                                                 Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
             Button buttonAsset = new Button();
             buttonAsset.Content = TextBoxAssetName.Text;
+            buttonAsset.Click += SetActualAsset;
+            buttonAsset.Click += FillingTransactionsStackPanel;
 
             _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
         }

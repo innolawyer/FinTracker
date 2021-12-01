@@ -50,19 +50,6 @@ namespace FinTracker
             }
         }
 
-        public void FillingTransactionsStackPanel()
-        {
-            StackPanelTransactionList.Children.Clear();
-            foreach (Transaction transaction in actualAsset.Transactions)
-            {
-                Button nTransactionButton = new Button();
-                nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
-                StackPanelTransactionList.Children.Add(nTransactionButton);
-
-                StackPanelTransactionList.Children.Add(nTransactionButton);
-            }
-        }
-
         public User GetUserByName(string name)
         {
             foreach (User  user in Users)
@@ -70,6 +57,18 @@ namespace FinTracker
                 if (user.Name == name)
                 {
                     return user;
+                }
+            }
+            return null; // Подумать над этим
+        }
+
+        public Asset GetAssetByName(string name)
+        {
+            foreach (Asset asset in actualUser.Assets)
+            {
+                if (asset.Name == name)
+                {
+                    return asset;
                 }
             }
             return null; // Подумать над этим

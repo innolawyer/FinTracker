@@ -25,7 +25,7 @@ namespace FinTracker
             _StartAmount = amount;
         }
 
-        private double GetAmount()
+        public double GetAmount()
         {
             double result = _StartAmount;
             foreach (Transaction transaction in Transactions)
