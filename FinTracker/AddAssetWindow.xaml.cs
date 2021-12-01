@@ -56,21 +56,28 @@ namespace FinTracker
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
-            User user = _mainWindow.actualUser;
-            Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
+            if (_mainWindow.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
+            {
+                User user = _mainWindow.actualUser;
+                Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
-            user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text), 
-                                                Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
-            Button buttonAsset = new Button();
-            buttonAsset.Content = TextBoxAssetName.Text;
-            buttonAsset.Click += SetActualAsset;
-            buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
-            buttonAsset.Click += _mainWindow.AddTransactionVisibility;
-            buttonAsset.Click += FillingTransactionsStackPanel;
+                user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text), 
+                                                    Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
+                Button buttonAsset = new Button();
+                buttonAsset.Content = TextBoxAssetName.Text;
+                buttonAsset.Click += SetActualAsset;
+                buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
+                buttonAsset.Click += _mainWindow.AddTransactionVisibility;
+                buttonAsset.Click += FillingTransactionsStackPanel;
 
-            _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Счет с таким именем уже существует");
+            }
 
-            this.Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)
