@@ -21,8 +21,7 @@ namespace FinTracker
     public partial class MainWindow : Window
     {
         public List<User> Users = new List<User>();
-        public User actualUser; // убрать хардкод
-        //public static User user = new User("admin"); // просто проверка, потом убрать
+        public User actualUser;
         public Asset actualAsset;
 
 
@@ -33,8 +32,14 @@ namespace FinTracker
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
             
-            //Users.Add(user); // проверка, убрать
             ComboBoxChangeUser_SelectionDone();
+            //AddTransactionVisibility();
+            if (actualAsset == null)
+            {
+                ButtonIncome.IsEnabled = false;
+                ButtonSpend.IsEnabled = false;
+            }
+            //
             FillingComboBoxUser();
             FillCategories();
         }
@@ -89,6 +94,20 @@ namespace FinTracker
             }
         }
 
+        public void AddTransactionVisibility(object sender, RoutedEventArgs e)
+        {
+            if (actualAsset == null)
+            {
+                ButtonIncome.IsEnabled = false;
+                ButtonSpend.IsEnabled = false;
+            }
+            else
+            {
+                ButtonIncome.IsEnabled = true;
+                ButtonSpend.IsEnabled = true;
+            }
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             User user = new User(TextBoxUserName.Text);
@@ -130,12 +149,14 @@ namespace FinTracker
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            actualUser = GetUserByName(ComboBoxChangeUser.SelectedItem.ToString());
-            actualAsset = null; // Так можно?
+            actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+            actualAsset = null; ; // Так можно?
+            ButtonIncome.IsEnabled = false;
+            ButtonSpend.IsEnabled = false;
+            StackPanelAssetList.Children.Clear();
+            StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
             FillCategories();
-
-
         }
 
         private void ComboBoxChangeUser_SelectionDone()
