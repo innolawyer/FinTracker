@@ -25,6 +25,7 @@ namespace FinTracker
         public static User user = new User("admin"); // просто проверка, потом убрать
         public Asset actualAsset = new Asset("firstAsset", 0);
 
+
         public MainWindow()
         {
             InitializeComponent();

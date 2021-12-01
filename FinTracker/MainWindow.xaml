@@ -12,14 +12,14 @@
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
-                        <GradientStop Color="#FFBB2323" Offset="1"/>
                     </LinearGradientBrush>
                 </TabItem.Background>
 
                 <Grid Background="#FFE5E5E5">
                     <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="192,29,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="192,64,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
+                    <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
+                    <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Счета">
@@ -29,7 +29,7 @@
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Button x:Name="ButtonAddAsset" Grid.Column="0" Content="Создать счет" HorizontalAlignment="Left" Margin="27,14,0,0" VerticalAlignment="Top" Width="140" Click="ButtonAddAsset_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="1" Content="Расход" HorizontalAlignment="Left" Margin="10,0,0,168" VerticalAlignment="Bottom" RenderTransformOrigin="0.505,0.455" Width="140" Click="ButtonSpend_Click"/>
                     <Label Grid.Column="2" x:Name="LabelCurrentAmount" Content="Label" HorizontalAlignment="Left" Height="34" Margin="30,11,0,0" VerticalAlignment="Top" Width="150"/>
@@ -40,11 +40,13 @@
                     <TextBox x:Name="TextBoxAmount" Grid.Column="1" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Комментарий" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="1" Content="Сумма" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="140"/>
-                    <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="140"/>
+                    <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="1" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="100" Height="22"/>
                     <Label Grid.Column="1" Content="Добавить транзакцию" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top"/>
                     <Button Grid.Column="1" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="140"/>
                     <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0"/>
                     <StackPanel x:Name="StackPanelTransactionList" Grid.Column="2" Margin="0,45,0,0"/>
+                    <Button x:Name="ButtonAddCategory" Grid.Column="1" Content="+" HorizontalAlignment="Center" Margin="0,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold"/>
+                    <Button x:Name="ButtonDeleteCategory" Grid.Column="1" Content="-" HorizontalAlignment="Left" Margin="135,99,0,0" VerticalAlignment="Top" Width="15" Height="22" FontWeight="Bold"/>
 
 
                 </Grid>

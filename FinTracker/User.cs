@@ -20,20 +20,20 @@ namespace FinTracker
             "Связь и интернет", "Дом и ремонт", "Животные", "Прочие расходы", "Подарки"};
         }
 
-        public void SetCategory(string name)
-        {
+        //public void SetCategory(string name)
+        //{
+        //    Categories.Add(name);
+        //}
 
-        }
+        //public void DropCategory(string name)
+        //{
+        //    Categories.Remove(name);
+        //}
 
-        public void DropCategory(string name)
-        {
-
-        }
-
-        public void DropCategore(string name)
-        {
-
-        }
+        //public void DropAllCategories()
+        //{
+        //    Categories.Clear();
+        //}
 
         public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) // Добавляет счета
         {
