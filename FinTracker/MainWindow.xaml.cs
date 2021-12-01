@@ -23,7 +23,7 @@ namespace FinTracker
         public List<User> Users = new List<User>();
         public User actualUser = new User("admin"); // убрать хардкод
         //public static User user = new User("admin"); // просто проверка, потом убрать
-        public Asset actualAsset = new Asset("firstAsset", 0);
+        public Asset actualAsset;
 
 
         public MainWindow()
@@ -74,6 +74,11 @@ namespace FinTracker
             return null; // Подумать над этим
         }
 
+        public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
+        {
+            LabelCurrentAmount.Content = actualAsset.GetAmount();
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             User user = new User(TextBoxUserName.Text);
@@ -91,6 +96,7 @@ namespace FinTracker
             Button nTransactionButton = new Button();
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             StackPanelTransactionList.Children.Add(nTransactionButton);
+            LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
         }
 
         private void ButtonIncome_Click(object sender, RoutedEventArgs e) // категории доходов должны быть другие
@@ -103,6 +109,7 @@ namespace FinTracker
             Button nTransactionButton = new Button();
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             StackPanelTransactionList.Children.Add(nTransactionButton);
+            LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
         }
 
         private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)

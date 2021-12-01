@@ -64,10 +64,11 @@ namespace FinTracker
             Button buttonAsset = new Button();
             buttonAsset.Content = TextBoxAssetName.Text;
             buttonAsset.Click += SetActualAsset;
+            buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
             buttonAsset.Click += FillingTransactionsStackPanel;
 
             _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-            asset.LabelCurrentAmount_Display(_mainWindow);
+            //_mainWindow.asset.LabelCurrentAmount_Display();
             this.Close();
         }
 

@@ -58,11 +58,5 @@ namespace FinTracker
             Transactions.Add(nTransaction);
             Amount = GetAmount();
         }
-
-        public void LabelCurrentAmount_Display(MainWindow mainWindow)
-        {
-            _mainWindow = mainWindow;
-            _mainWindow.LabelCurrentAmount.Content = GetAmount();
-        }
     }
 }
