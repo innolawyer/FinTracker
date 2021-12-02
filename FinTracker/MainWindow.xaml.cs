@@ -213,17 +213,21 @@ namespace FinTracker
 
         private void ComboBoxChangeUser_SelectionDone()
         {
-            if(ComboBoxChangeUser.SelectedIndex == -1)
+            if(ComboBoxChangeUser.Items.Count == 0)
             {
                 TabItemAssets.IsEnabled = false;
-                TabItemRegularPayments.IsEnabled = false;
+                TabItemLoans.IsEnabled = false;
                 TabItemAnalytics.IsEnabled = false;
+                TabItemPlanning.IsEnabled = false;
+                TabItemDeposits.IsEnabled = false;
             }
             else
             {
                 TabItemAssets.IsEnabled = true;
-                TabItemRegularPayments.IsEnabled = true;
+                TabItemLoans.IsEnabled = true;
                 TabItemAnalytics.IsEnabled = true;
+                TabItemPlanning.IsEnabled = true;
+                TabItemDeposits.IsEnabled = true;
             }
         }
 
@@ -256,5 +260,6 @@ namespace FinTracker
             return uniq;
         }
 
+        
     }
 }

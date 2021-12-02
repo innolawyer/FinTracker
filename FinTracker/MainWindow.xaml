@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Домашняя бухгалтерия QQQ" Height="450" Width="800">
     <Grid>
-        <TabControl HorizontalAlignment="Center" Height="424" Margin="0,10,0,0" VerticalAlignment="Top" Width="800" >
-            <TabItem x:Name="TabItemUser" Header="Пользователь" >
+        <TabControl Margin="0,10,0,0" >
+            <TabItem x:Name="TabItemUser" Width="auto" Header="Пользователь" >
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -16,17 +16,17 @@
                 </TabItem.Background>
 
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged"/>
+                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged" SelectedIndex="0"/>
                     <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
                     <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120" Click="ButtonDeleteUser_Copy_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabItemAssets" Header="Счета" Height="20" VerticalAlignment="Top">
-                <Grid Background="#FFE5E5E5" >
+            <TabItem x:Name="TabItemAssets" Header="Счета" Width="auto" VerticalAlignment="Top" Margin="-2,-2,2,0">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-2,0" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"/>
-                        <ColumnDefinition Width="285"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -53,10 +53,50 @@
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabItemRegularPayments" Header="Регулярные платежи">
+            <TabItem x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" x:Name="ButtoanAddLoan" Content="Добавить" Margin="29,19,632,21"/>
+                    <Button Grid.Row="0" x:Name="ButtoanEditLoan" Content="Изменить" Margin="167,19,495,21"/>
+                    <Button Grid.Row="0" x:Name="ButtoanRemoveLoan" Content="Удалить" HorizontalAlignment="Left" Margin="304,19,0,21" Width="133"/>
+                    <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Дата"/>
+                                <GridViewColumn Header="Кредитор"/>
+                                <GridViewColumn Header="%"/>
+                                <GridViewColumn Header="Период"/>
+                                <GridViewColumn Header="Статус"/>
+                                <GridViewColumn Header="Дата закрытия"/>
+                                <GridViewColumn Header="Сумма"/>
+                                <GridViewColumn Header="Возвращено"/>
+                                <GridViewColumn Header="Остаток"/>
+                            </GridView>
+                        </ListView.View>
+
+                    </ListView>
+                    <CheckBox x:Name="CheckBoxLoanFilter" Content="Фильтр" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="26,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="167,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="10,34,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold"><Run Language="ru-ru" Text=" "/><Run Text="c"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="146,34,0,0" Grid.Row="2" TextWrapping="Wrap" Text="по" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold"/>
+
+
+
+                </Grid>
 
             </TabItem>
-            <TabItem x:Name="TabItemAnalytics" Header="Аналитика">
+            <TabItem x:Name="TabItemPlanning" Width="auto" Header="Планирование">
+
+            </TabItem>
+            <TabItem x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
+
+            </TabItem>
+            <TabItem x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
 
             </TabItem>
         </TabControl>
