@@ -1,0 +1,32 @@
+﻿<Window x:Class="FinTracker.AddLoanWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinTracker"
+        mc:Ignorable="d"
+        Title="AddLoanWindow" Height="214" Width="249">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <DatePicker x:Name="DatePickerLoanStart" Margin="75,10,74,6" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Column="1" Margin="10,0,19,11" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Column="1" Margin="10,0,19,12" Grid.Row="2" TextWrapping="Wrap" Height="17" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Column="1" Margin="10,0,19,12" Grid.Row="3" TextWrapping="Wrap" Height="18" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Column="1" Margin="10,0,19,12" Grid.Row="4" TextWrapping="Wrap" Height="17" VerticalAlignment="Bottom"/>
+        <TextBlock Margin="25,0,10,12" Grid.Row="1" TextWrapping="Wrap" Height="16" VerticalAlignment="Bottom"><Run Language="ru-ru" Text="Кредитор"/></TextBlock>
+        <TextBlock Margin="25,0,10,12" Grid.Row="2" TextWrapping="Wrap" FlowDirection="LeftToRight" Height="16" VerticalAlignment="Bottom"><Run Language="ru-ru" Text="       "/><Run Text="%"/></TextBlock>
+        <TextBlock Height="16" Margin="25,0,10,12" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Bottom"><Run Language="ru-ru" Text="   Сумма"/></TextBlock>
+        <TextBlock Height="16" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="10,0,10,12"><Run Language="ru-ru" Text="  "/><Run Text="Период/мес"/></TextBlock>
+    </Grid>
+</Window>

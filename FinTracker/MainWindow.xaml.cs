@@ -282,6 +282,10 @@ namespace FinTracker
             return uniq;
         }
 
-        
+        private void ButtoanAddLoan_Click(object sender, RoutedEventArgs e)
+        {
+            AddLoanWindow addLoanWindow = new AddLoanWindow(this);
+            addLoanWindow.Show();
+        }
     }
 }
