@@ -33,22 +33,6 @@ namespace FinTracker
             _mainWindow.IsEnabled = false;
         }
 
-        private void FillingTransactionsStackPanel(object sender, RoutedEventArgs e)
-        {
-            _mainWindow.StackPanelTransactionList.Children.Clear();
-            foreach (Transaction transaction in _mainWindow.actualAsset.Transactions)
-            {
-                Button nTransactionButton = new Button();
-                nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
-                _mainWindow.StackPanelTransactionList.Children.Add(nTransactionButton);
-            }
-        }
-
-        private void SetActualAsset(object sender, RoutedEventArgs e)
-        {
-            _mainWindow.actualAsset = _mainWindow.GetAssetByName(Convert.ToString(((Button)sender).Content));
-        }
-
         private void TextBoxAmount_GotFocus(object sender, RoutedEventArgs e)
         {
             ((TextBox)sender).Text = "";           
@@ -57,18 +41,18 @@ namespace FinTracker
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
             if (_mainWindow.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
-            {
+             { 
                 User user = _mainWindow.actualUser;
                 Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
-                user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text), 
+                user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
                                                     Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
                 Button buttonAsset = new Button();
                 buttonAsset.Content = TextBoxAssetName.Text;
-                buttonAsset.Click += SetActualAsset;
+                buttonAsset.Click += _mainWindow.SetActualAsset;
                 buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
                 buttonAsset.Click += _mainWindow.AddTransactionVisibility;
-                buttonAsset.Click += FillingTransactionsStackPanel;
+                buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
 
                 _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
                 this.Close();
@@ -77,7 +61,7 @@ namespace FinTracker
             {
                 MessageBox.Show("Счет с таким именем уже существует");
             }
-
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
