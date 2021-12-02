@@ -145,6 +145,7 @@ namespace FinTracker
             {
                 User user = new User(TextBoxUserName.Text);
                 Users.Add(user);
+                TextBoxUserName.Text = "";
                 FillingComboBoxUser();
             }
             else
@@ -160,30 +161,41 @@ namespace FinTracker
                 FillingComboBoxUser();         
         }
 
-        private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e) 
+        private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
         {
             actualUser.Assets.Remove(actualAsset);
+            LabelCurrentAmount.Content = "";
+            StackPanelTransactionList.Children.Clear();
             actualAsset = null;
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             FillAssetsStackPanel();
+            
         }
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
         {
-            Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
+            if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+            {
+                Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
                                         (string)ComboBoxCategoriesTransaction.SelectedValue);
-            actualAsset.AddTransactions(nTransaction);
-            Button nTransactionButton = new Button();
-            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
-            StackPanelTransactionList.Children.Add(nTransactionButton);
-            LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+                actualAsset.AddTransactions(nTransaction);
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+                LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+            }
+            else
+            {
+                MessageBox.Show("Сумма операции превышает остаток по выбранному счету");
+            }
         }
 
         private void ButtonIncome_Click(object sender, RoutedEventArgs e) // категории доходов должны быть другие
         {
+            
             Transaction nTransaction = new Transaction("+", Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
@@ -193,6 +205,7 @@ namespace FinTracker
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             StackPanelTransactionList.Children.Add(nTransactionButton);
             LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
+
         }
 
         private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)
@@ -215,7 +228,7 @@ namespace FinTracker
         }
 
         private void ComboBoxChangeUser_SelectionDone()
-        {
+        { 
             if(ComboBoxChangeUser.SelectedIndex == -1)
             {
                 TabItemAssets.IsEnabled = false;
