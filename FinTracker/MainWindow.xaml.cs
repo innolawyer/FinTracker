@@ -93,6 +93,37 @@ namespace FinTracker
             }
         }
 
+        public void FillingTransactionsStackPanel(object sender, RoutedEventArgs e)
+        {
+            StackPanelTransactionList.Children.Clear();
+            foreach (Transaction transaction in actualAsset.Transactions)
+            {
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+            }
+        }
+
+        public void SetActualAsset(object sender, RoutedEventArgs e)
+        {
+            actualAsset = GetAssetByName(Convert.ToString(((Button)sender).Content));
+        }
+
+        public void FillAssetsStackPanel()
+        {
+            foreach (Asset asset in actualUser.Assets)
+            {
+                Button buttonAsset = new Button();
+                buttonAsset.Content = asset.Name;
+                buttonAsset.Click += SetActualAsset;
+                buttonAsset.Click += LabelCurrentAmount_Display;
+                buttonAsset.Click += AddTransactionVisibility;
+                buttonAsset.Click += FillingTransactionsStackPanel;
+
+                StackPanelAssetList.Children.Add(buttonAsset);
+            }
+        }
+
         public void AddTransactionVisibility(object sender, RoutedEventArgs e)
         {
             if (actualAsset == null)
@@ -111,15 +142,28 @@ namespace FinTracker
         {
             if (IsUniqeUser(TextBoxUserName.Text) == true)
             {
-            User user = new User(TextBoxUserName.Text);
-            Users.Add(user);
-            FillingComboBoxUser();
+                User user = new User(TextBoxUserName.Text);
+                Users.Add(user);
+                FillingComboBoxUser();
             }
             else
             {
                 MessageBox.Show("Пользователь с таким именем уже создан");
             }
 
+        }
+        private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
+        {           
+                User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+                Users.Remove(user);
+                FillingComboBoxUser();         
+        }
+
+        private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e) 
+        {
+            actualUser.Assets.Remove(actualAsset);
+            actualAsset = null;
+            FillAssetsStackPanel();
         }
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -164,6 +208,7 @@ namespace FinTracker
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
             FillCategories();
+            FillAssetsStackPanel();
         }
 
         private void ComboBoxChangeUser_SelectionDone()
@@ -182,17 +227,14 @@ namespace FinTracker
             }
         }
 
-        private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
-        {           
-                User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
-                Users.Remove(user);
-                FillingComboBoxUser();         
-        }
-
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
             actualUser.Categories.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-            FillCategories();
+            //for (int i = 0; i <  StackPanelAssetList.Children.Count; i++)
+            //{
+            //    if (((Button)StackPanelAssetList.Children[i]).Text == actualAsset.Name);
+            //}
+            actualAsset = null;
         }
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
