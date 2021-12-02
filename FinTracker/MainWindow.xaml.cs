@@ -41,6 +41,7 @@ namespace FinTracker
 
             FillingComboBoxUser();
             FillCategories();
+            FillAssetsStackPanel();
         }
 
         public void FillingComboBoxUser()
@@ -111,7 +112,7 @@ namespace FinTracker
 
         public void FillAssetsStackPanel()
         {
-            if (actualAsset != null)
+            if (actualUser != null)
             {
                 StackPanelAssetList.Children.Clear();
                 foreach (Asset asset in actualUser.Assets)
@@ -157,6 +158,7 @@ namespace FinTracker
             }
 
         }
+
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
         {           
                 User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
@@ -223,7 +225,7 @@ namespace FinTracker
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
-            actualAsset = null; ; // Так можно?
+            actualAsset = null;  // Так можно?
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             StackPanelAssetList.Children.Clear();
@@ -260,7 +262,7 @@ namespace FinTracker
             //{
             //    if (((Button)StackPanelAssetList.Children[i]).Text == actualAsset.Name);
             //}
-            actualAsset = null;
+            //actualAsset = null;
         }
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
