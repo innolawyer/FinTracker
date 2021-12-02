@@ -111,17 +111,20 @@ namespace FinTracker
 
         public void FillAssetsStackPanel()
         {
-            StackPanelAssetList.Children.Clear();
-            foreach (Asset asset in actualUser.Assets)
+            if (actualAsset != null)
             {
-                Button buttonAsset = new Button();
-                buttonAsset.Content = asset.Name;
-                buttonAsset.Click += SetActualAsset;
-                buttonAsset.Click += LabelCurrentAmount_Display;
-                buttonAsset.Click += AddTransactionVisibility;
-                buttonAsset.Click += FillingTransactionsStackPanel;
+                StackPanelAssetList.Children.Clear();
+                foreach (Asset asset in actualUser.Assets)
+                {
+                    Button buttonAsset = new Button();
+                    buttonAsset.Content = asset.Name;
+                    buttonAsset.Click += SetActualAsset;
+                    buttonAsset.Click += LabelCurrentAmount_Display;
+                    buttonAsset.Click += AddTransactionVisibility;
+                    buttonAsset.Click += FillingTransactionsStackPanel;
 
-                StackPanelAssetList.Children.Add(buttonAsset);
+                    StackPanelAssetList.Children.Add(buttonAsset);
+                }
             }
         }
 
@@ -157,7 +160,10 @@ namespace FinTracker
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
         {           
                 User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+            
                 Users.Remove(user);
+                //actualUser = null;
+                StackPanelAssetList.Children.Clear();
                 FillingComboBoxUser();         
         }
 
