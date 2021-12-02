@@ -111,6 +111,7 @@ namespace FinTracker
 
         public void FillAssetsStackPanel()
         {
+            StackPanelAssetList.Children.Clear();
             foreach (Asset asset in actualUser.Assets)
             {
                 Button buttonAsset = new Button();
