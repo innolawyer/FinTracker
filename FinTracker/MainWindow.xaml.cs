@@ -164,6 +164,8 @@ namespace FinTracker
         {
             actualUser.Assets.Remove(actualAsset);
             actualAsset = null;
+            ButtonIncome.IsEnabled = false;
+            ButtonSpend.IsEnabled = false;
             FillAssetsStackPanel();
         }
 
