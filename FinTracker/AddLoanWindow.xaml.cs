@@ -26,5 +26,10 @@ namespace FinTracker
             _mainWindow = mainWindow;
 
         }
+
+        private void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
