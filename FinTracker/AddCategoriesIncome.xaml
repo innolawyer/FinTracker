@@ -1,0 +1,14 @@
+﻿<Window x:Class="FinTracker.AddCategoriesIncome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinTracker"
+        mc:Ignorable="d"
+        Title="AddCategoriesIncome" Height="229" Width="235">
+    <Grid>
+        <TextBox x:Name="TextBoxNewCategoryIncome" HorizontalAlignment="Left" Margin="39,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="SaveCategoryIncome" Content="Сохранить" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ButtonSaveCategoryIncome_Click" Margin="140,128,0,0"/>
+
+    </Grid>
+</Window>

@@ -9,15 +9,18 @@ namespace FinTracker
     public class User
     {
         public string Name;
-        public List<string> Categories;
+        public List<string> CategoriesSpend;
+        public List<string> CategoriesIncome;
         public List<Asset> Assets = new List<Asset>();
 
         public User(string name) 
         {
             Name = name;
-            Categories = new List<string>() {"Супермаркет", "Транспорт", "Коммунальные платежи", "Снятия",
+            CategoriesSpend = new List<string>() { "Супермаркет", "Транспорт", "Коммунальные платежи", "Снятия",
             "Одежда и обувь", "Рестораны", "Отдых и развлечения", "Здоровье и красота", "Комиссия", "Онлайн сервисы и подписки",
-            "Связь и интернет", "Дом и ремонт", "Животные", "Прочие расходы", "Подарки"};
+            "Связь и интернет", "Дом и ремонт", "Животные", "Подарки", "Прочие расходы" };
+            CategoriesIncome = new List<string>() { "Зарплата", "Начисление кэшбека", "Начисление % по вкладам",
+            "Подарок", "Случайный доход" }; // моя фантазия закончилась
         }
 
         public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) 

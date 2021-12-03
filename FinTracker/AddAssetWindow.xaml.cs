@@ -47,6 +47,7 @@ namespace FinTracker
 
                 user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
                                                     Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
+                _mainWindow.FillAssetListBox();
                 Button buttonAsset = new Button();
                 buttonAsset.Content = TextBoxAssetName.Text;
                 buttonAsset.Click += _mainWindow.SetActualAsset;
