@@ -209,6 +209,8 @@ namespace FinTracker
                 actualAsset.AddTransactions(nTransaction);
                 Button nTransactionButton = new Button();
                 nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                nTransactionButton.Click += CurrentTransaction;
+                nTransactionButton.Click += SetTransactionData;
                 StackPanelTransactionList.Children.Add(nTransactionButton);
                 LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
             }
@@ -228,6 +230,8 @@ namespace FinTracker
             actualAsset.AddTransactions(nTransaction);
             Button nTransactionButton = new Button();
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+            nTransactionButton.Click += CurrentTransaction;
+            nTransactionButton.Click += SetTransactionData;
             StackPanelTransactionList.Children.Add(nTransactionButton);
             LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
 
