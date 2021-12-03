@@ -243,6 +243,12 @@ namespace FinTracker
             addAssetWindow.Show();
         }
 
+        private void ButtonDeleteTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            actualAsset.DeleteTransaction(actualTransaction);
+            FillingTransactionsStackPanel(sender,e);
+        }
+
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));

@@ -61,7 +61,7 @@ namespace FinTracker
 
         public void DeleteTransaction(Transaction curTransaction)
         {
-
+            Transactions.Remove(curTransaction);
         }
     }
 }

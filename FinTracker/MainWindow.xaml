@@ -55,7 +55,7 @@
                     <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="60" Margin="14,221,0,0" VerticalAlignment="Top" Width="140"/>
                     <Button x:Name="ButtonIncome" Grid.Column="2" Content="Доход" HorizontalAlignment="Left" Margin="14,221,0,0" VerticalAlignment="Top" Width="140" Click="ButtonIncome_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="2" Content="Расход" HorizontalAlignment="Left" Margin="14,241,0,0" VerticalAlignment="Top" Width="140" Click="ButtonSpend_Click"/>
-                    <Button x:Name="ButtonDeleteTransaction" Grid.Column="2" Content="Удалить транзакцию" HorizontalAlignment="Left" Margin="60,306,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ButtonDeleteTransaction" Grid.Column="2" Content="Удалить транзакцию" HorizontalAlignment="Left" Margin="60,306,0,0" VerticalAlignment="Top" Click="ButtonDeleteTransaction_Click"/>
                     <Button x:Name="ButtonEditTransaction" Grid.Column="2" Content="Редактировать" HorizontalAlignment="Left" Margin="61,348,0,0" VerticalAlignment="Top"/>
 
 
