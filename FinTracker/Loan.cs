@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    internal class Loans
+    public class Loan
     {
         MainWindow mainWindow;
 
@@ -18,7 +18,7 @@ namespace FinTracker
         public double LoanAmount;
         public double LoanAmountOfReturned;
 
-        public Loans (DateTime loanDateTime, string creditorsName, double loanPercent, double loanPeriod, bool loanStatus, double loanAmount, double loanAmountOfReturned)
+        public Loan (DateTime loanDateTime, string creditorsName, double loanPercent, double loanPeriod, bool loanStatus, double loanAmount, double loanAmountOfReturned)
         {
             LoanDateTime = loanDateTime;
             CreditorsName = creditorsName;

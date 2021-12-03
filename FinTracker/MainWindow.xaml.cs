@@ -20,8 +20,7 @@ namespace FinTracker
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<User> Users = new List<User>();
-        //public List<Loans> Loans = new List<Loans>(); //че то сделать
+        public List<User> Users = new List<User>();        
         public User actualUser;
         public Asset actualAsset;
 
