@@ -58,5 +58,10 @@ namespace FinTracker
             Transactions.Add(nTransaction);
             Amount = GetAmount();
         }
+
+        public void DeleteTransaction(Transaction curTransaction)
+        {
+
+        }
     }
 }

@@ -16,10 +16,15 @@
                 </TabItem.Background>
 
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged" SelectedIndex="0"/>
-                    <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click"/>
-                    <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120" Click="ButtonDeleteUser_Copy_Click"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="119*"/>
+                        <ColumnDefinition Width="56*"/>
+                        <ColumnDefinition Width="620*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="ComboBoxChangeUser" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged" SelectedIndex="0" Grid.ColumnSpan="2"/>
+                    <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Margin="17,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+                    <Button x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,77,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click" Grid.ColumnSpan="2"/>
+                    <Button x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120" Click="ButtonDeleteUser_Copy_Click" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabItemAssets" Header="Счета" Width="auto" VerticalAlignment="Top" Margin="-2,-2,2,0">
@@ -39,7 +44,7 @@
                     <TextBox x:Name="TextBoxAmount" Grid.Column="2" HorizontalAlignment="Left" Margin="10,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="2" Content="Комментарий" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="140"/>
                     <Label Grid.Column="2" Content="Сумма" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="140"/>
-                    <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="2" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="100" Height="22"/>
+                    <ComboBox x:Name="ComboBoxCategoriesTransaction" Grid.Column="2" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="100" Height="22" SelectionChanged="ComboBoxCategoriesTransaction_SelectionChanged"/>
                     <Label Grid.Column="2" Content="Добавить транзакцию" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top"/>
                     <Button Grid.Column="2" Content="Перевод между своими" HorizontalAlignment="Left" Margin="14,261,0,0" VerticalAlignment="Top" Width="140"/>
                     <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0" Grid.ColumnSpan="2"/>
@@ -50,6 +55,8 @@
                     <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="60" Margin="14,221,0,0" VerticalAlignment="Top" Width="140"/>
                     <Button x:Name="ButtonIncome" Grid.Column="2" Content="Доход" HorizontalAlignment="Left" Margin="14,221,0,0" VerticalAlignment="Top" Width="140" Click="ButtonIncome_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="2" Content="Расход" HorizontalAlignment="Left" Margin="14,241,0,0" VerticalAlignment="Top" Width="140" Click="ButtonSpend_Click"/>
+                    <Button x:Name="ButtonDeleteTransaction" Grid.Column="2" Content="Удалить транзакцию" HorizontalAlignment="Left" Margin="60,306,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ButtonEditTransaction" Grid.Column="2" Content="Редактировать" HorizontalAlignment="Left" Margin="61,348,0,0" VerticalAlignment="Top"/>
 
 
                 </Grid>

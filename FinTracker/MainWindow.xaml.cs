@@ -23,16 +23,18 @@ namespace FinTracker
         public List<User> Users = new List<User>();
         public User actualUser;
         public Asset actualAsset;
+        public Transaction actualTransaction;
 
         public MainWindow()
         {
             InitializeComponent();
 
+           // StackPanelTransactionList.Children.Add(new Label());
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
             
             ComboBoxChangeUser_SelectionDone();
-            //AddTransactionVisibility();
+            
             if (actualAsset == null)
             {
                 ButtonIncome.IsEnabled = false;
@@ -82,6 +84,11 @@ namespace FinTracker
             LabelCurrentAmount.Content = actualAsset.GetAmount();
         }
 
+        public void CurrentTransaction(object sender, RoutedEventArgs e)
+        {
+            actualTransaction = actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
+        }
+
         public void FillCategories()
         {
             ComboBoxCategoriesTransaction.Items.Clear();
@@ -101,8 +108,18 @@ namespace FinTracker
             {
                 Button nTransactionButton = new Button();
                 nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
+                nTransactionButton.Click += CurrentTransaction;
+                nTransactionButton.Click += SetTransactionData;
                 StackPanelTransactionList.Children.Add(nTransactionButton);
             }
+        }
+
+        public void SetTransactionData(object sender, RoutedEventArgs e)
+        {
+            DatePickerTransaction.Text = actualTransaction.Date.ToString();
+            TextBoxAmount.Text = actualTransaction.Amount.ToString();
+            ComboBoxCategoriesTransaction.Text = actualTransaction.Category.ToString();
+            TextBoxComment.Text = actualTransaction.Comment.ToString();
         }
 
         public void SetActualAsset(object sender, RoutedEventArgs e)
@@ -284,6 +301,9 @@ namespace FinTracker
             return uniq;
         }
 
-        
+        private void ComboBoxCategoriesTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
