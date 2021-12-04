@@ -60,7 +60,7 @@
                     <Button x:Name="ButtonIncome" Grid.Column="2" Content="Доход" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="140" Click="ButtonIncome_Click"/>
                     <Button x:Name="ButtonSpend" Grid.Column="2" Content="Расход" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top" Width="140" Click="ButtonSpend_Click"/>
                     <Button x:Name="ButtonDeleteTransaction" Grid.Column="3" Content="Удалить транзакцию" HorizontalAlignment="Left" Margin="155,10,0,0" VerticalAlignment="Top" Click="ButtonDeleteTransaction_Click"/>
-                    <Button x:Name="ButtonEditTransaction" Grid.Column="3" Content="Редактировать" HorizontalAlignment="Left" Margin="185,35,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="ButtonEditTransaction" Grid.Column="3" Content="Редактировать" HorizontalAlignment="Left" Margin="185,35,0,0" VerticalAlignment="Top" Click="ButtonEditTransaction_Click"/>
                     <Label Grid.Column="2" Content="Категории расходов" HorizontalAlignment="Left" Margin="10,148,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="ComboBoxCategoriesIncome" Grid.Column="2" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Width="100"/>
                     <Label Grid.Column="2" Content="Категории доходов" HorizontalAlignment="Left" Margin="10,220,0,0" VerticalAlignment="Top"/>
