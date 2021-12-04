@@ -285,6 +285,7 @@ namespace FinTracker
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
             FillCategories();
+            FillCategoriesIncome();
             FillAssetsStackPanel();
         }
 
