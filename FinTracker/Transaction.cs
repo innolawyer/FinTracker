@@ -22,5 +22,13 @@ namespace FinTracker
             Comment = comment;
             Category = category;
         }
+
+        public void EditTransaction(double sum, DateTime date, string comment, string category)
+        {
+            Amount = sum;
+            Date = date;
+            Comment = comment;
+            Category = category;
+        }
     }
 }
