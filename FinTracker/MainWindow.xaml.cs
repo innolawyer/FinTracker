@@ -353,16 +353,22 @@ namespace FinTracker
 
         private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+            if (actualAsset != null)
             {
-                ButtonSpend_Click(actualAsset, e);
-                actualAsset = GetAssetByName(ComboBoxListAsset.Text);
-                ButtonIncome_Click(actualAsset, e);
-                FillingTransactionsStackPanel(sender, e);
-            }
-            else
-            {
-                MessageBox.Show("На выбранном счету недостаточно средств для перевода");
+                if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                {
+                    Asset crntAsset = actualAsset;
+                    ButtonSpend_Click(actualAsset, e);
+                    actualAsset = GetAssetByName(ComboBoxListAsset.Text);
+                    ButtonIncome_Click(actualAsset, e);
+                    actualAsset = crntAsset;
+                    FillingTransactionsStackPanel(sender, e);
+                    LabelCurrentAmount.Content = actualAsset.GetAmount();
+                }
+                else
+                {
+                    MessageBox.Show("На выбранном счету недостаточно средств для перевода");
+                }
             }
 
         } // работает, но не факт, что правильно
