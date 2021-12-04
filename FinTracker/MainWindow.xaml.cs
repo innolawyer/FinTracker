@@ -33,7 +33,12 @@ namespace FinTracker
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
             
-            ComboBoxChangeUser_SelectionDone(); //закрывает доступ к вкладкам счетов и тд при отсутствии актуального юзера
+            FillingComboBoxUser();
+            ComboBoxChangeUser_SelectionDone();
+            FillCategoriesIncome();
+            FillCategories();
+            FillAssetListBox();
+            FillAssetsStackPanel();
             
             if (actualAsset == null)
             {
@@ -41,9 +46,6 @@ namespace FinTracker
                 ButtonSpend.IsEnabled = false;
             }
 
-            FillingComboBoxUser();  //когда будет сторадж, метод будет подтягивать список юзеров в комбобокс
-            FillCategories(); 
-            FillAssetsStackPanel(); 
         }
 
         public void FillingComboBoxUser()
@@ -89,12 +91,36 @@ namespace FinTracker
             actualTransaction = actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
         }
 
+        public void FillCategoriesIncome()
+        {
+            ComboBoxCategoriesIncome.Items.Clear();
+            if (actualUser != null)
+            {
+                foreach (string category in actualUser.CategoriesIncome)
+                {
+                    ComboBoxCategoriesIncome.Items.Add(category);
+                }
+            }
+        } //не заполняет, только после добавления категории через +
+
+        public void FillAssetListBox ()
+        {
+            ComboBoxListAsset.Items.Clear();
+            if (actualUser != null)
+            {
+                foreach (Asset asset in actualUser.Assets)
+                {
+                    ComboBoxListAsset.Items.Add(asset.Name);
+                }
+            }
+        }
+
         public void FillCategories()
         {
             ComboBoxCategoriesTransaction.Items.Clear();
             if (actualUser != null)
             {
-                foreach (string category in actualUser.Categories)
+                foreach (string category in actualUser.CategoriesSpend)
                 {
                     ComboBoxCategoriesTransaction.Items.Add(category);
                 }
@@ -194,6 +220,8 @@ namespace FinTracker
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             FillAssetsStackPanel();
+            FillAssetListBox();
+            
         }
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -218,13 +246,12 @@ namespace FinTracker
             }
         }
 
-        private void ButtonIncome_Click(object sender, RoutedEventArgs e) // категории доходов должны быть другие
+        private void ButtonIncome_Click(object sender, RoutedEventArgs e)
         {
-            
             Transaction nTransaction = new Transaction("+", Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
-                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
+                                        (string)ComboBoxCategoriesIncome.SelectedValue);
             actualAsset.AddTransactions(nTransaction);
             Button nTransactionButton = new Button();
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
@@ -263,6 +290,7 @@ namespace FinTracker
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
             FillCategories();
+            FillCategoriesIncome();
             FillAssetsStackPanel();
         }
 
@@ -288,7 +316,8 @@ namespace FinTracker
 
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
-            actualUser.Categories.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+            actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+            FillCategories();
             //for (int i = 0; i <  StackPanelAssetList.Children.Count; i++)
             //{
             //    if (((Button)StackPanelAssetList.Children[i]).Text == actualAsset.Name);
@@ -315,9 +344,38 @@ namespace FinTracker
             return uniq;
         }
 
-        private void ComboBoxCategoriesTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
         {
-
+            AddCategoriesIncome addCategoriesIncome = new AddCategoriesIncome(this);
+            addCategoriesIncome.Show();
         }
+
+        private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
+        {
+            actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesIncome.SelectedValue);
+            FillCategoriesIncome();
+        }
+
+        private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            if (actualAsset != null)
+            {
+                if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                {
+                    Asset crntAsset = actualAsset;
+                    ButtonSpend_Click(actualAsset, e);
+                    actualAsset = GetAssetByName(ComboBoxListAsset.Text);
+                    ButtonIncome_Click(actualAsset, e);
+                    actualAsset = crntAsset;
+                    FillingTransactionsStackPanel(sender, e);
+                    LabelCurrentAmount.Content = actualAsset.GetAmount();
+                }
+                else
+                {
+                    MessageBox.Show("На выбранном счету недостаточно средств для перевода");
+                }
+            }
+
+        } // работает, но не факт, что правильно
     }
 }
