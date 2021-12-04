@@ -8,7 +8,6 @@ namespace FinTracker
 {
     public class Asset
     {
-        MainWindow _mainWindow;
         public string Name; //Название
         public double Amount; //Состояние счета
         public double YearInterest; //Процент на остаток // узать как считаеться
@@ -41,11 +40,6 @@ namespace FinTracker
                 }
             }
             return result;
-        }
-
-        public void Send(double amount, Asset sender)
-        {
-
         }
 
         public void EditTransaction(Transaction transaction)
