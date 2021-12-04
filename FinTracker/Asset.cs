@@ -48,11 +48,6 @@ namespace FinTracker
 
         }
 
-        public void EditTransaction(Transaction transaction)
-        {
-
-        }
-
         public void AddTransactions(Transaction nTransaction)
         {
             Transactions.Add(nTransaction);

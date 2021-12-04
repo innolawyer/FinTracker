@@ -33,7 +33,7 @@ namespace FinTracker
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
             
-            ComboBoxChangeUser_SelectionDone();
+            ComboBoxChangeUser_SelectionDone(); //закрывает доступ к вкладкам счетов и тд при отсутствии актуального юзера
             
             if (actualAsset == null)
             {
@@ -41,9 +41,9 @@ namespace FinTracker
                 ButtonSpend.IsEnabled = false;
             }
 
-            FillingComboBoxUser();
-            FillCategories();
-            FillAssetsStackPanel();
+            FillingComboBoxUser();  //когда будет сторадж, метод будет подтягивать список юзеров в комбобокс
+            FillCategories(); 
+            FillAssetsStackPanel(); 
         }
 
         public void FillingComboBoxUser()
@@ -136,10 +136,10 @@ namespace FinTracker
                 {
                     Button buttonAsset = new Button();
                     buttonAsset.Content = asset.Name;
-                    buttonAsset.Click += SetActualAsset;
+                    buttonAsset.Click += SetActualAsset; //кладет в сторадж
                     buttonAsset.Click += LabelCurrentAmount_Display;
-                    buttonAsset.Click += AddTransactionVisibility;
-                    buttonAsset.Click += FillingTransactionsStackPanel;
+                    buttonAsset.Click += AddTransactionVisibility; //активирует кнопки доход и расход
+                    buttonAsset.Click += FillingTransactionsStackPanel; 
 
                     StackPanelAssetList.Children.Add(buttonAsset);
                 }
@@ -173,7 +173,6 @@ namespace FinTracker
             {
                 MessageBox.Show("Пользователь с таким именем уже создан");
             }
-
         }
 
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
@@ -195,7 +194,6 @@ namespace FinTracker
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             FillAssetsStackPanel();
-            
         }
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -234,7 +232,6 @@ namespace FinTracker
             nTransactionButton.Click += SetTransactionData;
             StackPanelTransactionList.Children.Add(nTransactionButton);
             LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
-
         }
 
         private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)
@@ -247,6 +244,13 @@ namespace FinTracker
         {
             actualAsset.DeleteTransaction(actualTransaction);
             FillingTransactionsStackPanel(sender,e);
+        }
+
+        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)      // сделать что-то с доход и расход
+        {
+            actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
+            FillingTransactionsStackPanel(sender, e);
+            LabelCurrentAmount.Content = actualAsset.GetAmount().ToString();
         }
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
