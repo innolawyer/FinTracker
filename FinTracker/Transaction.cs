@@ -22,9 +22,9 @@ namespace FinTracker
             Comment = comment;
             Category = category;
         }
-        public void EditTransaction(string sign, double sum, DateTime date, string comment, string category)
+
+        public void EditTransaction(double sum, DateTime date, string comment, string category)
         {
-            Sign = sign;
             Amount = sum;
             Date = date;
             Comment = comment;
