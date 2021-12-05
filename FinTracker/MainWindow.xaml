@@ -64,17 +64,17 @@
                     <Button Grid.Row="0" x:Name="ButtoanAddLoan" Content="Добавить" Margin="29,19,632,21" Click="ButtoanAddLoan_Click"/>
                     <Button Grid.Row="0" x:Name="ButtoanEditLoan" Content="Изменить" Margin="167,19,495,21"/>
                     <Button Grid.Row="0" x:Name="ButtoanRemoveLoan" Content="Удалить" HorizontalAlignment="Left" Margin="304,19,0,21" Width="133"/>
-                    <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0">
+                    <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=1}" SelectedIndex="0" ItemsSource="{Binding Lo}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Дата"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding LoanDateTime}" Header="Дата"/>
                                 <GridViewColumn Header="Кредитор"/>
                                 <GridViewColumn Header="%"/>
                                 <GridViewColumn Header="Период"/>
                                 <GridViewColumn Header="Статус"/>
                                 <GridViewColumn Header="Дата закрытия"/>
                                 <GridViewColumn Header="Сумма"/>
-                                <GridViewColumn Header="Возвращено"/>
+                                <GridViewColumn Header="Выплачено"/>
                                 <GridViewColumn Header="Остаток"/>
                             </GridView>
                         </ListView.View>
@@ -92,7 +92,7 @@
 
             </TabItem>
             <TabItem x:Name="TabItemPlanning" Width="auto" Header="Планирование">
-
+               
             </TabItem>
             <TabItem x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
 
@@ -100,6 +100,8 @@
             <TabItem x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
 
             </TabItem>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>
+            <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}"/>
         </TabControl>
 
     </Grid>

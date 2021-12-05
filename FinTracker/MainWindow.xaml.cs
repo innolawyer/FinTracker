@@ -287,5 +287,7 @@ namespace FinTracker
             AddLoanWindow addLoanWindow = new AddLoanWindow(this);
             addLoanWindow.Show();
         }
+
+        
     }
 }

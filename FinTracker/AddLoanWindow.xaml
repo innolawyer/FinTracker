@@ -20,6 +20,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
 
         </Grid.RowDefinitions>
         <DatePicker x:Name="DatePickerLoanStart" Margin="75,10,74,6" Grid.ColumnSpan="2"/>
@@ -31,10 +32,10 @@
         <TextBlock Height="18" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="80"><Run Text="  "/><Run Text="Период(мес)"/></TextBlock>
         <Button x:Name="ButtonCreateLoan" Content="Создать" Margin="68,0,89,0" Grid.Row="7" VerticalAlignment="Center" Grid.ColumnSpan="2" Click="ButtonCreateLoan_Click"/>
         <TextBlock Height="16" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="74"><Run Language="ru-ru" Text="      "/><Run Text="Статус"/></TextBlock>
-        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120"/>
+        <ComboBox x:Name="ComboBoxLoanStatus" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120"/>
         <TextBox x:Name="TextBoxLoanPeriod_Copy" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Height="17" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Margin="10,0,10,0"/>
         <TextBlock Height="16" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Center"><Run Language="ru-ru" Text="  "/><Run Text="Сумма"/></TextBlock>
-        <TextBox x:Name="TextBoxLoanPeriod_Copy3" Grid.Column="1" Margin="10,0,19,0" Grid.Row="5" TextWrapping="Wrap" Height="17" VerticalAlignment="Center" Width="120"/>
+        <TextBox x:Name="TextBoxLoanAmountOfReturned" Grid.Column="1" Margin="10,0,19,0" Grid.Row="5" TextWrapping="Wrap" Height="17" VerticalAlignment="Center" Width="120"/>
         <TextBlock Height="18" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Left" Width="74" Margin="16,0,0,0"><Run Language="ru-ru" Text="Выплачено"/></TextBlock>
     </Grid>
 </Window>

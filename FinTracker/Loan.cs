@@ -14,11 +14,13 @@ namespace FinTracker
         public string CreditorsName;
         public double LoanPercent;
         public double LoanPeriod;
-        public bool LoanStatus;
+        public string LoanStatus;
         public double LoanAmount;
         public double LoanAmountOfReturned;
 
-        public Loan (DateTime loanDateTime, string creditorsName, double loanPercent, double loanPeriod, bool loanStatus, double loanAmount, double loanAmountOfReturned)
+        public Loan (DateTime loanDateTime, string creditorsName,
+                    double loanPercent, double loanPeriod, string loanStatus,
+                    double loanAmount, double loanAmountOfReturned)
         {
             LoanDateTime = loanDateTime;
             CreditorsName = creditorsName;

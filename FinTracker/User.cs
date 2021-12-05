@@ -47,9 +47,9 @@ namespace FinTracker
             return false;
         }
 
-        public void AddLoan (DateTime loanDateTime, string creditorsName, double loanPercent, double loanPeriod, bool loanStatus, double loanAmount, double loanAmountOfReturned)
+        public void AddLoan (Loan nLoan)
         {
-            Loans.Add(new Loan (loanDateTime, creditorsName, loanPercent, loanPeriod, loanStatus, loanAmount, loanAmountOfReturned));
+            Loans.Add(nLoan);
         }
     }
 }

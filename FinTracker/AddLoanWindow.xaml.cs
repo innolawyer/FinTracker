@@ -23,13 +23,29 @@ namespace FinTracker
         public AddLoanWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            FillingComboboxLoanStatus();
             _mainWindow = mainWindow;
 
         }
 
-        private void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
+        public void FillingComboboxLoanStatus ()
         {
+            ComboBoxLoanStatus.Items.Add("Не выплачен");
+            ComboBoxLoanStatus.Items.Add("Выплачен");
             
         }
+        
+
+        public void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
+        {
+            User user = _mainWindow.actualUser;            
+            Loan nLoan = new Loan ((DateTime)Convert.ToDateTime(DatePickerLoanStart.Text), (String)TextBoxLoanCreditorName.Text,
+                (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
+                (String)Convert.ToString(ComboBoxLoanStatus.SelectedIndex), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
+                (Double)Convert.ToDouble(TextBoxLoanAmountOfReturned.Text));
+                     
+        }
+
+        
     }
 }
