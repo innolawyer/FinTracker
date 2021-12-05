@@ -12,6 +12,7 @@ namespace FinTracker
         public List<string> CategoriesSpend;
         public List<string> CategoriesIncome;
         public List<Asset> Assets = new List<Asset>();
+        public List<Loan> Loans = new List<Loan>();
 
         public User(string name) 
         {
@@ -52,6 +53,11 @@ namespace FinTracker
                 return true;
             }
             return false;
+        }
+
+        public void AddLoan (Loan nLoan)
+        {
+            Loans.Add(nLoan);
         }
     }
 }
