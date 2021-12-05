@@ -19,7 +19,7 @@ namespace FinTracker
     /// </summary>
     public partial class AddAssetWindow : Window
     {
-        private Storage storage = Storage.GetStorage();
+        private Storage _storage = Storage.GetStorage();
         private MainWindow _mainWindow;
         public AddAssetWindow (MainWindow mainWindow)        
         {
@@ -40,9 +40,9 @@ namespace FinTracker
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
-            if (storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
+            if (_storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
              {
-                User user = storage.actualUser;
+                User user = _storage.actualUser;
                 Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
                 user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
