@@ -53,20 +53,6 @@ namespace FinTracker
                 ComboBoxChangeUser.Items.Add($"{user.Name}");
             }
         }
-
-        public User GetUserByName(string name)
-        {
-            foreach (User  user in storage.Users)
-            {
-                if (user.Name == name)
-                {
-                    return user;
-                }
-            }
-            return null; // Подумать над этим
-        }
-       
-        
         
         public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
         {
@@ -190,7 +176,7 @@ namespace FinTracker
 
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
         {           
-                User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+                User user = storage.GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
 
                 storage.Users.Remove(user);
                 StackPanelAssetList.Children.Clear();
@@ -268,7 +254,7 @@ namespace FinTracker
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            storage.actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+            storage.actualUser = storage.GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
             storage.actualAsset = null;  // Так можно?
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
