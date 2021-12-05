@@ -19,6 +19,7 @@ namespace FinTracker
     /// </summary>
     public partial class AddLoanWindow : Window
     {
+        private Storage _storage = Storage.GetStorage();
         MainWindow _mainWindow;
         public AddLoanWindow(MainWindow mainWindow)
         {
@@ -38,7 +39,7 @@ namespace FinTracker
 
         public void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
         {
-            User user = _mainWindow.actualUser;            
+            User user = _storage.actualUser;            
             Loan nLoan = new Loan ((DateTime)Convert.ToDateTime(DatePickerLoanStart.Text), (String)TextBoxLoanCreditorName.Text,
                 (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
                 (String)Convert.ToString(ComboBoxLoanStatus.SelectedIndex), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),

@@ -162,7 +162,7 @@ namespace FinTracker
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
-                _storage.Users.Add(new User(TextBoxUserName.Text););
+                _storage.Users.Add(new User(TextBoxUserName.Text));
                 TextBoxUserName.Text = "";
                 FillingComboBoxUser();
             }
@@ -328,6 +328,12 @@ namespace FinTracker
                     MessageBox.Show("На выбранном счету недостаточно средств для перевода");
                 }
             }
+        }
+
+        private void ButtoanAddLoan_Click(object sender, RoutedEventArgs e)
+        {
+            AddLoanWindow addLoanWindow = new AddLoanWindow(this);
+            addLoanWindow.Show();
         }
     }
 }
