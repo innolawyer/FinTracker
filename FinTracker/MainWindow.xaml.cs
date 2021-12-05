@@ -20,10 +20,7 @@ namespace FinTracker
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<User> Users = new List<User>();
-        public User actualUser;
-        public Asset actualAsset;
-        public Transaction actualTransaction;
+        Storage storage = Storage.GetStorage();
 
         public MainWindow()
         {
@@ -40,7 +37,7 @@ namespace FinTracker
             FillAssetListBox();
             FillAssetsStackPanel();
             
-            if (actualAsset == null)
+            if (storage.actualAsset == null)
             {
                 ButtonIncome.IsEnabled = false;
                 ButtonSpend.IsEnabled = false;
@@ -51,7 +48,7 @@ namespace FinTracker
         public void FillingComboBoxUser()
         {
             ComboBoxChangeUser.Items.Clear();
-            foreach (User user in Users)
+            foreach (User user in storage.Users)
             {
                 ComboBoxChangeUser.Items.Add($"{user.Name}");
             }
@@ -59,7 +56,7 @@ namespace FinTracker
 
         public User GetUserByName(string name)
         {
-            foreach (User  user in Users)
+            foreach (User  user in storage.Users)
             {
                 if (user.Name == name)
                 {
@@ -69,34 +66,24 @@ namespace FinTracker
             return null; // Подумать над этим
         }
        
-        public Asset GetAssetByName(string name)
-        {
-            foreach (Asset asset in actualUser.Assets)
-            {
-                if (asset.Name == name)
-                {
-                    return asset;
-                }
-            }
-            return null; // Подумать над этим
-        }
+        
         
         public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
         {
-            LabelCurrentAmount.Content = actualAsset.GetAmount();
+            LabelCurrentAmount.Content = storage.actualAsset.GetAmount();
         }
 
         public void CurrentTransaction(object sender, RoutedEventArgs e)
         {
-            actualTransaction = actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
+            storage.actualTransaction = storage.actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
         }
 
         public void FillCategoriesIncome()
         {
             ComboBoxCategoriesIncome.Items.Clear();
-            if (actualUser != null)
+            if (storage.actualUser != null)
             {
-                foreach (string category in actualUser.CategoriesIncome)
+                foreach (string category in storage.actualUser.CategoriesIncome)
                 {
                     ComboBoxCategoriesIncome.Items.Add(category);
                 }
@@ -106,9 +93,9 @@ namespace FinTracker
         public void FillAssetListBox ()
         {
             ComboBoxListAsset.Items.Clear();
-            if (actualUser != null)
+            if (storage.actualUser != null)
             {
-                foreach (Asset asset in actualUser.Assets)
+                foreach (Asset asset in storage.actualUser.Assets)
                 {
                     ComboBoxListAsset.Items.Add(asset.Name);
                 }
@@ -118,9 +105,9 @@ namespace FinTracker
         public void FillCategories()
         {
             ComboBoxCategoriesTransaction.Items.Clear();
-            if (actualUser != null)
+            if (storage.actualUser != null)
             {
-                foreach (string category in actualUser.CategoriesSpend)
+                foreach (string category in storage.actualUser.CategoriesSpend)
                 {
                     ComboBoxCategoriesTransaction.Items.Add(category);
                 }
@@ -130,7 +117,7 @@ namespace FinTracker
         public void FillingTransactionsStackPanel(object sender, RoutedEventArgs e)
         {
             StackPanelTransactionList.Children.Clear();
-            foreach (Transaction transaction in actualAsset.Transactions)
+            foreach (Transaction transaction in storage.actualAsset.Transactions)
             {
                 Button nTransactionButton = new Button();
                 nTransactionButton.Content = $"{transaction.Date} {transaction.Sign}{transaction.Amount} {transaction.Category}";
@@ -142,23 +129,23 @@ namespace FinTracker
 
         public void SetTransactionData(object sender, RoutedEventArgs e)
         {
-            DatePickerTransaction.Text = actualTransaction.Date.ToString();
-            TextBoxAmount.Text = actualTransaction.Amount.ToString();
-            ComboBoxCategoriesTransaction.Text = actualTransaction.Category.ToString();
-            TextBoxComment.Text = actualTransaction.Comment.ToString();
+            DatePickerTransaction.Text = storage.actualTransaction.Date.ToString();
+            TextBoxAmount.Text = storage.actualTransaction.Amount.ToString();
+            ComboBoxCategoriesTransaction.Text = storage.actualTransaction.Category.ToString();
+            TextBoxComment.Text = storage.actualTransaction.Comment.ToString();
         }
 
         public void SetActualAsset(object sender, RoutedEventArgs e)
         {
-            actualAsset = GetAssetByName(Convert.ToString(((Button)sender).Content));
+            storage.actualAsset = storage.actualUser.GetAssetByName(Convert.ToString(((Button)sender).Content));
         }
 
         public void FillAssetsStackPanel()
         {
-            if (actualUser != null)
+            if (storage.actualUser != null)
             {
                 StackPanelAssetList.Children.Clear();
-                foreach (Asset asset in actualUser.Assets)
+                foreach (Asset asset in storage.actualUser.Assets)
                 {
                     Button buttonAsset = new Button();
                     buttonAsset.Content = asset.Name;
@@ -174,7 +161,7 @@ namespace FinTracker
 
         public void AddTransactionVisibility(object sender, RoutedEventArgs e)
         {
-            if (actualAsset == null)
+            if (storage.actualAsset == null)
             {
                 ButtonIncome.IsEnabled = false;
                 ButtonSpend.IsEnabled = false;
@@ -191,7 +178,7 @@ namespace FinTracker
             if (IsUniqeUser(TextBoxUserName.Text) == true)
             {
                 User user = new User(TextBoxUserName.Text);
-                Users.Add(user);
+                storage.Users.Add(user);
                 TextBoxUserName.Text = "";
                 FillingComboBoxUser();
             }
@@ -204,8 +191,8 @@ namespace FinTracker
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
         {           
                 User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
-            
-                Users.Remove(user);
+
+                storage.Users.Remove(user);
                 //actualUser = null;
                 StackPanelAssetList.Children.Clear();
                 FillingComboBoxUser();         
@@ -213,10 +200,10 @@ namespace FinTracker
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
         {
-            actualUser.Assets.Remove(actualAsset);
+            storage.actualUser.Assets.Remove(storage.actualAsset);
             LabelCurrentAmount.Content = "";
             StackPanelTransactionList.Children.Clear();
-            actualAsset = null;
+            storage.actualAsset = null;
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             FillAssetsStackPanel();
@@ -226,13 +213,13 @@ namespace FinTracker
 
         private void ButtonSpend_Click(object sender, RoutedEventArgs e)
         {
-            if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+            if (storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
             {
                 Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
                                         (string)ComboBoxCategoriesTransaction.SelectedValue);
-                actualAsset.AddTransactions(nTransaction);
+                storage.actualAsset.AddTransactions(nTransaction);
                 Button nTransactionButton = new Button();
                 nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
                 nTransactionButton.Click += CurrentTransaction;
@@ -252,7 +239,7 @@ namespace FinTracker
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
                                         (string)ComboBoxCategoriesIncome.SelectedValue);
-            actualAsset.AddTransactions(nTransaction);
+            storage.actualAsset.AddTransactions(nTransaction);
             Button nTransactionButton = new Button();
             nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
             nTransactionButton.Click += CurrentTransaction;
@@ -269,21 +256,21 @@ namespace FinTracker
 
         private void ButtonDeleteTransaction_Click(object sender, RoutedEventArgs e)
         {
-            actualAsset.DeleteTransaction(actualTransaction);
+            storage.actualAsset.DeleteTransaction(storage.actualTransaction);
             FillingTransactionsStackPanel(sender,e);
         }
 
         private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)      // сделать что-то с доход и расход
         {
-            actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
+            storage.actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
             FillingTransactionsStackPanel(sender, e);
-            LabelCurrentAmount.Content = actualAsset.GetAmount().ToString();
+            LabelCurrentAmount.Content = storage.actualAsset.GetAmount().ToString();
         }
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
-            actualAsset = null;  // Так можно?
+            storage.actualUser = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+            storage.actualAsset = null;  // Так можно?
             ButtonIncome.IsEnabled = false;
             ButtonSpend.IsEnabled = false;
             StackPanelAssetList.Children.Clear();
@@ -316,7 +303,7 @@ namespace FinTracker
 
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
         {
-            actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+            storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
             FillCategories();
             //for (int i = 0; i <  StackPanelAssetList.Children.Count; i++)
             //{
@@ -334,7 +321,7 @@ namespace FinTracker
         public bool IsUniqeUser(string name)
         {
             bool uniq = true;
-            foreach(User user in Users)
+            foreach(User user in storage.Users)
             {
                 if (name == user.Name)
                 {
@@ -352,23 +339,23 @@ namespace FinTracker
 
         private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
         {
-            actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesIncome.SelectedValue);
+            storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesIncome.SelectedValue);
             FillCategoriesIncome();
         }
 
         private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
         {
-            if (actualAsset != null)
+            if (storage.actualAsset != null)
             {
-                if (actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                if (storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
                 {
-                    Asset crntAsset = actualAsset;
-                    ButtonSpend_Click(actualAsset, e);
-                    actualAsset = GetAssetByName(ComboBoxListAsset.Text);
-                    ButtonIncome_Click(actualAsset, e);
-                    actualAsset = crntAsset;
+                    Asset crntAsset = storage.actualAsset;
+                    ButtonSpend_Click(storage.actualAsset, e);
+                    storage.actualAsset = GetAssetByName(ComboBoxListAsset.Text);
+                    ButtonIncome_Click(storage.actualAsset, e);
+                    storage.actualAsset = crntAsset;
                     FillingTransactionsStackPanel(sender, e);
-                    LabelCurrentAmount.Content = actualAsset.GetAmount();
+                    LabelCurrentAmount.Content = storage.actualAsset.GetAmount();
                 }
                 else
                 {
