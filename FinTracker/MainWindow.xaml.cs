@@ -76,7 +76,7 @@ namespace FinTracker
             }
         }
 
-        public void FillAssetListBox ()
+        public void FillAssetListBox()
         {
             ComboBoxListAsset.Items.Clear();
             if (storage.actualUser != null)
@@ -159,7 +159,7 @@ namespace FinTracker
             }
         }
 
-        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
+        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) //!!!
         {
             if (IsUniqeUser(TextBoxUserName.Text) == true)
             {
@@ -175,10 +175,9 @@ namespace FinTracker
         }
 
         private void ButtonDeleteUser_Copy_Click(object sender, RoutedEventArgs e)
-        {           
-                User user = storage.GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
+        {
+                storage.DeleteUser(((string)ComboBoxChangeUser.SelectedValue));
 
-                storage.Users.Remove(user);
                 StackPanelAssetList.Children.Clear();
                 FillingComboBoxUser();         
         }

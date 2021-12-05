@@ -41,5 +41,11 @@ namespace FinTracker
             return null; // Подумать над этим
         }
 
+
+        public void DeleteUser(string name)
+        {
+            User user = GetUserByName(name);
+            Users.Remove(user);
+        }
     }
 }
