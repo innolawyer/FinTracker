@@ -15,24 +15,25 @@ using System.Windows.Shapes;
 namespace FinTracker
 {
     /// <summary>
-    /// Interaction logic for AddCategories.xaml
+    /// Interaction logic for AddCategoriesIncome.xaml
     /// </summary>
-    public partial class AddCategories : Window
+    public partial class AddCategoriesIncome : Window
     {
         private Storage _storage = Storage.GetStorage();
         MainWindow _mainWindow;
-        public AddCategories(MainWindow mainWindow)
+        public AddCategoriesIncome(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
 
         }
 
-        private void ButtonSaveCategory_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveCategoryIncome_Click(object sender, RoutedEventArgs e)
         {
-            _storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
-            _mainWindow.FillCategories();
+            _storage.actualUser.CategoriesIncome.Add(TextBoxNewCategoryIncome.Text);
+            _mainWindow.FillCategoriesIncome();
             this.Close();
         }
+
     }
 }
