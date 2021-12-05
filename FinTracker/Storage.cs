@@ -8,28 +8,25 @@ namespace FinTracker
 {
     public sealed class Storage
     {
-        private static Storage _instance;
+        private static Storage _storage;
 
-        public List<Asset> Assets;
         public List<User> Users;
-        public List<Transaction> Transactions;
-        public List<string> CashbackCategories;
+        public Asset actualAsset;
+        public User actualUser;
+        public Transaction actualTransaction;
 
-        public Storage()
+        Storage()
         {
-            Assets = new List<Asset>();
             Users = new List<User>();
-            Transactions = new List<Transaction>();
-            CashbackCategories = new List<string>();
         }
 
-        public static Storage GetInstance()
+        public static Storage GetStorage()
         {
-            if (_instance == null)
+            if (_storage == null)
             {
-                _instance = new Storage();
+                _storage = new Storage();
             }
-            return _instance;
+            return _storage;
         }
        
     }

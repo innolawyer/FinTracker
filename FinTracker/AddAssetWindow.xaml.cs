@@ -19,9 +19,9 @@ namespace FinTracker
     /// </summary>
     public partial class AddAssetWindow : Window
     {
+        private Storage storage = Storage.GetStorage();
         private MainWindow _mainWindow;
         public AddAssetWindow (MainWindow mainWindow)        
-
         {
             InitializeComponent();
             TextBoxAmount.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
@@ -40,9 +40,9 @@ namespace FinTracker
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
-            if (_mainWindow.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
+            if (storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
              {
-                User user = _mainWindow.actualUser;
+                User user = storage.actualUser;
                 Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
 
                 user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),

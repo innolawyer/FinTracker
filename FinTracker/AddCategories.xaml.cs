@@ -19,6 +19,7 @@ namespace FinTracker
     /// </summary>
     public partial class AddCategories : Window
     {
+        private Storage storage = Storage.GetStorage();
         MainWindow _mainWindow;
         public AddCategories(MainWindow mainWindow)
         {
@@ -29,7 +30,7 @@ namespace FinTracker
 
         private void ButtonSaveCategory_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
+            storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
             _mainWindow.FillCategories();
             this.Close();
         }
