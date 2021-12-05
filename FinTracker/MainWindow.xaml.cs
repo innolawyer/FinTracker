@@ -88,7 +88,7 @@ namespace FinTracker
                     ComboBoxCategoriesIncome.Items.Add(category);
                 }
             }
-        } //не заполняет, только после добавления категории через +
+        }
 
         public void FillAssetListBox ()
         {
@@ -193,7 +193,6 @@ namespace FinTracker
                 User user = GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
 
                 storage.Users.Remove(user);
-                //actualUser = null;
                 StackPanelAssetList.Children.Clear();
                 FillingComboBoxUser();         
         }
@@ -351,7 +350,7 @@ namespace FinTracker
                 {
                     Asset crntAsset = storage.actualAsset;
                     ButtonSpend_Click(storage.actualAsset, e);
-                    storage.actualAsset = GetAssetByName(ComboBoxListAsset.Text);
+                    storage.actualAsset = storage.actualUser.GetAssetByName(ComboBoxListAsset.Text);
                     ButtonIncome_Click(storage.actualAsset, e);
                     storage.actualAsset = crntAsset;
                     FillingTransactionsStackPanel(sender, e);
