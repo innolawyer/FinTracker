@@ -28,6 +28,37 @@ namespace FinTracker
             }
             return _storage;
         }
-       
+
+        public User GetUserByName(string name)
+        {
+            foreach (User user in Users)
+            {
+                if (user.Name == name)
+                {
+                    return user;
+                }
+            }
+            return null; // Подумать над этим
+        }
+
+
+        public void DeleteUser(string name)
+        {
+            User user = GetUserByName(name);
+            Users.Remove(user);
+        }
+
+        public bool IsUniqeUser(string name) // узнать куда это деть (как зашить в конструктор??)
+        {
+            bool uniq = true;
+            foreach (User user in Users)
+            {
+                if (name == user.Name)
+                {
+                    uniq = false;
+                }
+            }
+            return uniq;
+        }
     }
 }
