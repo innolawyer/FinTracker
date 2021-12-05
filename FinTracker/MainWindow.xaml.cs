@@ -26,7 +26,6 @@ namespace FinTracker
         {
             InitializeComponent();
 
-           // StackPanelTransactionList.Children.Add(new Label());
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
             
@@ -163,8 +162,7 @@ namespace FinTracker
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
-                User user = new User(TextBoxUserName.Text);
-                _storage.Users.Add(user);
+                _storage.Users.Add(new User(TextBoxUserName.Text););
                 TextBoxUserName.Text = "";
                 FillingComboBoxUser();
             }
