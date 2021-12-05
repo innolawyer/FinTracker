@@ -28,6 +28,11 @@ namespace FinTracker
             Assets.Add(new Asset(name, startAmount)); // это бумажные деньги. Надом исправить как таока научимся делать другие счета
         }
 
+        public void DeleteAsset(Asset asset)
+        {
+            Assets.Remove(asset);
+        }
+
         public Asset GetAssetByName(string name)
         {
             foreach (Asset asset in Assets)

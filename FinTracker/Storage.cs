@@ -47,5 +47,18 @@ namespace FinTracker
             User user = GetUserByName(name);
             Users.Remove(user);
         }
+
+        public bool IsUniqeUser(string name) // узнать куда это деть (как зашить в конструктор??)
+        {
+            bool uniq = true;
+            foreach (User user in Users)
+            {
+                if (name == user.Name)
+                {
+                    uniq = false;
+                }
+            }
+            return uniq;
+        }
     }
 }

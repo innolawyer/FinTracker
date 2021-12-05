@@ -161,7 +161,7 @@ namespace FinTracker
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) //!!!
         {
-            if (IsUniqeUser(TextBoxUserName.Text) == true)
+            if (storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
                 User user = new User(TextBoxUserName.Text);
                 storage.Users.Add(user);
@@ -184,7 +184,7 @@ namespace FinTracker
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
         {
-            storage.actualUser.Assets.Remove(storage.actualAsset);
+            storage.actualUser.DeleteAsset(storage.actualAsset);
             LabelCurrentAmount.Content = "";
             StackPanelTransactionList.Children.Clear();
             storage.actualAsset = null;
@@ -289,11 +289,6 @@ namespace FinTracker
         {
             storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
             FillCategories();
-            //for (int i = 0; i <  StackPanelAssetList.Children.Count; i++)
-            //{
-            //    if (((Button)StackPanelAssetList.Children[i]).Text == actualAsset.Name);
-            //}
-            //actualAsset = null;
         }
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
@@ -302,18 +297,7 @@ namespace FinTracker
             addCategories.Show();
         }
 
-        public bool IsUniqeUser(string name)
-        {
-            bool uniq = true;
-            foreach(User user in storage.Users)
-            {
-                if (name == user.Name)
-                {
-                    uniq = false;
-                }
-            }
-            return uniq;
-        }
+        
 
         private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
         {
