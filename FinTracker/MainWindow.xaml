@@ -84,15 +84,15 @@
                     <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Дата"/>
-                                <GridViewColumn Header="Кредитор"/>
-                                <GridViewColumn Header="%"/>
-                                <GridViewColumn Header="Период"/>
-                                <GridViewColumn Header="Статус"/>
-                                <GridViewColumn Header="Дата закрытия"/>
-                                <GridViewColumn Header="Сумма"/>
-                                <GridViewColumn Header="Возвращено"/>
-                                <GridViewColumn Header="Остаток"/>
+                                <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding DateTime}"/>
+                                <GridViewColumn Header="Кредитор" Width="auto" DisplayMemberBinding="{Binding CreditorsName}"/>
+                                <GridViewColumn Header="%" Width="auto" DisplayMemberBinding="{Binding Percent}"/>
+                                <GridViewColumn Header="Период" Width="auto" DisplayMemberBinding="{Binding Period}"/>
+                                <GridViewColumn Header="Статус" Width="auto" DisplayMemberBinding="{Binding Status}"/>
+                                <GridViewColumn Header="Осталось платежей" Width="auto" DisplayMemberBinding="{Binding RemainingTerm}"/>
+                                <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="auto"/>
+                                <GridViewColumn Header="Возвращено" Width="auto" DisplayMemberBinding="{Binding AmountOfReturned}"/>
+                                <GridViewColumn Header="Остаток" Width="auto" DisplayMemberBinding="{Binding RemainingAmount}"/>
                             </GridView>
                         </ListView.View>
 
