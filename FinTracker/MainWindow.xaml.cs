@@ -310,6 +310,7 @@ namespace FinTracker
                 TabItemPlanning.IsEnabled = true;
                 TabItemDeposits.IsEnabled = true;
             }
+            LabelCurrentAmount.Content = "";
         }
 
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
