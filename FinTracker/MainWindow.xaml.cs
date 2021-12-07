@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -158,7 +158,7 @@ namespace FinTracker
             }
         }
 
-        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) //!!!
+        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
@@ -242,7 +242,7 @@ namespace FinTracker
             FillingTransactionsStackPanel(sender,e);
         }
 
-        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)      // сделать что-то с доход и расход
+        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)  // сделать что-то с доход и расход
         {
             _storage.actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
             FillingTransactionsStackPanel(sender, e);
