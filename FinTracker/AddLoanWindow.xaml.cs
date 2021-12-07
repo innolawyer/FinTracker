@@ -24,7 +24,10 @@ namespace FinTracker
         public AddLoanWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            DatePickerLoanStart.SelectedDate = DateTime.Now;
+            DatePickerLoanStart.SelectedDate.Value.Date.ToShortDateString();
             FillingComboboxLoanStatus();
+            RemainingTermVisibility();
             _mainWindow = mainWindow;
 
         }
@@ -40,11 +43,23 @@ namespace FinTracker
         public void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
         {
             User user = _storage.actualUser;            
-            Loan nLoan = new Loan ((DateTime)Convert.ToDateTime(DatePickerLoanStart.Text), (String)TextBoxLoanCreditorName.Text,
+            Loan nLoan = new Loan ((DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
                 (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
-                (String)Convert.ToString(ComboBoxLoanStatus.SelectedIndex), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
+                (String)Convert.ToString(ComboBoxLoanStatus.SelectedItem),(Double)Convert.ToDouble(TextBoxRemainingTerm.Text), 
+                (Double)Convert.ToDouble(TextBoxLoanAmount.Text), 
                 (Double)Convert.ToDouble(TextBoxLoanAmountOfReturned.Text));
-                     
+            _mainWindow.ListViewLoans.Items.Add(nLoan);
+            this.Close();
+
+        }
+
+        public void RemainingTermVisibility ()
+        {
+            if (ComboBoxLoanStatus.SelectedIndex == 1)
+            {
+                TextBlocRemainingTerm.Visibility = Visibility.Collapsed;
+                TextBoxRemainingTerm.Visibility = Visibility.Collapsed;
+            }
         }
 
         
