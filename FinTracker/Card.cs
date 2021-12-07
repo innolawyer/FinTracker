@@ -9,6 +9,9 @@ namespace FinTracker
     internal class Card : Asset
     {
         public double YearInterest; //Процент на остаток // узать как считаеться
+        public double SumYearInterest;
+        public string PeriodEnrollSumYearInterest;
+        public DateTime EnrollDateYearInterest;
         public List<string> CashbackCategories; //категории с повышенным кэшбэком
         public double FixCashback;
         public double ServiceFee;
@@ -40,21 +43,44 @@ namespace FinTracker
             CashbackAndPercent.Add(category, percent);
         }
 
+        public void DeleteCategoryCashBack(string category)
+        {
+            CashbackAndPercent.Remove(category);
+        }
+
+        public double GetMinAmount()
+        {
+            double tmpAmount = GetAmount();
+            if (tmpAmount < MinAmount)
+            {
+                MinAmount = tmpAmount;
+            }
+            if (DateTime.Today == EnrollDateYearInterest)
+            {
+                MinAmount = GetAmount();
+            }
+            return MinAmount;
+        }
+
         public double GetCashbackByCategory(Card asset)
         {
             foreach (Transaction transaction in Transactions)
             {
-                if (transaction.Sign == "-")
+                if (transaction.Date >= new DateTime (EnrollDateCash.Year,EnrollDateCash.Month - 1, EnrollDateCash.Day)
+                    && transaction.Date < EnrollDateCash)
                 {
-                    foreach (KeyValuePair<string,double> cashback in CashbackAndPercent)
+                    if (transaction.Sign == "-")
                     {
-                        if (transaction.Category == cashback.Key)
+                        foreach (KeyValuePair<string, double> cashback in CashbackAndPercent)
                         {
-                            Cashback += (transaction.Amount * asset.Percent);
-                        }
-                        else
-                        {
-                            Cashback += (transaction.Amount * asset.Percent);
+                            if (transaction.Category == cashback.Key)
+                            {
+                                Cashback += (transaction.Amount * asset.Percent);
+                            }
+                            else
+                            {
+                                Cashback += (transaction.Amount * asset.Percent);
+                            }
                         }
                     }
                 }
@@ -62,13 +88,44 @@ namespace FinTracker
             return Cashback;
         }
 
+        public double  GetSumYearInterest()
+        {
+            SumYearInterest = MinAmount * YearInterest;
+            return SumYearInterest;
+        }
+
+        public void EnrollmentSumYearInterest()
+        {
+            if (PeriodEnrollSumYearInterest == "год")
+            {
+                int god = 0;
+                if (DateTime.Today == EnrollDateYearInterest)
+                {
+                    EnrollDateYearInterest = EnrollDateYearInterest.AddYears(god);
+                    Amount += SumYearInterest;
+                    god++;
+                }
+            }
+            if (PeriodEnrollSumYearInterest == "месяц")
+            {
+                int moth = 0;
+                if (DateTime.Today == EnrollDateYearInterest)
+                {
+                    EnrollDateYearInterest = EnrollDateYearInterest.AddYears(moth);
+                    Amount += SumYearInterest;
+                    moth++;
+                }
+            }
+        }
+
         public void EnrollmentCashbak()
         {
             if (PeriodEnrollCashbak == "год")
             {
                 int god = 0;
-                if (DateTime.Today == (EnrollDateCash.AddYears(god)))
+                if (DateTime.Today == EnrollDateCash)
                 {
+                    EnrollDateCash = EnrollDateCash.AddYears (god);
                     Amount += Cashback;
                     god++;
                 }
@@ -76,8 +133,9 @@ namespace FinTracker
             if (PeriodEnrollCashbak == "месяц")
             {
                 int moth = 0;
-                if (DateTime.Today == (EnrollDateCash.AddMonths(moth)))
+                if (DateTime.Today == EnrollDateCash)
                 {
+                    EnrollDateCash = EnrollDateCash.AddYears(moth);
                     Amount += Cashback;
                     moth++;
                 }
