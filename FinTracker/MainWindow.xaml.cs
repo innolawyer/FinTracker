@@ -31,8 +31,8 @@ namespace FinTracker
             
             FillingComboBoxUser();
             ComboBoxChangeUser_SelectionDone();
-            FillCategoriesIncome();
-            FillCategories();
+            //FillCategoriesIncome();
+            //FillCategories();
             FillAssetListBox();
             FillAssetsStackPanel();
             
@@ -75,53 +75,53 @@ namespace FinTracker
             }
         }
 
-        public void FillTransactionCategories()
-        {
-            if(RadioButtonIncome.IsChecked == true)
-            {
-                ComboBoxCategoriesTransaction.Items.Clear();
-                if (_storage.actualUser != null)
-                {
-                    foreach (string category in _storage.actualUser.CategoriesIncome)
-                    {
-                        ComboBoxCategoriesTransaction.Items.Add(category);
-                    }
-                }
-            }
-            else if(RadioButtonСonsumption.IsChecked == true)
-            {
-                if (_storage.actualUser != null)
-                {
-                    foreach (string category in _storage.actualUser.CategoriesSpend)
-                    {
-                        ComboBoxCategoriesTransaction.Items.Add(category);
-                    }
-                }
-            }
-            else if(RadioButtonTransfer.IsChecked == true)
-            {
+        //public void FillTransactionCategories()
+        //{
+        //    if(RadioButtonIncome.IsChecked == true)
+        //    {
+        //        ComboBoxCategoriesTransaction.Items.Clear();
+        //        if (_storage.actualUser != null)
+        //        {
+        //            foreach (string category in _storage.actualUser.CategoriesIncome)
+        //            {
+        //                ComboBoxCategoriesTransaction.Items.Add(category);
+        //            }
+        //        }
+        //    }
+        //    else if(RadioButtonСonsumption.IsChecked == true)
+        //    {
+        //        if (_storage.actualUser != null)
+        //        {
+        //            foreach (string category in _storage.actualUser.CategoriesSpend)
+        //            {
+        //                ComboBoxCategoriesTransaction.Items.Add(category);
+        //            }
+        //        }
+        //    }
+        //    else if(RadioButtonTransfer.IsChecked == true)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
-        public void FillCategoriesIncome()
+        //public void FillCategoriesIncome()
+        //{
+        //    ComboBoxCategoriesTransaction.Items.Clear();
+        //    if (_storage.actualUser != null)
+        //    {
+        //        foreach (string category in _storage.actualUser.CategoriesIncome)
+        //        {
+        //            ComboBoxCategoriesTransaction.Items.Add(category);
+        //        }
+        //    }
+        //}
+
+        public void FillCategories(List <string> listCategories)
         {
             ComboBoxCategoriesTransaction.Items.Clear();
             if (_storage.actualUser != null)
             {
-                foreach (string category in _storage.actualUser.CategoriesIncome)
-                {
-                    ComboBoxCategoriesTransaction.Items.Add(category);
-                }
-            }
-        }
-
-        public void FillCategories()
-        {
-            ComboBoxCategoriesTransaction.Items.Clear();
-            if (_storage.actualUser != null)
-            {
-                foreach (string category in _storage.actualUser.CategoriesSpend)
+                foreach (string category in listCategories)
                 {
                     ComboBoxCategoriesTransaction.Items.Add(category);
                 }
@@ -287,8 +287,8 @@ namespace FinTracker
             StackPanelAssetList.Children.Clear();
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
-            FillCategories();
-            FillCategoriesIncome();
+            //FillCategories();
+            //FillCategoriesIncome();
             FillAssetsStackPanel();
         }
 
@@ -313,28 +313,34 @@ namespace FinTracker
             LabelCurrentAmount.Content = "";
         }
 
-        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
-        {
-            _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-            FillCategories();
-        }
+        //private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+        //    //FillCategories();
+        //}
+
+        //private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AddCategories addCategories = new AddCategories(this);
+        //    addCategories.Show();
+        //}
+
+        //private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
+        //{
+        //    AddCategories addCategoriesIncome = new AddCategories(this);
+        //    addCategoriesIncome.Show();
+        //}
+
+        //private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+        //    //FillCategoriesIncome();
+        //}
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
         {
-            AddCategories addCategories = new AddCategories(this);
-            addCategories.Show();
-        }
-
-        private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
-        {
-            AddCategories addCategoriesIncome = new AddCategories(this);
-            addCategoriesIncome.Show();
-        }
-
-        private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
-        {
-            _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-            FillCategoriesIncome();
+                AddCategories addCategories = new AddCategories(this);
+                addCategories.Show();
         }
 
         //private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
@@ -358,22 +364,6 @@ namespace FinTracker
         //    }
         //}
 
-
-
-        private void RadioButtonIncome_Click()
-        {
-
-        }
-
-        private void RadioButtonСonsumption_Click()
-        {
-
-        }
-
-        private void RadioButtonTransfer_Click()
-        {
-
-        }
 
         private void ButtoanAddLoan_Click(object sender, RoutedEventArgs e)
         {
@@ -399,6 +389,35 @@ namespace FinTracker
         private void ButtoanRemoveLoan_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RadioButtonIncome_Click(object sender, RoutedEventArgs e)
+        {
+            FillCategories(_storage.actualUser.CategoriesIncome);
+        }
+
+        private void RadioButtonСonsumption_Click(object sender, RoutedEventArgs e)
+        {
+            FillCategories(_storage.actualUser.CategoriesSpend);
+        }
+
+        private void RadioButtonTransfer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+            if(RadioButtonIncome.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesIncome);
+            }
+            else if(RadioButtonСonsumption.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesSpend);
+            }
         }
     }
 }
