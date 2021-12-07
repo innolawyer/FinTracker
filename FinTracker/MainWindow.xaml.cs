@@ -158,7 +158,7 @@ namespace FinTracker
             }
         }
 
-        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) //!!!
+        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) 
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
@@ -281,6 +281,7 @@ namespace FinTracker
                 TabItemPlanning.IsEnabled = true;
                 TabItemDeposits.IsEnabled = true;
             }
+            LabelCurrentAmount.Content = "";
         }
 
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
@@ -294,9 +295,7 @@ namespace FinTracker
             AddCategories addCategories = new AddCategories(this);
             addCategories.Show();
         }
-
-        
-
+       
         private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
         {
             AddCategoriesIncome addCategoriesIncome = new AddCategoriesIncome(this);
