@@ -5,10 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="AddCategories" Height="184" Width="186">
+        Title="Добавить категорию" Height="190" Width="186">
     <Grid>
-        <TextBox x:Name="TextBoxNewCategory" HorizontalAlignment="Left" Margin="35,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="ButtonSaveCategory" Content="Сохранить" HorizontalAlignment="Left" Margin="93,84,0,0" VerticalAlignment="Top" Click="ButtonSaveCategory_Click"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="37*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="TextBoxNewCategory" HorizontalAlignment="Left" Margin="35,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonSaveCategory" Content="Сохранить" Background="#00BB3F" BorderBrush="#00BB3F" FontWeight="Bold" FontSize="10" HorizontalAlignment="Left" Margin="53,101,0,0" VerticalAlignment="Top" Click="ButtonSaveCategory_Click" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
