@@ -12,16 +12,14 @@ namespace FinTracker
         public List<string> CashbackCategories; //категории с повышенным кэшбэком
         public double FixCashback;
         public double ServiceFee;
-
         public double MinAmount;
-
-        public double Cashback = 0; // сумма кэшбека по категориям
-        public double CashbackAll = 0; // сумма кэшбека на все
-
-        public double Percent; // процент кэшбека
         public DateTime EnrollDateCash; // дата выплаты кэшбека
         public string PeriodEnrollCashbak;
-        Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>(100); //переводы жкх
+
+        public double Cashback = 0; // сумма кэшбека 
+
+        public double Percent; // процент кэшбека
+        public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>(100); //переводы жкх
        
         public Card(string name, double amount, double yearInterest, double fixCashback, double serviceFee, double percent, DateTime enrollDateCash, string periodEnrollCashbak ) : base(name, amount)
         {
@@ -33,17 +31,28 @@ namespace FinTracker
             FixCashback = fixCashback;
             EnrollDateCash = enrollDateCash;
             PeriodEnrollCashbak = periodEnrollCashbak;
+            CashbackAndPercent.Add("Перевод", 0);
+            CashbackAndPercent.Add("Коммунальные платежи", 0);
         }
-        
+
+        public void AddCategoryCashback(string category, double percent)
+        {
+            CashbackAndPercent.Add(category, percent);
+        }
+
         public double GetCashbackByCategory(Card asset)
         {
             foreach (Transaction transaction in Transactions)
             {
-                if (transaction.Sign == "+")
+                if (transaction.Sign == "-")
                 {
-                    foreach (string cashback in CashbackCategories)
+                    foreach (KeyValuePair<string,double> cashback in CashbackAndPercent)
                     {
-                        if (transaction.Category == cashback)
+                        if (transaction.Category == cashback.Key)
+                        {
+                            Cashback += (transaction.Amount * asset.Percent);
+                        }
+                        else
                         {
                             Cashback += (transaction.Amount * asset.Percent);
                         }
@@ -52,18 +61,7 @@ namespace FinTracker
             }
             return Cashback;
         }
-        public double GetCashbackAll(Card asset)
-        {
-            foreach (Transaction transaction in Transactions)
-            {
-                if (transaction.Sign == "+")
-                {
-                    CashbackAll += (transaction.Amount * asset.Percent);
-                }
-            }
-            return CashbackAll;
 
-        }
         public void EnrollmentCashbak()
         {
             if (PeriodEnrollCashbak == "год")
@@ -71,7 +69,7 @@ namespace FinTracker
                 int god = 0;
                 if (DateTime.Today == (EnrollDateCash.AddYears(god)))
                 {
-                    Amount += Cashback + CashbackAll;
+                    Amount += Cashback;
                     god++;
                 }
             }
@@ -80,7 +78,7 @@ namespace FinTracker
                 int moth = 0;
                 if (DateTime.Today == (EnrollDateCash.AddMonths(moth)))
                 {
-                    Amount += Cashback + CashbackAll;
+                    Amount += Cashback;
                     moth++;
                 }
             }
@@ -88,4 +86,4 @@ namespace FinTracker
         }
     }
 }
-}
+
