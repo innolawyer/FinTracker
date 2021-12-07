@@ -339,16 +339,8 @@ namespace FinTracker
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
         {
-            //if(RadioButtonIncome.IsChecked == true)
-           // {
                 AddCategories addCategories = new AddCategories(this);
                 addCategories.Show();
-            //}
-           // else if(RadioButtonСonsumption.IsChecked==true)
-           // {
-           //     AddCategories addCategories = new AddCategories(this);
-           //     addCategories.Show();
-           // }
         }
 
         //private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
@@ -412,6 +404,20 @@ namespace FinTracker
         private void RadioButtonTransfer_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+            if(RadioButtonIncome.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesIncome);
+            }
+            else if(RadioButtonСonsumption.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesSpend);
+            }
         }
     }
 }

@@ -99,7 +99,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Background="#e38b75" BorderBrush="#FF5D40" x:Name="ButtonDeleteCategory" Grid.Column="3" Content="-" HorizontalAlignment="Left" Margin="95,313,0,0" VerticalAlignment="Top" Width="45" Height="25" FontWeight="Bold" RenderTransformOrigin="0.947,-0.569">
+                    <Button Background="#e38b75" BorderBrush="#FF5D40" x:Name="ButtonDeleteCategory" Grid.Column="3" Content="-" HorizontalAlignment="Left" Margin="95,313,0,0" VerticalAlignment="Top" Width="45" Height="25" FontWeight="Bold" RenderTransformOrigin="0.947,-0.569" Click="ButtonDeleteCategory_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>

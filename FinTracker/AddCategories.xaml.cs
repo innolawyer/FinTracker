@@ -25,7 +25,6 @@ namespace FinTracker
         {
             InitializeComponent();
             _mainWindow = mainWindow;
-
         }
 
         private void ButtonSaveCategory_Click(object sender, RoutedEventArgs e)
@@ -40,10 +39,9 @@ namespace FinTracker
                 _storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
                 _mainWindow.FillCategories(_storage.actualUser.CategoriesSpend);
             }
-
-            //_storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
-           // _mainWindow.FillCategories();
             this.Close();
         }
+
+
     }
 }
