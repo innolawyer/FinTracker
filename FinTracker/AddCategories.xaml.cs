@@ -30,8 +30,19 @@ namespace FinTracker
 
         private void ButtonSaveCategory_Click(object sender, RoutedEventArgs e)
         {
-            _storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
-            _mainWindow.FillCategories();
+            if(_mainWindow.RadioButtonIncome.IsChecked==true)
+            {
+                _storage.actualUser.CategoriesIncome.Add(TextBoxNewCategory.Text);
+                _mainWindow.FillCategories(_storage.actualUser.CategoriesIncome);
+            }
+            else if(_mainWindow.RadioButtonСonsumption.IsChecked==true)
+            {
+                _storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
+                _mainWindow.FillCategories(_storage.actualUser.CategoriesSpend);
+            }
+
+            //_storage.actualUser.CategoriesSpend.Add(TextBoxNewCategory.Text);
+           // _mainWindow.FillCategories();
             this.Close();
         }
     }
