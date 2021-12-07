@@ -9,7 +9,8 @@ namespace FinTracker
     public class Loan
     {        
 
-        public DateTime DateTime { get; set; }
+        public DateTime NextPaymentDateTime { get; set; }
+        public Asset Asset { get; set; }
         public string CreditorsName { get; set; }
         public double Percent { get; set; }
         public double Period { get; set; }
@@ -19,12 +20,13 @@ namespace FinTracker
         public double RemainingTerm { get; set; }
         public double RemainingAmount { get; set; }
 
-        public Loan (DateTime dateTime, string creditorsName,
+        public Loan (Asset asset, DateTime nextPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
                     double remainingTerm,
                     double amount, double amountOfReturned)
         {
-            DateTime = dateTime;
+            Asset = asset;
+            NextPaymentDateTime = nextPaymentDateTime;
             CreditorsName = creditorsName;
             Percent = percent;
             Period = period;

@@ -1,0 +1,24 @@
+﻿<Window x:Class="FinTracker.ViewLoanPaymentsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinTracker"
+        mc:Ignorable="d"
+        Title="ViewLoanPaymentsWindow" Height="299" Width="284">
+    <Grid>
+        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,64,10,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Дата" Width="90"/>
+                    <GridViewColumn Header="Сумма" Width="90"/>
+                    <GridViewColumn Header="Цель" Width="90"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="ButtonAddExtraPayment" Content="Добавить" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="ButtonEditExtraPayment" Content="Редактировать" HorizontalAlignment="Left" Margin="90,29,0,0" VerticalAlignment="Top" Width="90"/>
+        <Button x:Name="ButtonRemoveExtraPayment" Content="Удалить" HorizontalAlignment="Left" Margin="185,29,0,0" VerticalAlignment="Top" Width="70"/>
+
+    </Grid>
+</Window>

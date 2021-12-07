@@ -26,11 +26,21 @@ namespace FinTracker
             InitializeComponent();
             DatePickerLoanStart.SelectedDate = DateTime.Now;
             DatePickerLoanStart.SelectedDate.Value.Date.ToShortDateString();
+            FillingComboBoxLoanAsset();
             FillingComboboxLoanStatus();
-            RemainingTermVisibility();
             _mainWindow = mainWindow;
 
         }
+
+        public void FillingComboBoxLoanAsset ()
+        {
+            foreach (Asset asset in _storage.actualUser.Assets)
+            {
+                ComboBoxLoanAsset.Items.Add(asset.Name);
+            }
+        }
+
+        
 
         public void FillingComboboxLoanStatus ()
         {
@@ -38,30 +48,31 @@ namespace FinTracker
             ComboBoxLoanStatus.Items.Add("Выплачен");
             
         }
-        
+
+
 
         public void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
         {
-            User user = _storage.actualUser;            
-            Loan nLoan = new Loan ((DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
+            User user = _storage.actualUser;
+            Asset asset = user.GetAssetByName(ComboBoxLoanAsset.SelectedItem.ToString());
+            Loan nLoan = new Loan (asset, (DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
                 (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
                 (String)Convert.ToString(ComboBoxLoanStatus.SelectedItem),(Double)Convert.ToDouble(TextBoxRemainingTerm.Text), 
                 (Double)Convert.ToDouble(TextBoxLoanAmount.Text), 
-                (Double)Convert.ToDouble(TextBoxLoanAmountOfReturned.Text));
+                (Double)Convert.ToDouble(LabelAmountOfPaid.Content));
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
 
         }
 
-        public void RemainingTermVisibility ()
-        {
-            if (ComboBoxLoanStatus.SelectedIndex == 1)
-            {
-                TextBlocRemainingTerm.Visibility = Visibility.Collapsed;
-                TextBoxRemainingTerm.Visibility = Visibility.Collapsed;
-            }
-        }
-
         
+
+       
+
+        private void ButtonSeeLoanPayments_Click(object sender, RoutedEventArgs e)
+        {
+            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
+            viewLoanPaymentsWindow.Show();
+        }
     }
 }
