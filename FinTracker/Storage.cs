@@ -38,7 +38,8 @@ namespace FinTracker
                     return user;
                 }
             }
-            return null; // Подумать над этим
+            //throw new Exception();
+            return null;
         }
 
 
