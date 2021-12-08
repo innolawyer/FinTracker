@@ -19,6 +19,7 @@ namespace FinTracker
         public double AmountOfReturned { get; set; }        
         public double RemainingTerm { get; set; }
         public double RemainingAmount { get; set; }
+        public double MonthlyPayment { get; set; }
 
         public Loan (Asset asset, DateTime nextPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
@@ -34,7 +35,10 @@ namespace FinTracker
             RemainingTerm = remainingTerm;            
             Amount = amount;
             AmountOfReturned = amountOfReturned;
-            RemainingAmount = Amount - AmountOfReturned ;
+            RemainingAmount = Amount - AmountOfReturned;
+            MonthlyPayment = Amount * (((Percent/12)/100) / (1-Math.Pow((1+(Percent/1200)), -Period)));
+            MonthlyPayment = Math.Round(MonthlyPayment, 2);
+            
 
         }
 
