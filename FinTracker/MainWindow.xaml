@@ -8,6 +8,28 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Домашняя бухгалтерия QQQ" Height="480" Width="855">
     <Window.Resources>
+        <Style x:Key="{x:Type Button}">
+            <Setter Property="Control.Background" Value="#FFBB96"/>
+            <Setter Property="Control.Height" Value="26"/>
+            <Setter Property="Control.FontWeight" Value="SemiBold"/>
+            <Setter Property="Control.Foreground" Value="#800000"/>
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Control.IsMouseOver" Value="True">
+                    <Setter Property="Control.Background" Value="#FF9D68"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
         <Style x:Key="GreenButtonStyle">
             <Setter Property="Control.Background" Value="#60D6A9"/>
             <Setter Property="Control.FontWeight" Value="Bold"/>
@@ -69,7 +91,7 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <Grid Background="#e6ccb5">
+    <Grid Background="#E3BA9A">
         <Grid.ColumnDefinitions>
             <!--<ColumnDefinition Width="146*"/>-->
             <!--<ColumnDefinition Width="47*"/>-->
@@ -81,7 +103,7 @@
             <RowDefinition Height="0*"/>-->
         </Grid.RowDefinitions>
         <TabControl Margin="0,10,0,-34" Grid.RowSpan="3" Grid.ColumnSpan="3" >
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemUser"  Width="auto" Header="Пользователь">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemUser"  Width="auto" Header="Пользователь">
                 <!--<TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFBB73"/>
@@ -115,7 +137,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAssets" Header="Счета" Width="auto" VerticalAlignment="Center" Margin="-1,0,-3,0" Height="22">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAssets" Header="Счета" Width="auto" VerticalAlignment="Center" Margin="-1,0,-3,0" Height="22">
                 <Grid Background="AntiqueWhite" Margin="0,0,-2,0" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="175*"/>
@@ -156,7 +178,7 @@
                     <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#e38b75" Background="White" Grid.Column="3" HorizontalAlignment="Left" Margin="14,75,0,0" VerticalAlignment="Top" Width="140" Height="25" SelectionChanged="ComboBoxCategoriesTransaction_SelectionChanged" Grid.Row="1"/>
                     <Label Grid.Column="3" Content="Добавить транзакцию" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top" Height="24" Width="140"/>
                     <!--<Button x:Name="ButtonTransfer" Grid.Column="2" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2" Click="ButtonTransfer_Click"/>-->
-                    <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+                    <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0" Grid.ColumnSpan="3" Grid.RowSpan="15"/>
                     <StackPanel x:Name="StackPanelTransactionList" Grid.Column="3" Margin="280,58,0,10" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonAddCategory" Grid.Column="3" Content="+" HorizontalAlignment="Left" Margin="26,138,0,0" VerticalAlignment="Top" Width="47" Height="25" Click="ButtonAddCategory_Click" Grid.Row="1">
                         <Button.Resources>
@@ -207,7 +229,7 @@
                     <Label Grid.Column="3" Content="Добавить категорию" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="9,109,0,0" VerticalAlignment="Top" Height="24" Width="126" Grid.Row="1"/>
                 </Grid>
             </TabItem>
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <!--<ColumnDefinition Width="38*"/>-->
@@ -248,13 +270,13 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="auto" Header="Планирование">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="auto" Header="Планирование">
 
             </TabItem>
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
 
             </TabItem>
-            <TabItem Background="#fcc875" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
 
             </TabItem>
         </TabControl>
