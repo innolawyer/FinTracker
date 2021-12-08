@@ -28,7 +28,7 @@
                 <Grid Background="AntiqueWhite">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="107*"/>
-                        <ColumnDefinition Width="20*"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="60*"/>
                         <ColumnDefinition Width="36*"/>
                         <ColumnDefinition Width="36*"/>
@@ -133,7 +133,7 @@
                     <RadioButton x:Name="RadioButtonIncome" Background="#e38b75" Grid.Column="3" Content="Доход" HorizontalAlignment="Left" Margin="14,180,0,0" VerticalAlignment="Top" Click="RadioButtonIncome_Click"/>
                     <RadioButton x:Name="RadioButtonСonsumption" Background="#e38b75" Grid.Column="3" Content="Расход" HorizontalAlignment="Left" Margin="14,200,0,0" VerticalAlignment="Top" Click="RadioButtonСonsumption_Click"/>
                     <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="3" Content="Перевод" HorizontalAlignment="Left" Margin="14,221,0,0" VerticalAlignment="Top" Click="RadioButtonTransfer_Click"/>
-                    <Button x:Name="ButtonConfirmTransaction" Background="#60D6A9" BorderBrush="#35D699" Grid.Column="3" Content="Подтвердить" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,354,0,0" Foreground="GhostWhite" VerticalAlignment="Top" Height="31" Width="140">
+                    <Button x:Name="ButtonConfirmTransaction" Background="#60D6A9" BorderBrush="#35D699" Grid.Column="3" Content="Подтвердить" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,354,0,0" Foreground="GhostWhite" VerticalAlignment="Top" Height="31" Width="140" Click="ButtonConfirmTransaction_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="5"/>

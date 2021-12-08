@@ -147,6 +147,14 @@ namespace FinTracker
             TextBoxAmount.Text = _storage.actualTransaction.Amount.ToString();
             ComboBoxCategoriesTransaction.Text = _storage.actualTransaction.Category.ToString();
             TextBoxComment.Text = _storage.actualTransaction.Comment.ToString();
+            if (_storage.actualTransaction.Sign == Storage.sign.income)
+            {
+                RadioButtonIncome.IsChecked = true;
+            }
+            else if (_storage.actualTransaction.Sign == Storage.sign.spend)
+            {
+                RadioButtonСonsumption.IsChecked = true;
+            }
         }
 
         public void SetActualAsset(object sender, RoutedEventArgs e)
@@ -269,13 +277,24 @@ namespace FinTracker
         {
             _storage.actualAsset.DeleteTransaction(_storage.actualTransaction);
             FillingTransactionsStackPanel(sender,e);
+            LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
         private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)  // сделать что-то с доход и расход
         {
-            _storage.actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
+            Storage.sign sign = Storage.sign.income;
+
+            if (RadioButtonСonsumption.IsChecked == true)
+            {
+                sign = Storage.sign.spend;
+            }
+
+            _storage.actualTransaction.EditTransaction(sign, Convert.ToDouble(TextBoxAmount.Text),
+                                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                                        TextBoxComment.Text,
+                                                        ComboBoxCategoriesTransaction.Text);
             FillingTransactionsStackPanel(sender, e);
-            LabelCurrentAmount.Content = _storage.actualAsset.GetAmount().ToString();
+            LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -417,6 +436,45 @@ namespace FinTracker
             {
                 _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
                 FillCategories(_storage.actualUser.CategoriesSpend);
+            }
+        }
+
+        private void ButtonConfirmTransaction_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (RadioButtonСonsumption.IsChecked == true)
+            {
+                if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                {
+                    Transaction nTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
+                    _storage.actualAsset.AddTransactions(nTransaction);
+
+                    Button nTransactionButton = new Button();
+                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                    nTransactionButton.Click += CurrentTransaction;
+                    nTransactionButton.Click += SetTransactionData;
+                    StackPanelTransactionList.Children.Add(nTransactionButton);
+                    LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+                }
+            }
+
+            else if (RadioButtonIncome.IsChecked == true)
+            {
+                Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
+                                    Convert.ToDateTime(DatePickerTransaction.Text),
+                                    TextBoxComment.Text,
+                                    (string)ComboBoxCategoriesTransaction.SelectedValue);
+
+                _storage.actualAsset.AddTransactions(nTransaction);
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                nTransactionButton.Click += CurrentTransaction;
+                nTransactionButton.Click += SetTransactionData;
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+                LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
             }
         }
     }

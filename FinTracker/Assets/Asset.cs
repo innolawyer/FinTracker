@@ -25,11 +25,11 @@ namespace FinTracker
             double result = _StartAmount;
             foreach (Transaction transaction in Transactions)
             {
-                if (transaction.Sign == "+")
+                if (transaction.Sign == Storage.sign.income)
                 {
                     result += transaction.Amount;
                 }
-                else if (transaction.Sign == "-")
+                else if (transaction.Sign == Storage.sign.spend)
                 {
                     result -= transaction.Amount;
                 }

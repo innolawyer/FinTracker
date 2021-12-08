@@ -22,7 +22,7 @@ namespace FinTracker
         public double Cashback = 0; // сумма кэшбека 
 
         public double Percent; // процент кэшбека
-        public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>(100); //переводы жкх
+        public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>(); //переводы жкх
        
         public Card(string name, double amount, double yearInterest, double fixCashback, double serviceFee, DateTime enrollDateCash, string periodEnrollCashbak ) : base(name, amount)
         {
@@ -69,7 +69,7 @@ namespace FinTracker
                 if (transaction.Date >= new DateTime (EnrollDateCash.Year,EnrollDateCash.Month - 1, EnrollDateCash.Day)
                     && transaction.Date < EnrollDateCash)
                 {
-                    if (transaction.Sign == "-")
+                    if (transaction.Sign == Storage.sign.spend)
                     {
                         foreach (KeyValuePair<string, double> cashback in CashbackAndPercent)
                         {

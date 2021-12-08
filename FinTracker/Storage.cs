@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    public sealed class Storage
+    public class Storage
     {
         private static Storage _storage;
 
@@ -14,6 +14,13 @@ namespace FinTracker
         public Asset actualAsset;
         public User actualUser;
         public Transaction actualTransaction;
+
+        [Flags]
+        public enum sign
+        {
+            spend,
+            income
+        }
 
         Storage()
         {
