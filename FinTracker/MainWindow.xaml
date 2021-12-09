@@ -95,7 +95,7 @@
                                 <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
                                 <GridViewColumn Header="Возвращено"  DisplayMemberBinding="{Binding AmountOfReturned}"/>
                                 <GridViewColumn Header="Остаток"  DisplayMemberBinding="{Binding RemainingAmount}"/>
-                                <GridViewColumn Header="Платёж"  DisplayMemberBinding="{Binding MonthlyPayment}"/>
+                                <GridViewColumn Header="Платёж"  DisplayMemberBinding="{Binding MonthlyPaymentRounded}"/>
                             </GridView>
                         </ListView.View>
 
