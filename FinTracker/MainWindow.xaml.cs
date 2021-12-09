@@ -36,6 +36,8 @@ namespace FinTracker
             FillAssetListBox();
             FillAssetsStackPanel();
             
+
+
             if (_storage.actualAsset == null)
             {
                 ButtonConfirmTransaction.IsEnabled = false;
@@ -309,6 +311,10 @@ namespace FinTracker
             //FillCategories();
             //FillCategoriesIncome();
             FillAssetsStackPanel();
+            foreach (Loan loan in _storage.actualUser.Loans)
+            {
+                loan.DoRegularPayment();
+            }
         }
 
         private void ComboBoxChangeUser_SelectionDone()
@@ -476,6 +482,12 @@ namespace FinTracker
                 StackPanelTransactionList.Children.Add(nTransactionButton);
                 LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
             }
+        }
+
+        private void ButtonLoanPayments_Click(object sender, RoutedEventArgs e)
+        {
+            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
+            viewLoanPaymentsWindow.Show();
         }
     }
 }

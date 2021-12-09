@@ -19,9 +19,16 @@ namespace FinTracker
     /// </summary>
     public partial class AddExtraPayment : Window
     {
-        public AddExtraPayment()
+        ViewLoanPaymentsWindow _viewLoanPaymentsWindow;
+        Storage _storage;
+        public AddExtraPayment(ViewLoanPaymentsWindow viewLoanPaymentsWindow)
         {
             InitializeComponent();
+        }
+
+        private void ButtonCreateExtraPayment_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

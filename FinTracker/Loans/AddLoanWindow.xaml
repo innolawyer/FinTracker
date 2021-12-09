@@ -22,7 +22,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
+            
 
         </Grid.RowDefinitions>
         <DatePicker x:Name="DatePickerLoanStart"  Margin="75,0,74,0" Grid.ColumnSpan="2" FirstDayOfWeek="Monday" Height="26"/>
@@ -37,12 +37,9 @@
         <ComboBox x:Name="ComboBoxLoanStatus" Grid.Column="1" HorizontalAlignment="Left" Margin="40,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="120" SelectedIndex="1" Height="25"/>
         <TextBlock Height="16" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Text=" Сумма" FontWeight="Bold" FontSize="12" Width="44"/>
         <TextBox x:Name="TextBoxLoanAmount" Grid.Column="1" Margin="40,0,0,0" Grid.Row="5" TextWrapping="Wrap" Height="19" VerticalAlignment="Center" Width="120" HorizontalAlignment="Left"/>
-        <TextBlock Height="18" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" Width="74"><Run Language="ru-ru" Text="Выплачено" FontWeight="Bold" FontSize="12"/></TextBlock>
         <TextBlock x:Name="TextBlocRemainingTerm" Height="21" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="147" Margin="0,10,0,0" Grid.ColumnSpan="2"><Run Language="ru-ru" Text="   "/><Run Text="Осталось" FontWeight="Bold" FontSize="12"/> <Run Text="платежей" FontWeight="Bold" FontSize="12"/></TextBlock>
         <TextBox x:Name="TextBoxRemainingTerm" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Height="22" VerticalAlignment="Center" HorizontalAlignment="Left" Width="120" Margin="40,0,0,0" Text="0"/>
         <ComboBox x:Name="ComboBoxLoanAsset" Grid.Column="1" HorizontalAlignment="Left" Margin="40,0,0,0" Grid.Row="1" VerticalAlignment="Center" Width="120"/>
         <TextBlock Grid.Row="1" TextWrapping="Wrap" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30"><Run Language="ru-ru" Text="Счет" FontWeight="Bold" FontSize="12"/></TextBlock>
-        <Label x:Name="LabelAmountOfPaid" Grid.Column="1" Content="0" HorizontalAlignment="Left" Margin="22,3,0,0" Grid.Row="8" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Top" HorizontalContentAlignment="Center"/>
-        <Button x:Name="ButtonViewLoanPayments" Background="#00BB3F" Grid.Column="1" Content="подробнее" HorizontalAlignment="Left" Margin="86,3,0,0" Grid.Row="8" VerticalAlignment="Top" FontSize="10" Height="23" Click="ButtonViewLoanPayments_Click"/>
     </Grid>
 </Window>

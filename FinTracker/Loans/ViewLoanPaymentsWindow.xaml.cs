@@ -23,5 +23,12 @@ namespace FinTracker
         {
             InitializeComponent();
         }
+
+        private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
+        {
+            AddExtraPayment addExtraPayment = new AddExtraPayment(this);
+            addExtraPayment.Show();
+        }
     }
+
 }

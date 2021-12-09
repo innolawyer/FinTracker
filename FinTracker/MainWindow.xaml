@@ -29,7 +29,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="GreenButtonStyle">
             <Setter Property="Control.Background" Value="#60D6A9"/>
             <Setter Property="Control.FontWeight" Value="Bold"/>
@@ -246,6 +246,7 @@
                     <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0" Grid.ColumnSpan="2">
                         <ListView.View>
                             <GridView>
+                                <GridViewColumn Header="ID"  DisplayMemberBinding="{Binding Id}"/>
                                 <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime}"/>
                                 <GridViewColumn Header="Кредитор"  DisplayMemberBinding="{Binding CreditorsName}"/>
                                 <GridViewColumn Header="%"  DisplayMemberBinding="{Binding Percent}"/>
@@ -265,6 +266,7 @@
                     <DatePicker HorizontalAlignment="Left" Margin="129,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
                     <TextBlock HorizontalAlignment="Left" Margin="10,34,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold"><Run Language="ru-ru" Text=" "/><Run Text="c"/></TextBlock>
                     <TextBlock HorizontalAlignment="Left" Margin="108,34,0,0" Grid.Row="2" TextWrapping="Wrap" Text="по" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold" Grid.Column="1"/>
+                    <Button  Grid.Row="0" x:Name="ButtonLoanPayments" Content="Платежи" Margin="502,20,215,20" Click="ButtonLoanPayments_Click" Width="132" Height="28" Background="#FFDDBDAC"/>
 
 
 
