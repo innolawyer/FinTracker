@@ -94,6 +94,7 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _mainWindow.IsEnabled = true;
+            _mainWindow.GetAccessToLoans();
         }
 
         private void ComboBoxChoiceAssetType_SelectionChanged(object sender, SelectionChangedEventArgs e)

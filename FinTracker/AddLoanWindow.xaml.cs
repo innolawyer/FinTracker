@@ -65,10 +65,6 @@ namespace FinTracker
 
         }        
 
-       
-
-        
-
         private void ButtonViewLoanPayments_Click(object sender, RoutedEventArgs e)
         {
             ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
