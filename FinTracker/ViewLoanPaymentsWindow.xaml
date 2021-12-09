@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="ViewLoanPaymentsWindow" Height="299" Width="284">
+        Title="ViewLoanPaymentsWindow" Height="369" Width="404">
     <Grid>
         <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,64,10,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Дата" Width="90"/>
-                    <GridViewColumn Header="Сумма" Width="90"/>
-                    <GridViewColumn Header="Цель" Width="90"/>
+                    <GridViewColumn Header="Дата" Width="100"/>
+                    <GridViewColumn Header="Сумма" Width="120"/>
+                    <GridViewColumn Header="Цель" Width="120"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="ButtonAddExtraPayment" Content="Добавить" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="ButtonEditExtraPayment" Content="Редактировать" HorizontalAlignment="Left" Margin="90,29,0,0" VerticalAlignment="Top" Width="90"/>
-        <Button x:Name="ButtonRemoveExtraPayment" Content="Удалить" HorizontalAlignment="Left" Margin="185,29,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="ButtonAddExtraPayment" Content="Добавить" HorizontalAlignment="Left" Margin="20,29,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ButtonEditExtraPayment" Content="Редактировать" HorizontalAlignment="Left" Margin="125,29,0,0" VerticalAlignment="Top" Width="144"/>
+        <Button x:Name="ButtonRemoveExtraPayment" Content="Удалить" HorizontalAlignment="Left" Margin="274,29,0,0" VerticalAlignment="Top" Width="100"/>
 
     </Grid>
 </Window>

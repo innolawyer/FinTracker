@@ -63,13 +63,13 @@ namespace FinTracker
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
 
-        }
-
-        
+        }        
 
        
 
-        private void ButtonSeeLoanPayments_Click(object sender, RoutedEventArgs e)
+        
+
+        private void ButtonViewLoanPayments_Click(object sender, RoutedEventArgs e)
         {
             ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
             viewLoanPaymentsWindow.Show();
