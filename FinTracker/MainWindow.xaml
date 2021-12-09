@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Домашняя бухгалтерия QQQ" Height="480" Width="855">
+        Title="Домашняя бухгалтерия QQQ" Height="530" Width="855">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#FFBB96"/>
@@ -104,39 +104,33 @@
         </Grid.RowDefinitions>
         <TabControl Margin="0,10,0,-34" Grid.RowSpan="3" Grid.ColumnSpan="3" >
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemUser"  Width="auto" Header="Пользователь">
-                <!--<TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="#FFBB73"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>-->
                 <Grid Background="AntiqueWhite">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="107*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="36*"/>
-                        <ColumnDefinition Width="36*"/>
-                        <ColumnDefinition Width="46*"/>
-                        <ColumnDefinition Width="544*"/>
-                    </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="ComboBoxChangeUser" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxChangeUser_SelectionChanged" SelectedIndex="0" Grid.ColumnSpan="3"/>
-                    <TextBox x:Name="TextBoxUserName" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="17,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
-                    <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,102,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCreateNewUser_Click" Grid.ColumnSpan="3" Height="26">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
-                    <Button Style="{StaticResource RedButtonStyle}" x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,133,0,0" VerticalAlignment="Top" Width="120" Click="ButtonDeleteUser_Copy_Click" Grid.ColumnSpan="3" Height="26">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </Button.Resources>
-                    </Button>
+
+                    <Border MinWidth="400" Margin="15" Background="White" VerticalAlignment="Center" Padding="30" MaxWidth="600" CornerRadius="20">
+                        <Grid Margin="141,0,0,0" HorizontalAlignment="Left" Width="231">
+                            <ComboBox x:Name="ComboBoxChangeUser" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="17,27,0,0" VerticalAlignment="Top" Width="204" SelectionChanged="ComboBoxChangeUser_SelectionChanged" SelectedIndex="0"/>
+                            <TextBox x:Name="TextBoxUserName" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="17,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="204"/>
+                            <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonCreateNewUser" Content="Создать" HorizontalAlignment="Left" Margin="17,110,0,0" VerticalAlignment="Top" Width="204" Click="ButtonCreateNewUser_Click" Height="26">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button Style="{StaticResource RedButtonStyle}" x:Name="ButtonDeleteUser_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="17,141,0,0" VerticalAlignment="Top" Width="204" Click="ButtonDeleteUser_Copy_Click" Height="26">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+
+                        </Grid>
+                    </Border>
+                    <Label Content="Домашняя бухгалтерия QQQ" FontSize="24" Foreground="#800000" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
+
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAssets" Header="Счета" Width="auto" VerticalAlignment="Center" Margin="-1,0,-3,0" Height="22">
                 <Grid Background="AntiqueWhite" Margin="0,0,-2,0" >
                     <Grid.RowDefinitions>
@@ -284,6 +278,48 @@
 
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
+
+                <Grid Background="AntiqueWhite">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250*"/>
+                        <ColumnDefinition Width="349*"/>
+                        <ColumnDefinition Width="250*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Width="104" Height="32"/>
+                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="125,10,0,0" VerticalAlignment="Top" Height="32" Width="104"/>
+                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,47,0,0" VerticalAlignment="Top" Height="31" Width="126"/>
+                    <Label Grid.Column="1" Content="Добавить вклад" FontSize="13" FontWeight="Bold" HorizontalAlignment="Left" Margin="114,9,0,0" VerticalAlignment="Top"/>
+                    <Label Grid.Column="1" Content="Сумма" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="48,38,0,0" VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="1" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Center" Margin="0,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                    <DatePicker x:Name="DatePickerDepositStart" Background="White" BorderBrush="#e38b75" Grid.Column="1" HorizontalAlignment="Center" Margin="0,68,0,0" VerticalAlignment="Top" Width="120" Height="32">
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#61B4CF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <CheckBox Background="#e38b75" Grid.Column="1" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="38,183,0,0" VerticalAlignment="Top" Width="166"/>
+                    <CheckBox Background="#e38b75" Grid.Column="1" Content="Сложный %" HorizontalAlignment="Left" Margin="38,229,0,0" VerticalAlignment="Top" Width="196"/>
+                    <CheckBox Background="#e38b75" Grid.Column="1" Content="Простой %" HorizontalAlignment="Left" Margin="38,252,0,0" VerticalAlignment="Top"/>
+                    <CheckBox Background="#e38b75" Grid.Column="1" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="38,206,0,0" VerticalAlignment="Top" Width="196"/>
+                    <DatePicker x:Name="DatePickerDepositEnd" Background="White" BorderBrush="#e38b75" Grid.Column="1" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top" Width="120">
+                        <DatePicker.CalendarStyle>
+                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
+                                <Style.Resources>
+                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#61B4CF" />
+                                </Style.Resources>
+                            </Style>
+                        </DatePicker.CalendarStyle>
+                    </DatePicker>
+                    <Label Grid.Column="1" Content="Дата открытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="3,72,0,0" VerticalAlignment="Top"/>
+                    <Label Grid.Column="1" Content="Дата закрытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="3,110,0,0" VerticalAlignment="Top"/>
+                    <Label Grid.Column="1" Content="Комментарий" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
+                    <TextBox Grid.Column="1" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="10,315,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" Height="63"/>
+                    <Button Style="{StaticResource GreenButtonStyle}" Grid.Column="1" Content="Подтвердить" HorizontalAlignment="Left" Margin="50,397,0,0" VerticalAlignment="Top" Height="36" Width="144"/>
+                    <Label Grid.Column="2" Content="История операций по вкладу" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
+                </Grid>
 
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
