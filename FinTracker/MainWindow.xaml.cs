@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,17 +31,16 @@ namespace FinTracker
             
             FillingComboBoxUser();
             ComboBoxChangeUser_SelectionDone();
-            FillCategoriesIncome();
-            FillCategories();
+            //FillCategoriesIncome();
+            //FillCategories();
             FillAssetListBox();
             FillAssetsStackPanel();
             
             if (_storage.actualAsset == null)
             {
-                ButtonIncome.IsEnabled = false;
-                ButtonSpend.IsEnabled = false;
+                ButtonConfirmTransaction.IsEnabled = false;
+                ButtonConfirmTransaction.IsEnabled = false;
             }
-
         }
 
         public void FillingComboBoxUser()
@@ -63,36 +62,66 @@ namespace FinTracker
             _storage.actualTransaction = _storage.actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
         }
 
-        public void FillCategoriesIncome()
-        {
-            ComboBoxCategoriesIncome.Items.Clear();
-            if (_storage.actualUser != null)
-            {
-                foreach (string category in _storage.actualUser.CategoriesIncome)
-                {
-                    ComboBoxCategoriesIncome.Items.Add(category);
-                }
-            }
-        }
 
         public void FillAssetListBox()
-        {
-            ComboBoxListAsset.Items.Clear();
-            if (_storage.actualUser != null)
-            {
-                foreach (Asset asset in _storage.actualUser.Assets)
-                {
-                    ComboBoxListAsset.Items.Add(asset.Name);
-                }
-            }
-        }
-
-        public void FillCategories()
         {
             ComboBoxCategoriesTransaction.Items.Clear();
             if (_storage.actualUser != null)
             {
-                foreach (string category in _storage.actualUser.CategoriesSpend)
+                foreach (Asset asset in _storage.actualUser.Assets)
+                {
+                    ComboBoxCategoriesTransaction.Items.Add(asset.Name);
+                }
+            }
+        }
+
+        //public void FillTransactionCategories()
+        //{
+        //    if(RadioButtonIncome.IsChecked == true)
+        //    {
+        //        ComboBoxCategoriesTransaction.Items.Clear();
+        //        if (_storage.actualUser != null)
+        //        {
+        //            foreach (string category in _storage.actualUser.CategoriesIncome)
+        //            {
+        //                ComboBoxCategoriesTransaction.Items.Add(category);
+        //            }
+        //        }
+        //    }
+        //    else if(RadioButtonСonsumption.IsChecked == true)
+        //    {
+        //        if (_storage.actualUser != null)
+        //        {
+        //            foreach (string category in _storage.actualUser.CategoriesSpend)
+        //            {
+        //                ComboBoxCategoriesTransaction.Items.Add(category);
+        //            }
+        //        }
+        //    }
+        //    else if(RadioButtonTransfer.IsChecked == true)
+        //    {
+
+        //    }
+        //}
+
+        //public void FillCategoriesIncome()
+        //{
+        //    ComboBoxCategoriesTransaction.Items.Clear();
+        //    if (_storage.actualUser != null)
+        //    {
+        //        foreach (string category in _storage.actualUser.CategoriesIncome)
+        //        {
+        //            ComboBoxCategoriesTransaction.Items.Add(category);
+        //        }
+        //    }
+        //}
+
+        public void FillCategories(List <string> listCategories)
+        {
+            ComboBoxCategoriesTransaction.Items.Clear();
+            if (_storage.actualUser != null)
+            {
+                foreach (string category in listCategories)
                 {
                     ComboBoxCategoriesTransaction.Items.Add(category);
                 }
@@ -118,6 +147,14 @@ namespace FinTracker
             TextBoxAmount.Text = _storage.actualTransaction.Amount.ToString();
             ComboBoxCategoriesTransaction.Text = _storage.actualTransaction.Category.ToString();
             TextBoxComment.Text = _storage.actualTransaction.Comment.ToString();
+            if (_storage.actualTransaction.Sign == Storage.sign.income)
+            {
+                RadioButtonIncome.IsChecked = true;
+            }
+            else if (_storage.actualTransaction.Sign == Storage.sign.spend)
+            {
+                RadioButtonСonsumption.IsChecked = true;
+            }
         }
 
         public void SetActualAsset(object sender, RoutedEventArgs e)
@@ -148,17 +185,17 @@ namespace FinTracker
         {
             if (_storage.actualAsset == null)
             {
-                ButtonIncome.IsEnabled = false;
-                ButtonSpend.IsEnabled = false;
+                ButtonConfirmTransaction.IsEnabled = false;
+                ButtonConfirmTransaction.IsEnabled = false;
             }
             else
             {
-                ButtonIncome.IsEnabled = true;
-                ButtonSpend.IsEnabled = true;
+                ButtonConfirmTransaction.IsEnabled = true;
+                ButtonConfirmTransaction.IsEnabled = true;
             }
         }
 
-        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e) //!!!
+        private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
             {
@@ -186,49 +223,49 @@ namespace FinTracker
             LabelCurrentAmount.Content = "";
             StackPanelTransactionList.Children.Clear();
             _storage.actualAsset = null;
-            ButtonIncome.IsEnabled = false;
-            ButtonSpend.IsEnabled = false;
+            ButtonConfirmTransaction.IsEnabled = false;
+            ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox();
             
         }
 
-        private void ButtonSpend_Click(object sender, RoutedEventArgs e)
-        {
-            if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
-            {
-                Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
-                                        Convert.ToDateTime(DatePickerTransaction.Text),
-                                        TextBoxComment.Text,
-                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
-                _storage.actualAsset.AddTransactions(nTransaction);
-                Button nTransactionButton = new Button();
-                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
-                nTransactionButton.Click += CurrentTransaction;
-                nTransactionButton.Click += SetTransactionData;
-                StackPanelTransactionList.Children.Add(nTransactionButton);
-                LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
-            }
-            else
-            {
-                MessageBox.Show("Сумма операции превышает остаток по выбранному счету");
-            }
-        }
+        //private void ButtonSpend_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+        //    {
+        //        Transaction nTransaction = new Transaction("-", Convert.ToDouble(TextBoxAmount.Text),
+        //                                Convert.ToDateTime(DatePickerTransaction.Text),
+        //                                TextBoxComment.Text,
+        //                                (string)ComboBoxCategoriesTransaction.SelectedValue);
+        //        _storage.actualAsset.AddTransactions(nTransaction);
+        //        Button nTransactionButton = new Button();
+        //        nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+        //        nTransactionButton.Click += CurrentTransaction;
+        //        nTransactionButton.Click += SetTransactionData;
+        //        StackPanelTransactionList.Children.Add(nTransactionButton);
+        //        LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Сумма операции превышает остаток по выбранному счету");
+        //    }
+        //}
 
-        private void ButtonIncome_Click(object sender, RoutedEventArgs e)
-        {
-            Transaction nTransaction = new Transaction("+", Convert.ToDouble(TextBoxAmount.Text),
-                                        Convert.ToDateTime(DatePickerTransaction.Text),
-                                        TextBoxComment.Text,
-                                        (string)ComboBoxCategoriesIncome.SelectedValue);
-            _storage.actualAsset.AddTransactions(nTransaction);
-            Button nTransactionButton = new Button();
-            nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
-            nTransactionButton.Click += CurrentTransaction;
-            nTransactionButton.Click += SetTransactionData;
-            StackPanelTransactionList.Children.Add(nTransactionButton);
-            LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
-        }
+        //private void ButtonIncome_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Transaction nTransaction = new Transaction("+", Convert.ToDouble(TextBoxAmount.Text),
+        //                                Convert.ToDateTime(DatePickerTransaction.Text),
+        //                                TextBoxComment.Text,
+        //                                (string)ComboBoxCategoriesTransaction.SelectedValue);
+        //    _storage.actualAsset.AddTransactions(nTransaction);
+        //    Button nTransactionButton = new Button();
+        //    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+        //    nTransactionButton.Click += CurrentTransaction;
+        //    nTransactionButton.Click += SetTransactionData;
+        //    StackPanelTransactionList.Children.Add(nTransactionButton);
+        //    LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
+        //}
 
         private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)
         {
@@ -240,26 +277,37 @@ namespace FinTracker
         {
             _storage.actualAsset.DeleteTransaction(_storage.actualTransaction);
             FillingTransactionsStackPanel(sender,e);
+            LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
-        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)      // сделать что-то с доход и расход
+        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)  // сделать что-то с доход и расход
         {
-            _storage.actualTransaction.EditTransaction(Convert.ToDouble(TextBoxAmount.Text), Convert.ToDateTime(DatePickerTransaction.Text), TextBoxComment.Text, ComboBoxCategoriesTransaction.Text);
+            Storage.sign sign = Storage.sign.income;
+
+            if (RadioButtonСonsumption.IsChecked == true)
+            {
+                sign = Storage.sign.spend;
+            }
+
+            _storage.actualTransaction.EditTransaction(sign, Convert.ToDouble(TextBoxAmount.Text),
+                                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                                        TextBoxComment.Text,
+                                                        ComboBoxCategoriesTransaction.Text);
             FillingTransactionsStackPanel(sender, e);
-            LabelCurrentAmount.Content = _storage.actualAsset.GetAmount().ToString();
+            LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
         private void ComboBoxChangeUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             _storage.actualUser = _storage.GetUserByName(((string)ComboBoxChangeUser.SelectedValue));
             _storage.actualAsset = null;  // Так можно?
-            ButtonIncome.IsEnabled = false;
-            ButtonSpend.IsEnabled = false;
+            ButtonConfirmTransaction.IsEnabled = false;
+            ButtonConfirmTransaction.IsEnabled = false;
             StackPanelAssetList.Children.Clear();
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
-            FillCategories();
-            FillCategoriesIncome();
+            //FillCategories();
+            //FillCategoriesIncome();
             FillAssetsStackPanel();
         }
 
@@ -281,54 +329,60 @@ namespace FinTracker
                 TabItemPlanning.IsEnabled = true;
                 TabItemDeposits.IsEnabled = true;
             }
+            LabelCurrentAmount.Content = "";
         }
 
-        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
-        {
-            _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-            FillCategories();
-        }
+        //private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+        //    //FillCategories();
+        //}
+
+        //private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AddCategories addCategories = new AddCategories(this);
+        //    addCategories.Show();
+        //}
+
+        //private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
+        //{
+        //    AddCategories addCategoriesIncome = new AddCategories(this);
+        //    addCategoriesIncome.Show();
+        //}
+
+        //private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+        //    //FillCategoriesIncome();
+        //}
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
         {
-            AddCategories addCategories = new AddCategories(this);
-            addCategories.Show();
+                AddCategories addCategories = new AddCategories(this);
+                addCategories.Show();
         }
 
-        
+        //private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (_storage.actualAsset != null)
+        //    {
+        //        if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+        //        {
+        //            Asset crntAsset = _storage.actualAsset;
+        //            ButtonSpend_Click(_storage.actualAsset, e);
+        //            _storage.actualAsset = _storage.actualUser.GetAssetByName(ComboBoxCategoriesTransaction.Text);
+        //            ButtonIncome_Click(_storage.actualAsset, e);
+        //            _storage.actualAsset = crntAsset;
+        //            FillingTransactionsStackPanel(sender, e);
+        //            LabelCurrentAmount.Content = _storage.actualAsset.GetAmount();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("На выбранном счету недостаточно средств для перевода");
+        //        }
+        //    }
+        //}
 
-        private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
-        {
-            AddCategoriesIncome addCategoriesIncome = new AddCategoriesIncome(this);
-            addCategoriesIncome.Show();
-        }
-
-        private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
-        {
-            _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesIncome.SelectedValue);
-            FillCategoriesIncome();
-        }
-
-        private void ButtonTransfer_Click(object sender, RoutedEventArgs e)
-        {
-            if (_storage.actualAsset != null)
-            {
-                if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
-                {
-                    Asset crntAsset = _storage.actualAsset;
-                    ButtonSpend_Click(_storage.actualAsset, e);
-                    _storage.actualAsset = _storage.actualUser.GetAssetByName(ComboBoxListAsset.Text);
-                    ButtonIncome_Click(_storage.actualAsset, e);
-                    _storage.actualAsset = crntAsset;
-                    FillingTransactionsStackPanel(sender, e);
-                    LabelCurrentAmount.Content = _storage.actualAsset.GetAmount();
-                }
-                else
-                {
-                    MessageBox.Show("На выбранном счету недостаточно средств для перевода");
-                }
-            }
-        }
 
         private void ButtoanAddLoan_Click(object sender, RoutedEventArgs e)
         {
@@ -336,6 +390,92 @@ namespace FinTracker
             addLoanWindow.Show();
         }
 
-        
+        private void ComboBoxListAsset_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBoxCategoriesTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBoxComment_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ButtoanRemoveLoan_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void RadioButtonIncome_Click(object sender, RoutedEventArgs e)
+        {
+            FillCategories(_storage.actualUser.CategoriesIncome);
+        }
+
+        private void RadioButtonСonsumption_Click(object sender, RoutedEventArgs e)
+        {
+            FillCategories(_storage.actualUser.CategoriesSpend);
+        }
+
+        private void RadioButtonTransfer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
+        {
+            if(RadioButtonIncome.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesIncome);
+            }
+            else if(RadioButtonСonsumption.IsChecked == true)
+            {
+                _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
+                FillCategories(_storage.actualUser.CategoriesSpend);
+            }
+        }
+
+        private void ButtonConfirmTransaction_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (RadioButtonСonsumption.IsChecked == true)
+            {
+                if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                {
+                    Transaction nTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
+                    _storage.actualAsset.AddTransactions(nTransaction);
+
+                    Button nTransactionButton = new Button();
+                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                    nTransactionButton.Click += CurrentTransaction;
+                    nTransactionButton.Click += SetTransactionData;
+                    StackPanelTransactionList.Children.Add(nTransactionButton);
+                    LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+                }
+            }
+
+            else if (RadioButtonIncome.IsChecked == true)
+            {
+                Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
+                                    Convert.ToDateTime(DatePickerTransaction.Text),
+                                    TextBoxComment.Text,
+                                    (string)ComboBoxCategoriesTransaction.SelectedValue);
+
+                _storage.actualAsset.AddTransactions(nTransaction);
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                nTransactionButton.Click += CurrentTransaction;
+                nTransactionButton.Click += SetTransactionData;
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+                LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
+            }
+        }
     }
 }

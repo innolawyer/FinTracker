@@ -5,19 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="Создать новый счет" Height="359" Width="289" Closed="Window_Closed">
-    <Grid>
-        <TextBox x:Name="TextBoxAssetName" HorizontalAlignment="Center" Margin="0,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="Счет"/>
-        <TextBox x:Name="TextBoxAmount" HorizontalAlignment="Center" Margin="0,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0" GotFocus="TextBoxAmount_GotFocus"/>
-        <Button x:Name="ButtonCreateAsset" Content="Создать" HorizontalAlignment="Center" Margin="0,286,0,0" VerticalAlignment="Top" Width="236" Click="ButtonCreateAsset_Click"/>
-        <TextBox x:Name="TextBoxYearInterest" HorizontalAlignment="Center" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0"/>
-        <TextBox x:Name="TextBoxMonthFee" HorizontalAlignment="Center" Margin="0,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.528,-0.254" Text="0"/>
-        <TextBox x:Name="TextBoxFixCashback" HorizontalAlignment="Center" Margin="0,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0"/>
-        <Label Content="Текущее состояние" HorizontalAlignment="Left" Margin="26,60,0,0" VerticalAlignment="Top"/>
-        <Label Content="Процент на остаток" HorizontalAlignment="Left" Margin="26,104,0,0" VerticalAlignment="Top"/>
-        <Label Content="Обслуживание" HorizontalAlignment="Left" Margin="26,149,0,0" VerticalAlignment="Top"/>
-        <Label Content="Кэшбек на все покупки" HorizontalAlignment="Left" Margin="26,193,0,0" VerticalAlignment="Top"/>
-        <Label Content="Название счета" HorizontalAlignment="Center" Margin="0,17,0,0" VerticalAlignment="Top" Width="236"/>
+        Title="Создать новый счет" Height="370" Width="289" Closed="Window_Closed">
+    <Grid Background="AntiqueWhite">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="81*"/>
+            <ColumnDefinition Width="208*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="TextBoxAssetName" HorizontalAlignment="Left" Margin="26,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="Счет" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxAmount" HorizontalAlignment="Left" Margin="26,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0" GotFocus="TextBoxAmount_GotFocus" Grid.ColumnSpan="2"/>
+        <Button x:Name="ButtonCreateAsset" Content="Создать" Background="#60D6A9" BorderBrush="#35D699" FontWeight="Bold" FontSize="15" HorizontalAlignment="Left" Margin="26,286,0,0" VerticalAlignment="Top" Width="236" Click="ButtonCreateAsset_Click" Grid.ColumnSpan="2">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBox x:Name="TextBoxYearInterest" HorizontalAlignment="Left" Margin="26,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxMonthFee" HorizontalAlignment="Left" Margin="26,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" RenderTransformOrigin="0.528,-0.254" Text="0" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxFixCashback" HorizontalAlignment="Left" Margin="26,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236" Text="0" Grid.ColumnSpan="2"/>
+        <Label Content="Текущее состояние" FontWeight="Bold" HorizontalAlignment="Left" Margin="26,68,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Процент на остаток" FontWeight="Bold" HorizontalAlignment="Left" Margin="26,118,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Обслуживание" FontWeight="Bold" HorizontalAlignment="Left" Margin="26,167,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Кэшбек на все покупки" FontWeight="Bold" HorizontalAlignment="Left" Margin="26,216,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label Content="Название счета" FontWeight="Bold" HorizontalAlignment="Left" Margin="26,17,0,0" VerticalAlignment="Top" Width="236" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>

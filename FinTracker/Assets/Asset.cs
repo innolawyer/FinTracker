@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +9,11 @@ namespace FinTracker
     public class Asset
     {
         public string Name; //Название
-        public double Amount; //Состояние счета
-        public double YearInterest; //Процент на остаток // узать как считаеться
-        public List<string> CashbackCategories; //категории с повышенным кэшбэком
-        public double FixCashback;
-        public double ServiceFee;
+        public double Amount; //Состояние счета       
         public List<Transaction> Transactions = new List<Transaction>();
+        private double _StartAmount; //Стартовое состояние счета
 
-        private double _StartAmount; //Состояние счета
-
-        public Asset(string name, double amount) // конструктор для бумагжных денег
+        public Asset(string name, double amount)
         {
             Name = name;
             Amount = amount;
@@ -30,21 +25,16 @@ namespace FinTracker
             double result = _StartAmount;
             foreach (Transaction transaction in Transactions)
             {
-                if (transaction.Sign == "+")
+                if (transaction.Sign == Storage.sign.income)
                 {
                     result += transaction.Amount;
                 }
-                else if (transaction.Sign == "-")
+                else if (transaction.Sign == Storage.sign.spend)
                 {
                     result -= transaction.Amount;
                 }
             }
             return result;
-        }
-
-        public void EditTransaction(Transaction transaction)
-        {
-
         }
 
         public void AddTransactions(Transaction nTransaction)
