@@ -29,7 +29,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <Style x:Key="GreenButtonStyle">
             <Setter Property="Control.Background" Value="#60D6A9"/>
             <Setter Property="Control.FontWeight" Value="Bold"/>
@@ -240,9 +240,18 @@
                         <RowDefinition/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Button Style="{StaticResource GreenButtonStyle}" Grid.Row="0" x:Name="ButtoanAddLoan" Content="Добавить" Margin="29,19,632,21" Click="ButtoanAddLoan_Click" Width="132" Height="28" Grid.ColumnSpan="2"/>
-                    <Button Style="{StaticResource BlueButtonStyle}" Grid.Row="0" x:Name="ButtoanEditLoan" Content="Изменить" Margin="184,20,495,20" Width="132" Height="28" Grid.Column="1"/>
-                    <Button Style="{StaticResource RedButtonStyle}" Grid.Row="0" x:Name="ButtoanRemoveLoan" Content="Удалить" HorizontalAlignment="Left" Margin="352,20,0,20" Width="132" Height="28" Grid.Column="1" Click="ButtoanRemoveLoan_Click"/>
+                    <Grid x:Name="LoanButtons" Margin="0,20,0,0" HorizontalAlignment="Center" Width="567">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150*"/>
+                            <ColumnDefinition Width="150*"/>
+                            <ColumnDefinition Width="150*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{StaticResource GreenButtonStyle}" Grid.Column="0" x:Name="ButtoanAddLoan" Content="Добавить" Width="132" Height="28" Click="ButtoanAddLoan_Click"/>
+                        <Button Style="{StaticResource BlueButtonStyle}" Grid.Column="1" x:Name="ButtoanEditLoan" Content="Изменить" Width="132" Height="28"/>
+                        <Button Style="{StaticResource RedButtonStyle}" Grid.Column="2" x:Name="ButtoanRemoveLoan" Content="Удалить" Width="132" Height="28" Click="ButtoanRemoveLoan_Click"/>
+
+                    </Grid>
                     <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0" Grid.ColumnSpan="2">
                         <ListView.View>
                             <GridView>
@@ -262,9 +271,9 @@
                     </ListView>
                     <CheckBox x:Name="CheckBoxLoanFilter" Content="Фильтр" Background="#e38b75" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                     <DatePicker HorizontalAlignment="Left" Margin="26,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="129,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
+                    <DatePicker HorizontalAlignment="Left" Margin="162,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
                     <TextBlock HorizontalAlignment="Left" Margin="10,34,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold"><Run Language="ru-ru" Text=" "/><Run Text="c"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="108,34,0,0" Grid.Row="2" TextWrapping="Wrap" Text="по" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold" Grid.Column="1"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="145,34,0,0" Grid.Row="2" TextWrapping="Wrap" Text="по" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold" Grid.Column="1"/>
 
 
 
