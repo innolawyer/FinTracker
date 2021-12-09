@@ -62,7 +62,6 @@ namespace FinTracker
             {
                 MessageBox.Show("Счет с таким именем уже существует");
             }
-            
         }
 
         private void Window_Closed(object sender, EventArgs e)
