@@ -246,15 +246,16 @@
                     <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0" Grid.ColumnSpan="2">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Дата" Width="auto" DisplayMemberBinding="{Binding DateTime}"/>
-                                <GridViewColumn Header="Кредитор" Width="auto" DisplayMemberBinding="{Binding CreditorsName}"/>
-                                <GridViewColumn Header="%" Width="auto" DisplayMemberBinding="{Binding Percent}"/>
-                                <GridViewColumn Header="Период" Width="auto" DisplayMemberBinding="{Binding Period}"/>
-                                <GridViewColumn Header="Статус" Width="auto" DisplayMemberBinding="{Binding Status}"/>
-                                <GridViewColumn Header="Осталось платежей" Width="auto" DisplayMemberBinding="{Binding RemainingTerm}"/>
-                                <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" Width="auto"/>
-                                <GridViewColumn Header="Возвращено" Width="auto" DisplayMemberBinding="{Binding AmountOfReturned}"/>
-                                <GridViewColumn Header="Остаток" Width="auto" DisplayMemberBinding="{Binding RemainingAmount}"/>
+                                <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime}"/>
+                                <GridViewColumn Header="Кредитор"  DisplayMemberBinding="{Binding CreditorsName}"/>
+                                <GridViewColumn Header="%"  DisplayMemberBinding="{Binding Percent}"/>
+                                <GridViewColumn Header="Период (мес.)"  DisplayMemberBinding="{Binding Period}"/>
+                                <GridViewColumn Header="Статус"  DisplayMemberBinding="{Binding Status}"/>
+                                <GridViewColumn Header="Осталось платежей"  DisplayMemberBinding="{Binding RemainingTerm}"/>
+                                <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
+                                <GridViewColumn Header="Возвращено"  DisplayMemberBinding="{Binding AmountOfReturned}"/>
+                                <GridViewColumn Header="Остаток"  DisplayMemberBinding="{Binding RemainingAmount}"/>
+                                <GridViewColumn Header="Платёж"  DisplayMemberBinding="{Binding MonthlyPaymentRounded}"/>
                             </GridView>
                         </ListView.View>
 

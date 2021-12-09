@@ -9,31 +9,93 @@ namespace FinTracker
     public class Loan
     {        
 
-        public DateTime DateTime { get; set; }
+        public DateTime PreviousPaymentDateTime { get; set;}        
+        public DateTime ActualPaymentDateTime { get; set; }
+        public DateTime NextPaymentDateTime { get; set;}      //нужно ли?  
+        public DateTime LastPaymentDateTime { get; set;}        
+        public Asset Asset { get; set; }
         public string CreditorsName { get; set; }
         public double Percent { get; set; }
         public double Period { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; }        
         public double Amount { get; set; }
+        public double TotalAmountOfPercents { get; set; }
+        public double TotalAmountOfLoan { get; set; }
+        public double RemainingAmountOfPercents { get; set; }
         public double AmountOfReturned { get; set; }        
         public double RemainingTerm { get; set; }
         public double RemainingAmount { get; set; }
+        public double MonthlyPayment { get; set; }
+        public double MonthlyPaymentRounded { get; set; }
+        public double TotalAmountOfExtraPaymentsDoneBetweenDates { get; set; }
+        public double TotalAmountOfExtraPaymentsDoneInDateOfPayment { get; set; }
+        
 
-        public Loan (DateTime dateTime, string creditorsName,
+        public Loan (Asset asset, DateTime actualPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
                     double remainingTerm,
                     double amount, double amountOfReturned)
         {
-            DateTime = dateTime;
+            Asset = asset;
+            PreviousPaymentDateTime = actualPaymentDateTime.AddMonths(-1);
+            ActualPaymentDateTime = actualPaymentDateTime;
+            NextPaymentDateTime = actualPaymentDateTime.AddMonths(1);
+            LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(period));
             CreditorsName = creditorsName;
             Percent = percent;
             Period = period;
             Status = status;
             RemainingTerm = remainingTerm;            
             Amount = amount;
+            TotalAmountOfPercents = Amount * ((Percent / 1200) * Period);
+            TotalAmountOfLoan = Amount + TotalAmountOfPercents;
             AmountOfReturned = amountOfReturned;
-            RemainingAmount = Amount - AmountOfReturned ;
+            RemainingAmount = Amount - AmountOfReturned;
+            RemainingAmountOfPercents = RemainingAmount * (Percent / 100);
+            MonthlyPayment = Amount * ((Percent/1200) / (1-Math.Pow((1+(Percent/1200)), -Period)));
+            MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
+            TotalAmountOfExtraPaymentsDoneBetweenDates = 0;
+            TotalAmountOfExtraPaymentsDoneInDateOfPayment = 0;
+        }
 
+        //привязать актуальную дату к программе
+        public void DoRegularPayment ()
+        {          
+
+            while (ActualPaymentDateTime != LastPaymentDateTime)
+            {
+                if (DateTime.Today == ActualPaymentDateTime)
+                {
+                    TotalAmountOfLoan -= MonthlyPayment;
+                }
+            }    
+            
+        }
+
+
+        //метод досрочного погашения, уменьшающий ежемесячный платёж
+        public void DoExtraPaymentToDecreasePayment (DateTime extraPaymentDate, double extraPaymentAmount, string extraPaymentPurpose)
+        {
+            double daylyPercent = (Percent / 1200) / (ActualPaymentDateTime-PreviousPaymentDateTime).TotalDays; //вычисляем дневную процентную ставку в текущем месячном промежутке
+            
+            if (extraPaymentDate != ActualPaymentDateTime)
+            {
+                if (extraPaymentAmount <= RemainingAmount && RemainingAmount > 0)
+                {
+                    double balanceForRepaymentOfLoanPercents = RemainingAmount * (((extraPaymentDate - ActualPaymentDateTime).TotalDays) * daylyPercent); //сколько из досрочного погашения уйдет на проценты
+                    double balanceForRepaymentOfLoanBody = extraPaymentAmount - balanceForRepaymentOfLoanPercents; //сколько из досрочного погашения уйдет на тело кредита
+                    AmountOfReturned += balanceForRepaymentOfLoanBody;
+                    MonthlyPayment = (Amount - balanceForRepaymentOfLoanBody) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
+                }
+            }
+            else
+            {
+                if (extraPaymentAmount <= RemainingAmount && RemainingAmount > 0)
+                {
+                    AmountOfReturned += extraPaymentAmount;
+                    MonthlyPayment = (Amount - extraPaymentAmount) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
+                }
+            }
         }
 
 
