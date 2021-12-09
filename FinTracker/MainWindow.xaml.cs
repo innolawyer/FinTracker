@@ -195,6 +195,21 @@ namespace FinTracker
             }
         }
 
+        public void GetAccessToLoans()
+        {
+            if (_storage.actualUser != null)
+            {
+                if (_storage.actualUser.Assets.Count != 0)
+                {
+                    TabItemLoans.IsEnabled = true;
+                }
+                else
+                {
+                    TabItemLoans.IsEnabled = false;
+                }
+            }
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
@@ -227,7 +242,7 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox();
-            
+            GetAccessToLoans();
         }
 
         //private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -271,6 +286,7 @@ namespace FinTracker
         {
             AddAssetWindow addAssetWindow = new AddAssetWindow(this);
             addAssetWindow.Show();
+            
         }
 
         private void ButtonDeleteTransaction_Click(object sender, RoutedEventArgs e)
@@ -309,6 +325,7 @@ namespace FinTracker
             //FillCategories();
             //FillCategoriesIncome();
             FillAssetsStackPanel();
+            GetAccessToLoans();
         }
 
         private void ComboBoxChangeUser_SelectionDone()
