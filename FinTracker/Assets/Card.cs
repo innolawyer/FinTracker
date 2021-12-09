@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
@@ -26,6 +27,7 @@ namespace FinTracker
        
         public Card(string name, double amount, double yearInterest, double fixCashback, double serviceFee, DateTime enrollDateCash, string periodEnrollCashbak ) : base(name, amount)
         {
+            calcer = new CardFVCalc();
             Name = name;
             Amount = amount;
             MinAmount = amount;
