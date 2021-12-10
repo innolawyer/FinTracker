@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Домашняя бухгалтерия QQQ" Height="530" Width="855">
+        Title="Домашняя бухгалтерия QQQ" Height="530" Width="855" Closed="Window_Closed">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#FFBB96"/>

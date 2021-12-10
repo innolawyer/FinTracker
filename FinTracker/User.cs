@@ -8,9 +8,9 @@ namespace FinTracker
 {
     public class User
     {
-        public string Name;
-        public List<string> CategoriesSpend;
-        public List<string> CategoriesIncome;
+        public string Name { get; set; }
+        public List<string> CategoriesSpend { get; set; }
+        public List<string> CategoriesIncome { get; set; }
         public List<Asset> Assets = new List<Asset>();
         public List<Loan> Loans = new List<Loan>();
 

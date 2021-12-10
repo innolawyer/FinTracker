@@ -25,6 +25,7 @@ namespace FinTracker
         public MainWindow()
         {
             InitializeComponent();
+            _storage.GetSave();
 
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
@@ -493,6 +494,11 @@ namespace FinTracker
                 StackPanelTransactionList.Children.Add(nTransactionButton);
                 LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _storage.Save();
         }
     }
 }
