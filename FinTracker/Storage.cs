@@ -25,7 +25,7 @@ namespace FinTracker
             income
         }
 
-        private string path = @"C:\Users\azaro\Desktop\QQQ.txt";
+        private string path = @".\QQQ.txt";
 
         Storage()
         {
