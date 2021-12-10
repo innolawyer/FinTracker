@@ -8,7 +8,7 @@ namespace FinTracker
 {
     public class Transaction
     {
-        public Storage _storage = Storage.GetStorage();
+        Storage _storage = Storage.GetStorage();
 
         public double Amount;
         public string Category;

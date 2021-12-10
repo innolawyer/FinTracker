@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+//using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace FinTracker
 {
@@ -21,6 +24,8 @@ namespace FinTracker
             spend,
             income
         }
+
+        private string path = @"C:\Users\azaro\Desktop\QQQ.txt";
 
         Storage()
         {
@@ -67,6 +72,39 @@ namespace FinTracker
                 }
             }
             return uniq;
+        }
+
+        public void Save()
+        {
+            //StreamWriter sw = new StreamWriter(path, false, Encoding.Default);
+            string str = JsonConvert.SerializeObject(Users, Formatting.Indented);
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
+            {
+                sw.WriteLine(str);
+                sw.Close();
+            }
+        }
+
+        public void GetSave()
+        {
+            string result = "";
+            try
+            {
+                using (StreamReader sr = new StreamReader(path, Encoding.Default))
+                {
+                    result = sr.ReadToEnd();
+                    sr.Close();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+
+            }
+            List<User> ?newClients = JsonConvert.DeserializeObject<List<User>>(result);
+            if (newClients is not null)
+            {
+                Users = newClients;
+            }
         }
     }
 }
