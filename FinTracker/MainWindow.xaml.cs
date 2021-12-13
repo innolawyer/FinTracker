@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
+using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 
 namespace FinTracker
@@ -24,17 +25,7 @@ namespace FinTracker
     {
         private Storage _storage = Storage.GetStorage();
 
-        SeriesCollection seriesCollection = new SeriesCollection
-        {
-            new LineSeries
-            {
-                Values = new ChartValues<double> { 3, 5, 7, 4 }
-            },
-            new ColumnSeries
-            {
-                Values = new ChartValues<decimal> { 5, 6, 2, 7 }
-            }
-        };
+
 
         public MainWindow()
         {
@@ -43,7 +34,7 @@ namespace FinTracker
 
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
-            
+
             FillingComboBoxUser();
             ComboBoxChangeUser_SelectionDone();
             //FillCategoriesIncome();
@@ -71,7 +62,46 @@ namespace FinTracker
                     }
                 }
             }
+
+            SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset("Рома", "Тинькофф");
+            //    new SeriesCollection
+            //{
+            //    new PieSeries
+            //    {
+            //        Title = "test1",
+            //        Values = new ChartValues<ObservableValue> {new ObservableValue(10)},
+            //        DataLabels = true
+            //    },
+            //    new PieSeries
+            //    {
+            //        Title = "test2",
+            //        Values = new ChartValues<ObservableValue> {new ObservableValue(100)},
+            //        DataLabels = true
+            //    },
+            //    new PieSeries
+            //    {
+            //        Title = "test3",
+            //        Values = new ChartValues<ObservableValue> {new ObservableValue(50)},
+            //        DataLabels = true
+            //    },
+            //    new PieSeries
+            //    {
+            //        Title = "test4",
+            //        Values = new ChartValues<ObservableValue> {new ObservableValue(25)},
+            //        DataLabels = true
+            //    },
+            //    new PieSeries
+            //    {
+            //        Title = "test5",
+            //        Values = new ChartValues<ObservableValue> {new ObservableValue(40)},
+            //        DataLabels = true
+            //    }
+            //};
+
+            DataContext = this;
         }
+
+        public SeriesCollection SeriesCollection { get; set;}
 
         public void FillingComboBoxUser()
         {

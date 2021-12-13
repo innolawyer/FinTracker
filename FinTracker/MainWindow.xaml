@@ -325,7 +325,10 @@
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
-                <lvc:CartesianChart Series="{Binding SeriesCollection}" />
+                <Grid>
+                    <lvc:PieChart LegendLocation ="Bottom" Hoverable="True" InnerRadius="100" Series="{Binding SeriesCollection}" Margin="0,106,815,151" />
+                    <ComboBox x:Name="ComboBoxAnalisysUsers" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="383"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>
