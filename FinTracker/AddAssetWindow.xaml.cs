@@ -21,7 +21,7 @@ namespace FinTracker
     {
         private Storage _storage = Storage.GetStorage();
         private MainWindow _mainWindow;
-        public AddAssetWindow (MainWindow mainWindow)        
+        public AddAssetWindow(MainWindow mainWindow)
         {
             InitializeComponent();
             DatePickerDateSpendServiceFee.SelectedDate = DateTime.Today;
@@ -29,10 +29,11 @@ namespace FinTracker
             DatePickerEnrollDateCash.SelectedDate = DateTime.Today;
             DatePickerEnrollDateCash.DisplayDateStart = DateTime.Today;
             DatePickerEnrollDateYearInterest.SelectedDate = DateTime.Today;
-            DatePickerEnrollDateYearInterest.DisplayDateStart= DateTime.Today;
+            DatePickerEnrollDateYearInterest.DisplayDateStart = DateTime.Today;
 
-            ComboBoxAssetType.Items.Add( "Карта");
+            ComboBoxAssetType.Items.Add("Карта");
             ComboBoxAssetType.Items.Add("Наличные");
+
             foreach (string category in _storage.actualUser.CategoriesSpend)
             {
                 ComboBoxCashCategory.Items.Add(category);
@@ -45,29 +46,27 @@ namespace FinTracker
             TextBoxMonthFee.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
 
             ButtonCreateAsset.IsEnabled = false;
-             
+
             _mainWindow = mainWindow;
             _mainWindow.IsEnabled = false;
-            ComboBoxChoiceAssetType.Items.Add("Карта");
-            ComboBoxChoiceAssetType.Items.Add("Наличные деньги");
         }
 
         private void TextBoxAmount_GotFocus(object sender, RoutedEventArgs e)
         {
-            ((TextBox)sender).Text = "";           
+            ((TextBox)sender).Text = "";
         }
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
-             {
+            {
                 User user = _storage.actualUser;
                 if (ComboBoxAssetType.SelectedItem.ToString() == "Наличные")
                 {
                     Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
                     user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
                 }
-             
+
                 if (ComboBoxAssetType.SelectedItem.ToString() == "Карта")
                 {
                     Card card = new Card(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
@@ -79,7 +78,7 @@ namespace FinTracker
                          Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
                 }
                 _mainWindow.FillAssetListBox();
-             
+
                 Button buttonAsset = new Button();
                 buttonAsset.Content = TextBoxAssetName.Text;
                 buttonAsset.Click += _mainWindow.SetActualAsset;
@@ -87,27 +86,8 @@ namespace FinTracker
                 buttonAsset.Click += _mainWindow.AddTransactionVisibility;
                 buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
 
-                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-                    this.Close();
-                }
-                else if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Наличные деньги")
-                {
-                    User user = _storage.actualUser;
-                    Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
-
-                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
-                                                        Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
-                    _mainWindow.FillAssetListBox();
-                    Button buttonAsset = new Button();
-                    buttonAsset.Content = TextBoxAssetName.Text;
-                    buttonAsset.Click += _mainWindow.SetActualAsset;
-                    buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
-                    buttonAsset.Click += _mainWindow.AddTransactionVisibility;
-                    buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
-
-                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-                    this.Close();
-                }
+                _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                this.Close();
             }
             else
             {
@@ -123,6 +103,7 @@ namespace FinTracker
 
         private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)
         {
+            Card card = (Card)_storage.actualAsset;
             //AddCategoryCashback(ComboBoxCashCategory.Text, TextBoxNewPercent);
         }
 
