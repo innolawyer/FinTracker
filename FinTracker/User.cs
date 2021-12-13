@@ -24,9 +24,16 @@ namespace FinTracker
             "Подарок", "Случайный доход" };
         }
 
-        public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) 
+        public void AddAsset(string name, double startAmount)
         {
-            Assets.Add(new Asset(name, startAmount)); // это бумажные деньги. Надом исправить как таока научимся делать другие счета
+            Assets.Add(new Asset(name, startAmount)); 
+        }
+
+        public void AddCard(string name, double startAmount, double yearInterest, double fixCashback, double serviceFee,
+            DateTime enrollDateCash, DateTime enrollDateYearInterest, DateTime dateSpendServiceFee)
+        {
+            Assets.Add(new Card(name, startAmount, yearInterest, fixCashback, serviceFee, enrollDateCash, 
+                     enrollDateYearInterest, dateSpendServiceFee));
         }
 
         public void DeleteAsset(Asset asset)

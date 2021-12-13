@@ -24,11 +24,25 @@ namespace FinTracker
         public AddAssetWindow (MainWindow mainWindow)        
         {
             InitializeComponent();
+            DatePickerDateSpendServiceFee.SelectedDate = DateTime.Today;
+            DatePickerDateSpendServiceFee.DisplayDateStart = DateTime.Today;
+            DatePickerEnrollDateCash.SelectedDate = DateTime.Today;
+            DatePickerEnrollDateCash.DisplayDateStart = DateTime.Today;
+            DatePickerEnrollDateYearInterest.SelectedDate = DateTime.Today;
+            DatePickerEnrollDateYearInterest.DisplayDateStart= DateTime.Today;
+
+            ComboBoxAssetType.Items.Add( "Карта");
+            ComboBoxAssetType.Items.Add("Наличные");
+            
             TextBoxAmount.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxAssetName.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxYearInterest.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxFixCashback.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxMonthFee.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
+
+            //ComboBoxPeriodEnrollSumYearInterest.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
+            //ComboBoxPeriodEnrollCashback.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
+            //ComboBoxPeriodSpendServiceFee.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
             _mainWindow = mainWindow;
             _mainWindow.IsEnabled = false;
         }
@@ -43,11 +57,24 @@ namespace FinTracker
             if (_storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
              {
                 User user = _storage.actualUser;
-                Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
-
-                user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
-                                                    Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
+                if (ComboBoxAssetType.SelectedItem.ToString() == "Наличные")
+                {
+                    Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
+                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
+                }
+             
+                if (ComboBoxAssetType.SelectedItem.ToString() == "Карта")
+                {
+                    Card card = new Card(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
+                        Convert.ToDouble(TextBoxYearInterest.Text), Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text),
+                        Convert.ToDateTime(DatePickerEnrollDateCash.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterest.Text), Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
+                    user.AddCard(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
+                         Convert.ToDouble(TextBoxYearInterest.Text), Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text),
+                         Convert.ToDateTime(DatePickerEnrollDateCash.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterest.Text),
+                         Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
+                }
                 _mainWindow.FillAssetListBox();
+             
                 Button buttonAsset = new Button();
                 buttonAsset.Content = TextBoxAssetName.Text;
                 buttonAsset.Click += _mainWindow.SetActualAsset;
@@ -67,6 +94,11 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _mainWindow.IsEnabled = true;
+        }
+
+        private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)
+        {
+            //AddCategoryCashback(ComboBoxCashCategory.Text, TextBoxNewPercent);
         }
     }
 }

@@ -6,34 +6,42 @@ using System.Threading.Tasks;
 
 namespace FinTracker
 {
-    internal class Card : Asset
+    public class Card : Asset
     {
+        private double _startAmount;
+
         public double YearInterest; //Процент на остаток // узать как считаеться
         public double SumYearInterest;
-        public string PeriodEnrollSumYearInterest;
         public DateTime EnrollDateYearInterest;
-        public List<string> CashbackCategories; //категории с повышенным кэшбэком
+        public double MinAmount;      
+
         public double FixCashback;
-        public double ServiceFee;
-        public double MinAmount;
         public DateTime EnrollDateCash; // дата выплаты кэшбека
-        public string PeriodEnrollCashbak;
+
+        public double ServiceFee;
+        public DateTime DateSpendServiceFee;
 
         public double Cashback = 0; // сумма кэшбека 
 
         public double Percent; // процент кэшбека
-        public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>(); //переводы жкх
+        public List<string> CashbackCategories; //категории с повышенным кэшбэком
+        public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>();
        
-        public Card(string name, double amount, double yearInterest, double fixCashback, double serviceFee, DateTime enrollDateCash, string periodEnrollCashbak ) : base(name, amount)
+        public Card (string name, double amount, 
+            double yearInterest, double fixCashback, double serviceFee, 
+            DateTime enrollDateCash, DateTime enrollDateYearInterest, 
+            DateTime dateSpendServiceFee) : base(name, amount)
         {
             Name = name;
             Amount = amount;
+            _startAmount = amount;
             MinAmount = amount;
-            ServiceFee = serviceFee; // год или месяц?
-            YearInterest = yearInterest /100;
-            FixCashback = fixCashback;
-            EnrollDateCash = enrollDateCash;
-            PeriodEnrollCashbak = periodEnrollCashbak;
+            ServiceFee = serviceFee;
+            DateSpendServiceFee = dateSpendServiceFee;       
+            YearInterest = yearInterest / 100;
+            FixCashback = fixCashback / 100;
+            EnrollDateCash = enrollDateCash;          
+            EnrollDateYearInterest = enrollDateYearInterest;
             CashbackAndPercent.Add("Перевод", 0);
             CashbackAndPercent.Add("Коммунальные платежи", 0);
         }
@@ -43,26 +51,26 @@ namespace FinTracker
             CashbackAndPercent.Add(category, percent / 100);
         }
 
-        public void DeleteCategoryCashBack(string category)
-        {
-            CashbackAndPercent.Remove(category);
-        }
+        //public void DeleteCategoryCashBack(string category)
+        //{
+        //    CashbackAndPercent.Remove(category);
+        //} //не надо
 
-        public double GetMinAmount()
+        public double GetMinAmount() //при запуске и в транзакциях
         {
             double tmpAmount = GetAmount();
             if (tmpAmount < MinAmount)
             {
                 MinAmount = tmpAmount;
             }
-            if (DateTime.Today == EnrollDateYearInterest)
+            if (DateTime.Today >= EnrollDateYearInterest)
             {
                 MinAmount = GetAmount();
             }
             return MinAmount;
         }
 
-        public double GetCashback(Card asset)
+        public double GetCashback()
         {
             foreach (Transaction transaction in Transactions)
             {
@@ -79,7 +87,7 @@ namespace FinTracker
                             }
                             else
                             {
-                                Cashback += (transaction.Amount * asset.FixCashback);
+                                Cashback += (transaction.Amount * FixCashback);
                             }
                         }
                     }
@@ -88,62 +96,44 @@ namespace FinTracker
             return Cashback;
         }
 
-        public double  GetSumYearInterest()
+        public double GetSumYearInterest()
         {
             SumYearInterest = MinAmount * (YearInterest / 12) ;
             return SumYearInterest;
         }
 
+        public void EnrollmentServiceFee()
+        {
+            if (DateTime.Today >= DateSpendServiceFee)
+            {
+                Amount -= ServiceFee;
+                DateSpendServiceFee = DateSpendServiceFee.AddMonths(1);
+            }
+        }
+
         public void EnrollmentSumYearInterest()
         {
-            if (PeriodEnrollSumYearInterest == "год")
+            if (DateTime.Today >= EnrollDateYearInterest)
             {
-                int year = 0;
-                if (DateTime.Today == EnrollDateYearInterest)
-                {
-                    EnrollDateYearInterest = EnrollDateYearInterest.AddYears(year);
-                    Amount += SumYearInterest;
-                    SumYearInterest = 0;
-                    year++;
-                }
+                SumYearInterest =  GetSumYearInterest();
+                EnrollDateYearInterest = EnrollDateYearInterest.AddMonths(1);
+                Amount += SumYearInterest;
+                SumYearInterest = 0;
             }
-            if (PeriodEnrollSumYearInterest == "месяц")
-            {
-                int month = 0;
-                if (DateTime.Today == EnrollDateYearInterest)
-                {
-                    EnrollDateYearInterest = EnrollDateYearInterest.AddYears(month);
-                    Amount += SumYearInterest;
-                    SumYearInterest = 0;
-                    month++;
-                }
-            }
+
         }
 
         public void EnrollmentCashbak()
         {
-            if (PeriodEnrollCashbak == "год")
+
+            if (DateTime.Today >= EnrollDateCash)
             {
-                int year = 0;
-                if (DateTime.Today == EnrollDateCash)
-                {
-                    EnrollDateCash = EnrollDateCash.AddYears (year);
-                    Amount += Cashback;
-                    Cashback = 0;
-                    year++;
-                }
+                Cashback = GetCashback();
+                EnrollDateCash = EnrollDateCash.AddMonths(1);
+                Amount += Cashback;
+                Cashback = 0;
             }
-            if (PeriodEnrollCashbak == "месяц")
-            {
-                int month = 0;
-                if (DateTime.Today == EnrollDateCash)
-                {
-                    EnrollDateCash = EnrollDateCash.AddYears(month);
-                    Amount += Cashback;
-                    Cashback=0;
-                    month++;
-                }
-            }
+
             // и должно быть: MessageBox.Show("За период ДАТА - ДАТА Вам начислен кэшбек за покупки в сумме $"{Cashback + CashbackAll}")
         }
     }

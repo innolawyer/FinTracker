@@ -49,7 +49,6 @@ namespace FinTracker
             return null;
         }
 
-
         public void DeleteUser(string name)
         {
             User user = GetUserByName(name);
