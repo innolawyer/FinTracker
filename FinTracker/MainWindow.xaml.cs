@@ -25,6 +25,7 @@ namespace FinTracker
         public MainWindow()
         {
             InitializeComponent();
+            _storage.GetSave();
 
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
@@ -200,6 +201,21 @@ namespace FinTracker
             }
         }
 
+        public void GetAccessToLoans()
+        {
+            if (_storage.actualUser != null)
+            {
+                if (_storage.actualUser.Assets.Count != 0)
+                {
+                    TabItemLoans.IsEnabled = true;
+                }
+                else
+                {
+                    TabItemLoans.IsEnabled = false;
+                }
+            }
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
@@ -232,7 +248,7 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox();
-            
+            GetAccessToLoans();
         }
 
         //private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -276,6 +292,7 @@ namespace FinTracker
         {
             AddAssetWindow addAssetWindow = new AddAssetWindow(this);
             addAssetWindow.Show();
+            
         }
 
         private void ButtonDeleteTransaction_Click(object sender, RoutedEventArgs e)
@@ -314,6 +331,7 @@ namespace FinTracker
             //FillCategories();
             //FillCategoriesIncome();
             FillAssetsStackPanel();
+            GetAccessToLoans();
             foreach (Loan loan in _storage.actualUser.Loans)
             {
                 loan.DoRegularPayment();
@@ -541,6 +559,11 @@ namespace FinTracker
         {
             Loans.EditLoanWindow editLoanWindow = new Loans.EditLoanWindow(this);
             editLoanWindow.Show();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _storage.Save();
         }
     }
 }
