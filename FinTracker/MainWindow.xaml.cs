@@ -38,14 +38,20 @@ namespace FinTracker
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
 
-
-
-
-
             if (_storage.actualAsset == null)
             {
                 ButtonConfirmTransaction.IsEnabled = false;
                 ButtonConfirmTransaction.IsEnabled = false;
+            }
+            if (_storage.actualUser != null)
+            {
+                foreach (Card asset in _storage.actualUser.Assets)
+                {
+                    asset.GetMinAmount();
+                    asset.EnrollmentCashbak();
+                    asset.EnrollmentSumYearInterest();
+                    asset.EnrollmentServiceFee();
+                }
             }
         }
 
@@ -487,6 +493,11 @@ namespace FinTracker
                     nTransactionButton.Click += SetTransactionData;
                     StackPanelTransactionList.Children.Add(nTransactionButton);
                     LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
+                    if (_storage.actualAsset is Card)
+                    {
+                        Card card = (Card)_storage.actualAsset;
+                        card.GetMinAmount();
+                    }
                 }
             }
 
