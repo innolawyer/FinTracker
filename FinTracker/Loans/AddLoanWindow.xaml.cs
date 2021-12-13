@@ -53,22 +53,26 @@ namespace FinTracker
 
         public void ButtonCreateLoan_Click(object sender, RoutedEventArgs e)
         {
+            int id = 1;
+            if (_storage.actualUser.Loans.Count != 0)
+            {
+                id = _storage.actualUser.Loans.Count+1;
+            }
             User user = _storage.actualUser;
             Asset asset = user.GetAssetByName(ComboBoxLoanAsset.SelectedItem.ToString());
-            Loan nLoan = new Loan (asset, (DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
+            Loan nLoan = new Loan (asset, id, (DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
                 (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
                 (String)Convert.ToString(ComboBoxLoanStatus.SelectedItem),(Double)Convert.ToDouble(TextBoxRemainingTerm.Text), 
-                (Double)Convert.ToDouble(TextBoxLoanAmount.Text), 
-                (Double)Convert.ToDouble(LabelAmountOfPaid.Content));
+                (Double)Convert.ToDouble(TextBoxLoanAmount.Text));
+            user.AddLoan(nLoan);
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
-
         }        
 
-        private void ButtonViewLoanPayments_Click(object sender, RoutedEventArgs e)
-        {
-            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
-            viewLoanPaymentsWindow.Show();
-        }
+       
+
+        
+
+        
     }
 }

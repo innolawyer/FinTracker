@@ -19,9 +19,14 @@ namespace FinTracker
     /// </summary>
     public partial class ViewLoanPaymentsWindow : Window
     {
-        public ViewLoanPaymentsWindow()
+        MainWindow _mainWindow;
+        public ViewLoanPaymentsWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            _mainWindow = mainWindow;
         }
+
+       
     }
+
 }
