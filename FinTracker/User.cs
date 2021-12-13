@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
@@ -19,7 +20,7 @@ namespace FinTracker
             Name = name;
             CategoriesSpend = new List<string>() { "Супермаркет", "Транспорт", "Коммунальные платежи", "Снятия",
             "Одежда и обувь", "Рестораны", "Отдых и развлечения", "Здоровье и красота", "Комиссия", "Онлайн сервисы и подписки",
-            "Связь и интернет", "Дом и ремонт", "Животные", "Перевод", "Подарки", "Прочие расходы" };
+            "Связь и интернет", "Дом и ремонт", "Животные", "Перевод", "Подарки", "Прочие расходы", "Платёж по кредиту" };
             CategoriesIncome = new List<string>() { "Зарплата", "Начисление кэшбека", "Начисление % по вкладам", "Перевод",
             "Подарок", "Случайный доход" };
         }
@@ -55,9 +56,9 @@ namespace FinTracker
             return false;
         }
 
-        public void AddLoan (Loan nLoan)
+        public void AddLoan (Loan loan)
         {
-            Loans.Add(nLoan);
+            Loans.Add(loan);
         }
 
         public void RemoveLoan (Loan loan)

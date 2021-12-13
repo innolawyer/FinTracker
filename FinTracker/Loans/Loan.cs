@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
     public class Loan
     {
-        
+        public List <LoanTransaction> LoanTransactions = new List<LoanTransaction>();
         public DateTime PreviousPaymentDateTime { get; set;}        
         public DateTime ActualPaymentDateTime { get; set; }
         public DateTime NextPaymentDateTime { get; set;}      //нужно ли?  

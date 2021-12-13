@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FinTracker.Loans;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -37,11 +39,17 @@ namespace FinTracker
         private void ButtonCreateExtraPayment_Click(object sender, RoutedEventArgs e)
         {
             Loan loan = ((Loan)_mainWindow.ListViewLoans.SelectedItem);
+            LoanTransaction nLoanTransaction = new LoanTransaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmountOfExtraPayment.Text), Convert.ToDateTime(DatePickerOfExtraPayment.SelectedDate), 
+                                                                  "", "Платёж по кредиту", Convert.ToString(ComboBoxExtraPaymentPurpose.SelectedItem));
+            Transaction transaction = (Transaction)nLoanTransaction;
+            
+
             if (ComboBoxExtraPaymentPurpose.SelectedItem == "Уменьшение платежа")
             {
                loan.DoExtraPaymentToDecreasePayment(Convert.ToDateTime(DatePickerOfExtraPayment.SelectedDate.Value), Convert.ToDouble(TextBoxAmountOfExtraPayment.Text));
-                _mainWindow.ListViewLoans.Items.Refresh();
+                _mainWindow.ListViewLoans.Items.Refresh();                
                 this.Close();
+                
             }
             else if (ComboBoxExtraPaymentPurpose.SelectedItem == "Уменьшение срока")
             {
@@ -49,6 +57,7 @@ namespace FinTracker
                 _mainWindow.ListViewLoans.Items.Refresh();
                 this.Close();
             }
+            ((Loan)_mainWindow.ListViewLoans.SelectedItem).Asset.Transactions.Add(transaction);
         }
     }
 }
