@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
@@ -568,7 +569,7 @@ namespace FinTracker
 
         private void ButtoanEditLoan_Click(object sender, RoutedEventArgs e)
         {
-            Loans.EditLoanWindow editLoanWindow = new Loans.EditLoanWindow(this);
+            EditLoanWindow editLoanWindow = new EditLoanWindow(this);
             editLoanWindow.Show();
         }
 
