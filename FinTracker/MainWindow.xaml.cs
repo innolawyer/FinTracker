@@ -25,8 +25,6 @@ namespace FinTracker
     {
         private Storage _storage = Storage.GetStorage();
 
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -35,14 +33,14 @@ namespace FinTracker
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
 
-            FillingComboBoxUser();
+            FillingComboBoxUser(ComboBoxChangeUser);
             ComboBoxChangeUser_SelectionDone();
             //FillCategoriesIncome();
             //FillCategories();
-            FillAssetListBox();
+            FillAssetListBox(ComboBoxCategoriesTransaction);
+            FillAssetListBox(ComboBoxAssetAnalisys);
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
-
             if (_storage.actualAsset == null)
             {
                 ButtonConfirmTransaction.IsEnabled = false;
@@ -63,52 +61,19 @@ namespace FinTracker
                 }
             }
 
-            SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset("Рома", "Тинькофф");
-            //    new SeriesCollection
-            //{
-            //    new PieSeries
-            //    {
-            //        Title = "test1",
-            //        Values = new ChartValues<ObservableValue> {new ObservableValue(10)},
-            //        DataLabels = true
-            //    },
-            //    new PieSeries
-            //    {
-            //        Title = "test2",
-            //        Values = new ChartValues<ObservableValue> {new ObservableValue(100)},
-            //        DataLabels = true
-            //    },
-            //    new PieSeries
-            //    {
-            //        Title = "test3",
-            //        Values = new ChartValues<ObservableValue> {new ObservableValue(50)},
-            //        DataLabels = true
-            //    },
-            //    new PieSeries
-            //    {
-            //        Title = "test4",
-            //        Values = new ChartValues<ObservableValue> {new ObservableValue(25)},
-            //        DataLabels = true
-            //    },
-            //    new PieSeries
-            //    {
-            //        Title = "test5",
-            //        Values = new ChartValues<ObservableValue> {new ObservableValue(40)},
-            //        DataLabels = true
-            //    }
-            //};
+            //SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset("Рома", "Тинькофф");
 
             DataContext = this;
         }
 
         public SeriesCollection SeriesCollection { get; set;}
 
-        public void FillingComboBoxUser()
+        public void FillingComboBoxUser(ComboBox box)
         {
-            ComboBoxChangeUser.Items.Clear();
+            box.Items.Clear();  //ComboBoxChangeUser
             foreach (User user in _storage.Users)
             {
-                ComboBoxChangeUser.Items.Add($"{user.Name}");
+                box.Items.Add($"{user.Name}");
             }
         }
         
@@ -123,14 +88,14 @@ namespace FinTracker
         }
 
 
-        public void FillAssetListBox()
+        public void FillAssetListBox(ComboBox box)
         {
-            ComboBoxCategoriesTransaction.Items.Clear();
+            box.Items.Clear();
             if (_storage.actualUser != null)
             {
                 foreach (Asset asset in _storage.actualUser.Assets)
                 {
-                    ComboBoxCategoriesTransaction.Items.Add(asset.Name);
+                    box.Items.Add(asset.Name);
                 }
             }
         }
@@ -276,7 +241,7 @@ namespace FinTracker
             {
                 _storage.Users.Add(new User(TextBoxUserName.Text));
                 TextBoxUserName.Text = "";
-                FillingComboBoxUser();
+                FillingComboBoxUser(ComboBoxChangeUser);
             }
             else
             {
@@ -289,7 +254,7 @@ namespace FinTracker
             _storage.DeleteUser(((string)ComboBoxChangeUser.SelectedValue));
 
                 StackPanelAssetList.Children.Clear();
-                FillingComboBoxUser();         
+                FillingComboBoxUser(ComboBoxChangeUser);         
         }
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
@@ -301,7 +266,7 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
-            FillAssetListBox();
+            FillAssetListBox(ComboBoxCategoriesTransaction);
             GetAccessToLoans();
         }
 
@@ -389,6 +354,12 @@ namespace FinTracker
             foreach (Loan loan in _storage.actualUser.Loans)
             {
                 loan.DoRegularPayment();
+            }
+
+            if (_storage.actualUser.Assets.Count != 0)
+            {
+                SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset(_storage.actualUser.Name, _storage.actualUser.Assets[0].Name);
+                PieChart.Update();
             }
         }
 
@@ -623,6 +594,23 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _storage.Save();
+        }
+
+        private void ComboBoxAssetAnalisys_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PieChart.Series.Clear();
+
+            SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset(
+                _storage.actualUser.Name,
+                _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+
+            for (int i = 0; i < SeriesCollection.Count; i++)
+            {
+                PieChart.Series.Add(SeriesCollection[i]);
+            }
+
+
+            PieChart.Update(true, true);
         }
     }
 }

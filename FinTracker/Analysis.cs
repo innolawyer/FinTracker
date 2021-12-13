@@ -30,7 +30,7 @@ namespace FinTracker
 
             foreach(string catName in allCategories)
             {
-                double tmpSum = 10;
+                double tmpSum = 0;
                 foreach (Transaction transaction in asset.Transactions)
                 {
                     if (transaction.Category == catName)

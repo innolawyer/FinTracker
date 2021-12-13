@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Домашняя бухгалтерия QQQ" Height="700" Width="1300">
+        Title="Домашняя бухгалтерия QQQ" Height="700" Width="1300" Closed="Window_Closed">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#FFBB96"/>
@@ -326,8 +326,12 @@
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
                 <Grid>
-                    <lvc:PieChart LegendLocation ="Bottom" Hoverable="True" InnerRadius="100" Series="{Binding SeriesCollection}" Margin="0,106,815,151" />
-                    <ComboBox x:Name="ComboBoxAnalisysUsers" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="383"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12*"/>
+                        <ColumnDefinition Width="635*"/>
+                    </Grid.ColumnDefinitions>
+                    <lvc:PieChart x:Name="PieChart" LegendLocation ="Bottom" Hoverable="True" InnerRadius="100" Series="{Binding SeriesCollection}" Margin="0,106,815,151" Grid.ColumnSpan="2" />
+                    <ComboBox x:Name="ComboBoxAssetAnalisys" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="479" SelectionChanged="ComboBoxAssetAnalisys_SelectionChanged" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
         </TabControl>

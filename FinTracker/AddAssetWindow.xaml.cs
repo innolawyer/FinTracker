@@ -77,7 +77,7 @@ namespace FinTracker
                          Convert.ToDateTime(DatePickerEnrollDateCash.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterest.Text),
                          Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
                 }
-                _mainWindow.FillAssetListBox();
+                _mainWindow.FillAssetListBox(_mainWindow.ComboBoxCategoriesTransaction);
 
                 Button buttonAsset = new Button();
                 buttonAsset.Content = TextBoxAssetName.Text;
