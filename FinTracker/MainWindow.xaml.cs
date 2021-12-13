@@ -25,6 +25,7 @@ namespace FinTracker
         public MainWindow()
         {
             InitializeComponent();
+            _storage.GetSave();
 
             DatePickerTransaction.SelectedDateFormat = DatePickerFormat.Short;
             DatePickerTransaction.SelectedDate = DateTime.Today;
@@ -35,6 +36,7 @@ namespace FinTracker
             //FillCategories();
             FillAssetListBox();
             FillAssetsStackPanel();
+            AllLoanButtonsAreEnabled();
 
             if (_storage.actualAsset == null)
             {
@@ -205,6 +207,21 @@ namespace FinTracker
             }
         }
 
+        public void GetAccessToLoans()
+        {
+            if (_storage.actualUser != null)
+            {
+                if (_storage.actualUser.Assets.Count != 0)
+                {
+                    TabItemLoans.IsEnabled = true;
+                }
+                else
+                {
+                    TabItemLoans.IsEnabled = false;
+                }
+            }
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
@@ -237,7 +254,7 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox();
-            
+            GetAccessToLoans();
         }
 
         //private void ButtonSpend_Click(object sender, RoutedEventArgs e)
@@ -281,6 +298,7 @@ namespace FinTracker
         {
             AddAssetWindow addAssetWindow = new AddAssetWindow(this);
             addAssetWindow.Show();
+            
         }
 
         private void ButtonDeleteTransaction_Click(object sender, RoutedEventArgs e)
@@ -319,6 +337,7 @@ namespace FinTracker
             //FillCategories();
             //FillCategoriesIncome();
             FillAssetsStackPanel();
+            GetAccessToLoans();
             foreach (Loan loan in _storage.actualUser.Loans)
             {
                 loan.DoRegularPayment();
@@ -421,7 +440,9 @@ namespace FinTracker
 
         private void ButtoanRemoveLoan_Click(object sender, RoutedEventArgs e)
         {
-
+            _storage.actualUser.RemoveLoan((Loan)ListViewLoans.SelectedItem);
+            ListViewLoans.Items.Remove(ListViewLoans.SelectedItem);
+            ListViewLoans.Items.Refresh();
         }
 
         private void RadioButtonIncome_Click(object sender, RoutedEventArgs e)
@@ -499,8 +520,61 @@ namespace FinTracker
 
         private void ButtonLoanPayments_Click(object sender, RoutedEventArgs e)
         {
-            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
+            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow(this);
             viewLoanPaymentsWindow.Show();
+        }
+
+        private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //_storage.actualLoan = _storage.GetLoanById(ListViewLoans.Focus
+            
+            AllLoanButtonsAreEnabled();
+        }
+
+        
+
+        private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
+        {
+            AddExtraPayment addExtraPayment = new AddExtraPayment(this);
+            addExtraPayment.Show();
+        }
+
+        private void AllLoanButtonsAreEnabled()
+        {
+            if (ListViewLoans.SelectedItem == null)
+            {
+                ButtoanEditLoan.IsEnabled = false;
+                ButtoanEditLoan.Opacity = 0;
+                ButtoanRemoveLoan.IsEnabled = false;
+                ButtoanRemoveLoan.Opacity = 0;
+                ButtonLoanPayments.IsEnabled = false;
+                ButtonLoanPayments.Opacity = 0;
+                ButtonAddExtraPayment.IsEnabled = false;
+                ButtonAddExtraPayment.Opacity = 0;
+
+            }
+            else if (ListViewLoans.SelectedItem !=null)
+            {
+                ButtoanEditLoan.IsEnabled = true;
+                ButtoanEditLoan.Opacity = 1;
+                ButtoanRemoveLoan.IsEnabled = true;
+                ButtoanRemoveLoan.Opacity = 1;
+                ButtonLoanPayments.IsEnabled = true;
+                ButtonLoanPayments.Opacity = 1;
+                ButtonAddExtraPayment.IsEnabled = true;
+                ButtonAddExtraPayment.Opacity = 1;
+            }
+        }
+
+        private void ButtoanEditLoan_Click(object sender, RoutedEventArgs e)
+        {
+            Loans.EditLoanWindow editLoanWindow = new Loans.EditLoanWindow(this);
+            editLoanWindow.Show();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _storage.Save();
         }
     }
 }

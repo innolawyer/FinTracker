@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace FinTracker
 {
     public class Loan
-    {        
-
+    {
+        
         public DateTime PreviousPaymentDateTime { get; set;}        
         public DateTime ActualPaymentDateTime { get; set; }
         public DateTime NextPaymentDateTime { get; set;}      //нужно ли?  
@@ -30,6 +30,8 @@ namespace FinTracker
         public double MonthlyPaymentRounded { get; set; }
         public double TotalAmountOfExtraPaymentsDoneBetweenDates { get; set; }
         public double TotalAmountOfExtraPaymentsDoneInDateOfPayment { get; set; }
+        public double TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm { get; set; }
+
         
 
         public Loan (Asset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
@@ -58,7 +60,10 @@ namespace FinTracker
             MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
             TotalAmountOfExtraPaymentsDoneBetweenDates = 0;
             TotalAmountOfExtraPaymentsDoneInDateOfPayment = 0;
+            TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm = 0;
         }
+
+       
 
         //привязать актуальную дату к программе
         public void DoRegularPayment ()
@@ -78,7 +83,7 @@ namespace FinTracker
 
 
         //метод досрочного погашения, уменьшающий ежемесячный платёж
-        public void DoExtraPaymentToDecreasePayment (DateTime extraPaymentDate, double extraPaymentAmount, string extraPaymentPurpose)
+        public void DoExtraPaymentToDecreasePayment (DateTime extraPaymentDate, double extraPaymentAmount)
         {
             double daylyPercent = (Percent / 1200) / (ActualPaymentDateTime-PreviousPaymentDateTime).TotalDays; //вычисляем дневную процентную ставку в текущем месячном промежутке
             
@@ -91,6 +96,7 @@ namespace FinTracker
                     AmountOfReturned += balanceForRepaymentOfLoanBody;
                     Asset.Amount -= MonthlyPayment;
                     MonthlyPayment = (Amount - balanceForRepaymentOfLoanBody) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
+                    MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
                 }
             }
             else
@@ -100,10 +106,26 @@ namespace FinTracker
                     AmountOfReturned += extraPaymentAmount;
                     Asset.Amount -= MonthlyPayment;
                     MonthlyPayment = (Amount - extraPaymentAmount) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
+                    MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
                 }
             }
         }
 
+        public void DoExtraPaymentToDecreaseLoanTerm (DateTime extraPaymentDate, double extraPaymentAmount)
+        {
+            TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm += extraPaymentAmount;
+                        
+                while (MonthlyPayment <= TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm)
+                {
+                    RemainingTerm -= 1;
+                    if (TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm>=MonthlyPayment)
+                    {
+                       TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm -= MonthlyPayment;
+                    }
+                    
+                }
+            
+        }
 
 
     }

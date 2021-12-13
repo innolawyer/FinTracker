@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FinTracker
+namespace FinTracker.Loans
 {
     /// <summary>
-    /// Interaction logic for ViewLoanPaymentsWindow.xaml
+    /// Interaction logic for EditLoanWindow.xaml
     /// </summary>
-    public partial class ViewLoanPaymentsWindow : Window
+    public partial class EditLoanWindow : Window
     {
         MainWindow _mainWindow;
-        public ViewLoanPaymentsWindow(MainWindow mainWindow)
+        public EditLoanWindow(MainWindow mainWindow)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
         }
-
-       
     }
-
 }

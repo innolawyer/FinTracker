@@ -48,6 +48,8 @@ namespace FinTracker
              
             _mainWindow = mainWindow;
             _mainWindow.IsEnabled = false;
+            ComboBoxChoiceAssetType.Items.Add("Карта");
+            ComboBoxChoiceAssetType.Items.Add("Наличные деньги");
         }
 
         private void TextBoxAmount_GotFocus(object sender, RoutedEventArgs e)
@@ -85,8 +87,27 @@ namespace FinTracker
                 buttonAsset.Click += _mainWindow.AddTransactionVisibility;
                 buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
 
-                _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-                this.Close();
+                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                    this.Close();
+                }
+                else if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Наличные деньги")
+                {
+                    User user = _storage.actualUser;
+                    Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
+
+                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
+                                                        Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
+                    _mainWindow.FillAssetListBox();
+                    Button buttonAsset = new Button();
+                    buttonAsset.Content = TextBoxAssetName.Text;
+                    buttonAsset.Click += _mainWindow.SetActualAsset;
+                    buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
+                    buttonAsset.Click += _mainWindow.AddTransactionVisibility;
+                    buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
+
+                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                    this.Close();
+                }
             }
             else
             {
@@ -97,6 +118,7 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _mainWindow.IsEnabled = true;
+            _mainWindow.GetAccessToLoans();
         }
 
         private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)

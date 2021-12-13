@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
@@ -32,6 +33,7 @@ namespace FinTracker
             DateTime enrollDateCash, DateTime enrollDateYearInterest, 
             DateTime dateSpendServiceFee) : base(name, amount)
         {
+            calcer = new CardFVCalc();
             Name = name;
             Amount = amount;
             _startAmount = amount;

@@ -19,16 +19,36 @@ namespace FinTracker
     /// </summary>
     public partial class AddExtraPayment : Window
     {
-        ViewLoanPaymentsWindow _viewLoanPaymentsWindow;
-        Storage _storage;
-        public AddExtraPayment(ViewLoanPaymentsWindow viewLoanPaymentsWindow)
+        MainWindow _mainWindow;        
+        private Storage _storage = Storage.GetStorage();
+        public AddExtraPayment(MainWindow mainWindow)
         {
             InitializeComponent();
+            FillingComboBoxExtraPaymentPurpose();
+            _mainWindow = mainWindow;
+        }
+
+        public void FillingComboBoxExtraPaymentPurpose()
+        {
+            ComboBoxExtraPaymentPurpose.Items.Add("Уменьшение срока");
+            ComboBoxExtraPaymentPurpose.Items.Add("Уменьшение платежа");
         }
 
         private void ButtonCreateExtraPayment_Click(object sender, RoutedEventArgs e)
         {
-            
+            Loan loan = ((Loan)_mainWindow.ListViewLoans.SelectedItem);
+            if (ComboBoxExtraPaymentPurpose.SelectedItem == "Уменьшение платежа")
+            {
+               loan.DoExtraPaymentToDecreasePayment(Convert.ToDateTime(DatePickerOfExtraPayment.SelectedDate.Value), Convert.ToDouble(TextBoxAmountOfExtraPayment.Text));
+                _mainWindow.ListViewLoans.Items.Refresh();
+                this.Close();
+            }
+            else if (ComboBoxExtraPaymentPurpose.SelectedItem == "Уменьшение срока")
+            {
+                loan.DoExtraPaymentToDecreaseLoanTerm(Convert.ToDateTime(DatePickerOfExtraPayment.SelectedDate.Value), Convert.ToDouble(TextBoxAmountOfExtraPayment.Text));
+                _mainWindow.ListViewLoans.Items.Refresh();
+                this.Close();
+            }
         }
     }
 }

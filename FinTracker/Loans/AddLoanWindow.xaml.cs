@@ -56,7 +56,7 @@ namespace FinTracker
             int id = 1;
             if (_storage.actualUser.Loans.Count != 0)
             {
-                id = _storage.actualUser.Loans.Count;
+                id = _storage.actualUser.Loans.Count+1;
             }
             User user = _storage.actualUser;
             Asset asset = user.GetAssetByName(ComboBoxLoanAsset.SelectedItem.ToString());
@@ -67,17 +67,12 @@ namespace FinTracker
             user.AddLoan(nLoan);
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
-
         }        
 
        
 
         
 
-        private void ButtonViewLoanPayments_Click(object sender, RoutedEventArgs e)
-        {
-            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
-            viewLoanPaymentsWindow.Show();
-        }
+        
     }
 }
