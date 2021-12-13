@@ -35,7 +35,10 @@ namespace FinTracker
             //FillCategories();
             FillAssetListBox();
             FillAssetsStackPanel();
-            
+            AllLoanButtonsAreEnabled();
+
+
+
 
 
             if (_storage.actualAsset == null)
@@ -486,8 +489,53 @@ namespace FinTracker
 
         private void ButtonLoanPayments_Click(object sender, RoutedEventArgs e)
         {
-            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow();
+            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow(this);
             viewLoanPaymentsWindow.Show();
+        }
+
+        private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //_storage.actualLoan = _storage.GetLoanById(ListViewLoans.Focus
+            TempLabelContent();
+            AllLoanButtonsAreEnabled();
+        }
+
+        private void TempLabelContent()
+        {
+            TempLabel.Content = ((Loan)ListViewLoans.SelectedItem).Id;
+        }
+
+        private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
+        {
+            AddExtraPayment addExtraPayment = new AddExtraPayment(this);
+            addExtraPayment.Show();
+        }
+
+        private void AllLoanButtonsAreEnabled()
+        {
+            if (ListViewLoans.SelectedItem == null)
+            {
+                ButtoanEditLoan.IsEnabled = false;
+                ButtoanEditLoan.Opacity = 0;
+                ButtoanRemoveLoan.IsEnabled = false;
+                ButtoanRemoveLoan.Opacity = 0;
+                ButtonLoanPayments.IsEnabled = false;
+                ButtonLoanPayments.Opacity = 0;
+                ButtonAddExtraPayment.IsEnabled = false;
+                ButtonAddExtraPayment.Opacity = 0;
+
+            }
+            else if (ListViewLoans.SelectedItem !=null)
+            {
+                ButtoanEditLoan.IsEnabled = true;
+                ButtoanEditLoan.Opacity = 1;
+                ButtoanRemoveLoan.IsEnabled = true;
+                ButtoanRemoveLoan.Opacity = 1;
+                ButtonLoanPayments.IsEnabled = true;
+                ButtonLoanPayments.Opacity = 1;
+                ButtonAddExtraPayment.IsEnabled = true;
+                ButtonAddExtraPayment.Opacity = 1;
+            }
         }
     }
 }

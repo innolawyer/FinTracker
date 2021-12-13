@@ -14,6 +14,7 @@ namespace FinTracker
         public Asset actualAsset;
         public User actualUser;
         public Transaction actualTransaction;
+        public Loan actualLoan;
 
         [Flags]
         public enum sign
@@ -46,6 +47,19 @@ namespace FinTracker
                 }
             }
             //throw new Exception();
+            return null;
+        }
+
+        public Loan GetLoanById(int id)
+        {
+            Storage storage = Storage.GetStorage();
+            foreach (Loan loan in storage.actualUser.Loans)
+            {
+                if (loan.Id == id)
+                {
+                    return loan;
+                }
+            }
             return null;
         }
 

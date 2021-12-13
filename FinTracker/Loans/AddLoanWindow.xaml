@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="AddLoanWindow" Height="409" Width="310">
+        Title="AddLoanWindow" Height="484" Width="349">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130"/>
@@ -22,7 +22,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            
+
 
         </Grid.RowDefinitions>
         <DatePicker x:Name="DatePickerLoanStart"  Margin="75,0,74,0" Grid.ColumnSpan="2" FirstDayOfWeek="Monday" Height="26"/>
