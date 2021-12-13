@@ -21,69 +21,73 @@ namespace FinTracker
     {
         private Storage _storage = Storage.GetStorage();
         private MainWindow _mainWindow;
-        public AddAssetWindow (MainWindow mainWindow)        
+        public AddAssetWindow(MainWindow mainWindow)
         {
             InitializeComponent();
+            DatePickerDateSpendServiceFee.SelectedDate = DateTime.Today;
+            DatePickerDateSpendServiceFee.DisplayDateStart = DateTime.Today;
+            DatePickerEnrollDateCash.SelectedDate = DateTime.Today;
+            DatePickerEnrollDateCash.DisplayDateStart = DateTime.Today;
+            DatePickerEnrollDateYearInterest.SelectedDate = DateTime.Today;
+            DatePickerEnrollDateYearInterest.DisplayDateStart = DateTime.Today;
+
+            ComboBoxAssetType.Items.Add("Карта");
+            ComboBoxAssetType.Items.Add("Наличные");
+
+            foreach (string category in _storage.actualUser.CategoriesSpend)
+            {
+                ComboBoxCashCategory.Items.Add(category);
+            }
+
             TextBoxAmount.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxAssetName.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxYearInterest.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxFixCashback.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxMonthFee.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
+
+            ButtonCreateAsset.IsEnabled = false;
+
             _mainWindow = mainWindow;
             _mainWindow.IsEnabled = false;
-            ComboBoxChoiceAssetType.Items.Add("Карта");
-            ComboBoxChoiceAssetType.Items.Add("Наличные деньги");
         }
 
         private void TextBoxAmount_GotFocus(object sender, RoutedEventArgs e)
         {
-            ((TextBox)sender).Text = "";           
+            ((TextBox)sender).Text = "";
         }
 
         private void ButtonCreateAsset_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.actualUser.IsUniqeAsset(TextBoxAssetName.Text))
-             {
-                if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Карта")
+            {
+                User user = _storage.actualUser;
+                if (ComboBoxAssetType.SelectedItem.ToString() == "Наличные")
                 {
-                    User user = _storage.actualUser;
-                    Card asset = new Card(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
-                                            Convert.ToDouble(TextBoxYearInterest.Text),
-                                            Convert.ToDouble(TextBoxFixCashback.Text),
-                                            Convert.ToDouble(TextBoxMonthFee.Text),
-                                            Convert.ToDateTime(DatePickerEnrollDateCash.Text), "Год");
-
-                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
-                                                        Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
-                    _mainWindow.FillAssetListBox();
-                    Button buttonAsset = new Button();
-                    buttonAsset.Content = TextBoxAssetName.Text;
-                    buttonAsset.Click += _mainWindow.SetActualAsset;
-                    buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
-                    buttonAsset.Click += _mainWindow.AddTransactionVisibility;
-                    buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
-
-                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-                    this.Close();
-                }
-                else if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Наличные деньги")
-                {
-                    User user = _storage.actualUser;
                     Asset asset = new Asset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
-
-                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text), Convert.ToDouble(TextBoxYearInterest.Text),
-                                                        Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text));
-                    _mainWindow.FillAssetListBox();
-                    Button buttonAsset = new Button();
-                    buttonAsset.Content = TextBoxAssetName.Text;
-                    buttonAsset.Click += _mainWindow.SetActualAsset;
-                    buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
-                    buttonAsset.Click += _mainWindow.AddTransactionVisibility;
-                    buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
-
-                    _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
-                    this.Close();
+                    user.AddAsset(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text));
                 }
+
+                if (ComboBoxAssetType.SelectedItem.ToString() == "Карта")
+                {
+                    Card card = new Card(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
+                        Convert.ToDouble(TextBoxYearInterest.Text), Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text),
+                        Convert.ToDateTime(DatePickerEnrollDateCash.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterest.Text), Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
+                    user.AddCard(TextBoxAssetName.Text, Convert.ToDouble(TextBoxAmount.Text),
+                         Convert.ToDouble(TextBoxYearInterest.Text), Convert.ToDouble(TextBoxFixCashback.Text), Convert.ToDouble(TextBoxMonthFee.Text),
+                         Convert.ToDateTime(DatePickerEnrollDateCash.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterest.Text),
+                         Convert.ToDateTime(DatePickerDateSpendServiceFee.Text));
+                }
+                _mainWindow.FillAssetListBox();
+
+                Button buttonAsset = new Button();
+                buttonAsset.Content = TextBoxAssetName.Text;
+                buttonAsset.Click += _mainWindow.SetActualAsset;
+                buttonAsset.Click += _mainWindow.LabelCurrentAmount_Display;
+                buttonAsset.Click += _mainWindow.AddTransactionVisibility;
+                buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
+
+                _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                this.Close();
             }
             else
             {
@@ -97,19 +101,39 @@ namespace FinTracker
             _mainWindow.GetAccessToLoans();
         }
 
-        private void ComboBoxChoiceAssetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)
         {
-            if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Карта")
-            {
-                TextBoxYearInterest.IsEnabled = true;
-                TextBoxMonthFee.IsEnabled = true;
-                TextBoxFixCashback.IsEnabled = true;
-            }
-            else if (ComboBoxChoiceAssetType.SelectedValue.ToString() == "Наличные деньги")
+            Card card = (Card)_storage.actualAsset;
+            //AddCategoryCashback(ComboBoxCashCategory.Text, TextBoxNewPercent);
+        }
+
+        private void ComboBoxAssetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ButtonCreateAsset.IsEnabled = true;
+
+            if (ComboBoxAssetType.SelectedIndex == 1)
             {
                 TextBoxYearInterest.IsEnabled = false;
-                TextBoxMonthFee.IsEnabled = false;
                 TextBoxFixCashback.IsEnabled = false;
+                TextBoxMonthFee.IsEnabled = false;
+                DatePickerEnrollDateCash.IsEnabled = false;
+                DatePickerEnrollDateYearInterest.IsEnabled = false;
+                DatePickerDateSpendServiceFee.IsEnabled = false;
+                ComboBoxCashCategory.IsEnabled = false;
+                TextBoxNewPercent.IsEnabled = false;
+                ButtonAddNewPercentCashbackCategory.IsEnabled = false;
+            }
+            if (ComboBoxAssetType.SelectedIndex == 0)
+            {
+                TextBoxYearInterest.IsEnabled = true;
+                TextBoxFixCashback.IsEnabled = true;
+                TextBoxMonthFee.IsEnabled = true;
+                DatePickerEnrollDateCash.IsEnabled = true;
+                DatePickerEnrollDateYearInterest.IsEnabled =true;
+                DatePickerDateSpendServiceFee.IsEnabled = true;
+                ComboBoxCashCategory.IsEnabled = true;
+                TextBoxNewPercent.IsEnabled = true;
+                ButtonAddNewPercentCashbackCategory.IsEnabled = true;
             }
         }
     }
