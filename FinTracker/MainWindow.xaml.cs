@@ -474,7 +474,9 @@ namespace FinTracker
                     LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
                     if (_storage.actualAsset is Card)
                     {
-                        //тогда GetMinAmount();
+                        Card actualCard = (Card)_storage.actualAsset;
+                        actualCard.GetMinAmount();
+
                     }
                 }
             }
