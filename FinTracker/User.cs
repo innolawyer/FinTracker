@@ -59,5 +59,10 @@ namespace FinTracker
         {
             Loans.Add(nLoan);
         }
+
+        public void RemoveLoan (Loan loan)
+        {
+            Loans.Remove(loan);
+        }
     }
 }

@@ -416,7 +416,9 @@ namespace FinTracker
 
         private void ButtoanRemoveLoan_Click(object sender, RoutedEventArgs e)
         {
-
+            _storage.actualUser.RemoveLoan((Loan)ListViewLoans.SelectedItem);
+            ListViewLoans.Items.Remove(ListViewLoans.SelectedItem);
+            ListViewLoans.Items.Refresh();
         }
 
         private void RadioButtonIncome_Click(object sender, RoutedEventArgs e)
@@ -496,14 +498,11 @@ namespace FinTracker
         private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //_storage.actualLoan = _storage.GetLoanById(ListViewLoans.Focus
-            TempLabelContent();
+            
             AllLoanButtonsAreEnabled();
         }
 
-        private void TempLabelContent()
-        {
-            TempLabel.Content = ((Loan)ListViewLoans.SelectedItem).Id;
-        }
+        
 
         private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
         {
@@ -536,6 +535,12 @@ namespace FinTracker
                 ButtonAddExtraPayment.IsEnabled = true;
                 ButtonAddExtraPayment.Opacity = 1;
             }
+        }
+
+        private void ButtoanEditLoan_Click(object sender, RoutedEventArgs e)
+        {
+            Loans.EditLoanWindow editLoanWindow = new Loans.EditLoanWindow(this);
+            editLoanWindow.Show();
         }
     }
 }

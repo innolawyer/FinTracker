@@ -1,11 +1,11 @@
-﻿<Window x:Class="FinTracker.AddLoanWindow"
+﻿<Window x:Class="FinTracker.Loans.EditLoanWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
-        xmlns:local="clr-namespace:FinTracker"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FinTracker.Loans"
         mc:Ignorable="d"
-        Title="AddLoanWindow" Height="484" Width="349">
+        Title="EditLoanWindow" Height="484" Width="349">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="160"/>
@@ -40,6 +40,6 @@
         <TextBox x:Name="TextBoxRemainingTerm" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Height="23" VerticalAlignment="Center" HorizontalAlignment="Center" Width="120" />
         <ComboBox x:Name="ComboBoxLoanAsset" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="120" Height="24"/>
         <TextBlock Grid.Row="1" TextWrapping="Wrap" Height="16" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="30"><Run Language="ru-ru" Text="Счет" FontWeight="Bold" FontSize="12"/></TextBlock>
-        <Button x:Name="ButtonCreateLoan" Content="Создать" Background="#00BB3F" FontWeight="Bold" FontSize="15" Margin="75,0,82,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="2" Click="ButtonCreateLoan_Click" Height="32"/>
+        <Button x:Name="ButtonEditLoan" Content="Создать" Background="#00BB3F" FontWeight="Bold" FontSize="15" Margin="75,0,82,0" Grid.Row="8" VerticalAlignment="Center" Grid.ColumnSpan="2" Height="32"/>
     </Grid>
 </Window>
