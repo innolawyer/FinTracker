@@ -43,7 +43,7 @@ namespace FinTracker
                 ButtonConfirmTransaction.IsEnabled = false;
                 ButtonConfirmTransaction.IsEnabled = false;
             }
-            if (_storage.actualUser != null)
+            if (_storage.actualUser != null && _storage.actualAsset != null)
             {
                 foreach (Card asset in _storage.actualUser.Assets)
                 {
@@ -73,7 +73,6 @@ namespace FinTracker
         {
             _storage.actualTransaction = _storage.actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
         }
-
 
         public void FillAssetListBox()
         {
@@ -338,9 +337,12 @@ namespace FinTracker
             //FillCategoriesIncome();
             FillAssetsStackPanel();
             GetAccessToLoans();
-            foreach (Loan loan in _storage.actualUser.Loans)
+            if (_storage.actualUser != null)
             {
-                loan.DoRegularPayment();
+                foreach (Loan loan in _storage.actualUser.Loans)
+                {
+                    loan.DoRegularPayment();
+                }
             }
         }
 
@@ -531,8 +533,6 @@ namespace FinTracker
             AllLoanButtonsAreEnabled();
         }
 
-        
-
         private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
         {
             AddExtraPayment addExtraPayment = new AddExtraPayment(this);
@@ -575,6 +575,17 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _storage.Save();
+        }
+
+        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e)
+        {
+            EditAsset editAsset = new EditAsset(this);
+            editAsset.Show();
+        }
+
+        private void Window_Closed_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

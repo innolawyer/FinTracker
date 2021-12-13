@@ -133,6 +133,28 @@ namespace FinTracker
 
             // и должно быть: MessageBox.Show("За период ДАТА - ДАТА Вам начислен кэшбек за покупки в сумме $"{Cashback + CashbackAll}")
         }
+
+        public void EditCard(string name, double amount,
+            double yearInterest, double fixCashback, double serviceFee,
+            DateTime enrollDateCash, DateTime enrollDateYearInterest,
+            DateTime dateSpendServiceFee)
+        {
+            Name = name;
+            Amount = amount;       
+            ServiceFee = serviceFee;
+            DateSpendServiceFee = dateSpendServiceFee;
+            YearInterest = yearInterest / 100;
+            FixCashback = fixCashback / 100;
+            EnrollDateCash = enrollDateCash;
+            EnrollDateYearInterest = enrollDateYearInterest;
+
+            if (Transactions == null)
+            {
+                _startAmount = amount;
+                Amount = _startAmount;
+                MinAmount = amount;
+            }
+        }
     }
 }
 

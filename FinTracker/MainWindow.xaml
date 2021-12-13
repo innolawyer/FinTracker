@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="Домашняя бухгалтерия QQQ" Height="700" Width="1300">
+        Title="Домашняя бухгалтерия QQQ" Height="700" Width="1300" Closed ="Window_Closed">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#FFBB96"/>
@@ -156,7 +156,7 @@
                         </Button.Resources>
                     </Button>
                     <Label Grid.Column="4" x:Name="LabelCurrentAmount" Content="Баланс текущего &#xD;&#xA;счета" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="6,5,0,0" VerticalAlignment="Top" Width="150"/>
-                    <Label x:Name="LabelTotalAmount" Content="Общий баланс" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="143,12,0,0" VerticalAlignment="Top" Width="105" Grid.Column="2"/>
+                    <Label x:Name="LabelTotalAmount" Content="Общий баланс" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="124,61,0,0" VerticalAlignment="Top" Width="106" Grid.Column="2"/>
 
                     <DatePicker x:Name="DatePickerTransaction" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Center" Margin="14,94,0,0" VerticalAlignment="Top" Width="140" Height="25">
                         <DatePicker.CalendarStyle>
@@ -175,7 +175,7 @@
                     <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#e38b75" Background="White" Grid.Column="3" HorizontalAlignment="Left" Margin="14,75,0,0" VerticalAlignment="Top" Width="140" Height="25" SelectionChanged="ComboBoxCategoriesTransaction_SelectionChanged" Grid.Row="1"/>
                     <Label Grid.Column="3" Content="Добавить транзакцию" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top" Height="24" Width="140"/>
                     <!--<Button x:Name="ButtonTransfer" Grid.Column="2" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2" Click="ButtonTransfer_Click"/>-->
-                    <StackPanel x:Name="StackPanelAssetList" Margin="0,58,0,0" Grid.ColumnSpan="3" Grid.RowSpan="15"/>
+                    <StackPanel x:Name="StackPanelAssetList" Margin="0,106,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
                     <StackPanel x:Name="StackPanelTransactionList" Grid.Column="3" Margin="280,71,0,10" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonAddCategory" Grid.Column="3" Content="+" HorizontalAlignment="Left" Margin="26,138,0,0" VerticalAlignment="Top" Width="47" Height="25" Click="ButtonAddCategory_Click" Grid.Row="1">
                         <Button.Resources>
@@ -224,6 +224,17 @@
                         </Button.Resources>
                     </Button>
                     <Label Grid.Column="3" Content="Добавить категорию" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="9,109,0,0" VerticalAlignment="Top" Height="24" Width="126" Grid.Row="1"/>
+                    <Button x:Name="ButtonEditAsset" Grid.Column="2" Content="Редактировать" FontSize="12" HorizontalAlignment="Left" Margin="153,14,0,0" VerticalAlignment="Top" Height="30" Width="85" Click="ButtonEditAsset_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Style>
+                            <StaticResource ResourceKey="BlueButtonStyle"/>
+                        </Button.Style>
+                    </Button>
+                    <Label Grid.Column="1" Content="Общий баланс:" HorizontalAlignment="Left" Margin="0,59,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" FontSize="14" FontWeight="Bold"/>
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
