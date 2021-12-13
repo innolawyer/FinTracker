@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace FinTracker
 {
@@ -21,6 +23,18 @@ namespace FinTracker
     public partial class MainWindow : Window
     {
         private Storage _storage = Storage.GetStorage();
+
+        SeriesCollection seriesCollection = new SeriesCollection
+        {
+            new LineSeries
+            {
+                Values = new ChartValues<double> { 3, 5, 7, 4 }
+            },
+            new ColumnSeries
+            {
+                Values = new ChartValues<decimal> { 5, 6, 2, 7 }
+            }
+        };
 
         public MainWindow()
         {
@@ -45,12 +59,16 @@ namespace FinTracker
             }
             if (_storage.actualUser != null)
             {
-                foreach (Card asset in _storage.actualUser.Assets)
+                foreach (Asset asset in _storage.actualUser.Assets)
                 {
-                    asset.GetMinAmount();
-                    asset.EnrollmentCashbak();
-                    asset.EnrollmentSumYearInterest();
-                    asset.EnrollmentServiceFee();
+                    if (asset is Card)
+                    {
+                        Card cardAsset = (Card)asset;
+                        cardAsset.GetMinAmount();
+                        cardAsset.EnrollmentCashbak();
+                        cardAsset.EnrollmentSumYearInterest();
+                        cardAsset.EnrollmentServiceFee();
+                    }
                 }
             }
         }
