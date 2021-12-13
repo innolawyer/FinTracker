@@ -40,7 +40,7 @@
         <Label Content="Название счета" FontWeight="Bold" HorizontalAlignment="Left" Margin="25,7,0,0" VerticalAlignment="Top" Width="142" Height="24" Grid.Row="1"/>
         <DatePicker x:Name="DatePickerEnrollDateYearInterest" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Width="132" Height="25" Grid.Column="1" Grid.Row="2"/>
         <Label Content="Дата выплаты" HorizontalAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="118" Height="24" Grid.Column="1" Grid.Row="2"/>
-        <ComboBox x:Name="ComboBoxAssetType" HorizontalAlignment="Left" Margin="8,33,0,0" VerticalAlignment="Top" Width="121" Height="25" Grid.Column="2" Grid.Row="1"/>
+        <ComboBox x:Name="ComboBoxAssetType" HorizontalAlignment="Left" Margin="8,33,0,0" VerticalAlignment="Top" Width="121" Height="25" Grid.Column="2" Grid.Row="1" SelectionChanged="ComboBoxAssetType_SelectionChanged"/>
         <Label Content="Тип счета" HorizontalAlignment="Left" Margin="8,7,0,0" VerticalAlignment="Top" FontWeight="Bold" Width="69" Height="24" Grid.Column="2" Grid.Row="1"/>
         <ComboBox x:Name="ComboBoxCashCategory" HorizontalAlignment="Left" Margin="25,49,0,0" VerticalAlignment="Top" Width="139" Height="25" Grid.Row="5"/>
         <TextBox x:Name="TextBoxNewPercent" HorizontalAlignment="Left" Margin="17,48,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="45" Height="26" Grid.Column="1" Grid.Row="5"/>

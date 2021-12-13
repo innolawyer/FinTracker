@@ -51,11 +51,6 @@ namespace FinTracker
             CashbackAndPercent.Add(category, percent / 100);
         }
 
-        //public void DeleteCategoryCashBack(string category)
-        //{
-        //    CashbackAndPercent.Remove(category);
-        //} //не надо
-
         public double GetMinAmount() //при запуске и в транзакциях
         {
             double tmpAmount = GetAmount();

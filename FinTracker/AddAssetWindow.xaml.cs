@@ -33,16 +33,19 @@ namespace FinTracker
 
             ComboBoxAssetType.Items.Add( "Карта");
             ComboBoxAssetType.Items.Add("Наличные");
-            
+            foreach (string category in _storage.actualUser.CategoriesSpend)
+            {
+                ComboBoxCashCategory.Items.Add(category);
+            }
+
             TextBoxAmount.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxAssetName.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxYearInterest.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxFixCashback.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxMonthFee.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
 
-            //ComboBoxPeriodEnrollSumYearInterest.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
-            //ComboBoxPeriodEnrollCashback.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
-            //ComboBoxPeriodSpendServiceFee.MouseDoubleClick += new System.Windows.Input.MouseButtonEventHandler(this.ComboBoxPeriodEnrollSumYearInterest_MouseDoubleClick);
+            ButtonCreateAsset.IsEnabled = false;
+             
             _mainWindow = mainWindow;
             _mainWindow.IsEnabled = false;
         }
@@ -99,6 +102,36 @@ namespace FinTracker
         private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)
         {
             //AddCategoryCashback(ComboBoxCashCategory.Text, TextBoxNewPercent);
+        }
+
+        private void ComboBoxAssetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ButtonCreateAsset.IsEnabled = true;
+
+            if (ComboBoxAssetType.SelectedIndex == 1)
+            {
+                TextBoxYearInterest.IsEnabled = false;
+                TextBoxFixCashback.IsEnabled = false;
+                TextBoxMonthFee.IsEnabled = false;
+                DatePickerEnrollDateCash.IsEnabled = false;
+                DatePickerEnrollDateYearInterest.IsEnabled = false;
+                DatePickerDateSpendServiceFee.IsEnabled = false;
+                ComboBoxCashCategory.IsEnabled = false;
+                TextBoxNewPercent.IsEnabled = false;
+                ButtonAddNewPercentCashbackCategory.IsEnabled = false;
+            }
+            if (ComboBoxAssetType.SelectedIndex == 0)
+            {
+                TextBoxYearInterest.IsEnabled = true;
+                TextBoxFixCashback.IsEnabled = true;
+                TextBoxMonthFee.IsEnabled = true;
+                DatePickerEnrollDateCash.IsEnabled = true;
+                DatePickerEnrollDateYearInterest.IsEnabled =true;
+                DatePickerDateSpendServiceFee.IsEnabled = true;
+                ComboBoxCashCategory.IsEnabled = true;
+                TextBoxNewPercent.IsEnabled = true;
+                ButtonAddNewPercentCashbackCategory.IsEnabled = true;
+            }
         }
     }
 }
