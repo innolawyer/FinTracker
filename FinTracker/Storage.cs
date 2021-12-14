@@ -27,6 +27,15 @@ namespace FinTracker
         }
 
         [Flags]
+        public enum period
+        {
+            День = 1/360,
+            Неделя = 7/360,
+            Месяц = 30/360,
+            Год = 360/360
+        }
+
+        [Flags]
         public enum DateRange
         {
             Месяц,

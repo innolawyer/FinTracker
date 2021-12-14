@@ -50,5 +50,17 @@ namespace FinTracker
         {
             Transactions.Remove(curTransaction);
         }
+
+        public void EditAsset(string name, double amount)
+        {
+            Name = name;
+            Amount = amount;
+
+            if (Transactions == null)
+            {
+                _StartAmount = amount;
+                Amount = _StartAmount;
+            }
+        }
     }
 }

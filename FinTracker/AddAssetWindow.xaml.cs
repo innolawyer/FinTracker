@@ -34,10 +34,6 @@ namespace FinTracker
             ComboBoxAssetType.Items.Add("Карта");
             ComboBoxAssetType.Items.Add("Наличные");
 
-            foreach (string category in _storage.actualUser.CategoriesSpend)
-            {
-                ComboBoxCashCategory.Items.Add(category);
-            }
 
             TextBoxAmount.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
             TextBoxAssetName.GotFocus += new System.Windows.RoutedEventHandler(this.TextBoxAmount_GotFocus);
@@ -101,12 +97,6 @@ namespace FinTracker
             _mainWindow.GetAccessToLoans();
         }
 
-        private void ButtonAddNewPercentCashbackCategory_Click(object sender, RoutedEventArgs e)
-        {
-            Card card = (Card)_storage.actualAsset;
-            //AddCategoryCashback(ComboBoxCashCategory.Text, TextBoxNewPercent);
-        }
-
         private void ComboBoxAssetType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ButtonCreateAsset.IsEnabled = true;
@@ -119,9 +109,6 @@ namespace FinTracker
                 DatePickerEnrollDateCash.IsEnabled = false;
                 DatePickerEnrollDateYearInterest.IsEnabled = false;
                 DatePickerDateSpendServiceFee.IsEnabled = false;
-                ComboBoxCashCategory.IsEnabled = false;
-                TextBoxNewPercent.IsEnabled = false;
-                ButtonAddNewPercentCashbackCategory.IsEnabled = false;
             }
             if (ComboBoxAssetType.SelectedIndex == 0)
             {
@@ -130,10 +117,7 @@ namespace FinTracker
                 TextBoxMonthFee.IsEnabled = true;
                 DatePickerEnrollDateCash.IsEnabled = true;
                 DatePickerEnrollDateYearInterest.IsEnabled =true;
-                DatePickerDateSpendServiceFee.IsEnabled = true;
-                ComboBoxCashCategory.IsEnabled = true;
-                TextBoxNewPercent.IsEnabled = true;
-                ButtonAddNewPercentCashbackCategory.IsEnabled = true;
+                DatePickerDateSpendServiceFee.IsEnabled = true;    
             }
         }
     }

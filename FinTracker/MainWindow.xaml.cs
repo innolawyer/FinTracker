@@ -41,12 +41,14 @@ namespace FinTracker
             FillAssetListBox(ComboBoxAssetAnalisys);
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
+            FillingListDeposit();
+
             if (_storage.actualAsset == null)
             {
                 ButtonConfirmTransaction.IsEnabled = false;
                 ButtonConfirmTransaction.IsEnabled = false;
             }
-            if (_storage.actualUser != null)
+            if (_storage.actualUser != null && _storage.actualAsset != null)
             {
                 foreach (Asset asset in _storage.actualUser.Assets)
                 {
@@ -282,7 +284,7 @@ namespace FinTracker
             LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
-        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)  // сделать что-то с доход и расход
+        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)
         {
             Storage.sign sign = Storage.sign.income;
 
@@ -309,10 +311,14 @@ namespace FinTracker
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
             FillAssetsStackPanel();
+            FillingListDeposit();
             GetAccessToLoans();
-            foreach (Loan loan in _storage.actualUser.Loans)
+            if (_storage.actualUser != null)
             {
-                loan.DoRegularPayment();
+                foreach (Loan loan in _storage.actualUser.Loans)
+                {
+                    loan.DoRegularPayment();
+                }
             }
 
             SeriesCollectionIncome = null;
@@ -477,8 +483,6 @@ namespace FinTracker
 
         }
 
-        
-
         private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
         {
             AddExtraPayment addExtraPayment = new AddExtraPayment(this);
@@ -600,6 +604,32 @@ namespace FinTracker
         private void ComboBoxAssetAnalisys_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e)
+        {
+            EditAsset editAsset = new EditAsset(this);
+            editAsset.Show();
+        }      
+
+        private void ButtonCreateDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            AddDeposit addDeposit = new AddDeposit(this);
+            addDeposit.Show();
+        }
+
+        public void FillingListDeposit()
+        {
+            ListViewDeposit.Items.Clear();
+
+            foreach (Asset asset in _storage.actualUser.Assets)
+            {
+                if (asset is Deposit)
+                {
+                    Deposit depo = (Deposit)asset;
+                    ListViewDeposit.Items.Add(depo);
+                }
+            }
         }
     }
 }
