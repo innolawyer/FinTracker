@@ -314,13 +314,7 @@ namespace FinTracker
             FillAssetsStackPanel();
             FillingListDeposit();
             GetAccessToLoans();
-            if (_storage.actualUser != null)
-            {
-                foreach (Loan loan in _storage.actualUser.Loans)
-                {
-                    loan.DoRegularPayment();
-                }
-            }
+            
 
             SeriesCollectionIncome = null;
             SeriesCollectionSpend = null;
