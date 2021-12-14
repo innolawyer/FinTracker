@@ -16,6 +16,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FinTracker.Loans;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -50,7 +51,7 @@ namespace FinTracker
             }
             if (_storage.actualUser != null && _storage.actualAsset != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Card)
                     {
@@ -127,7 +128,7 @@ namespace FinTracker
             box.Items.Clear();
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     box.Items.Add(asset.Name);
                 }
@@ -185,7 +186,7 @@ namespace FinTracker
             if (_storage.actualUser != null)
             {
                 StackPanelAssetList.Children.Clear();
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     Button buttonAsset = new Button();
                     buttonAsset.Content = asset.Name;
@@ -259,7 +260,7 @@ namespace FinTracker
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
         {
-            _storage.actualUser.DeleteAsset(_storage.actualAsset);
+            _storage.actualUser.DeleteAsset((AbstractAsset)_storage.actualAsset);
             LabelCurrentAmount.Content = "";
             StackPanelTransactionList.Children.Clear();
             _storage.actualAsset = null;
@@ -318,7 +319,7 @@ namespace FinTracker
             SeriesCollectionIncome = null;
             SeriesCollectionSpend = null;
             ComboBoxRangeDateAnalisys.SelectedIndex = 0;
-            if (_storage.actualUser.Assets.Count != 0)
+            if (_storage.actualUser != null && _storage.actualUser.Assets.Count != 0)
             {
 
                 SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
@@ -540,7 +541,7 @@ namespace FinTracker
 
         private void ComboBoxAssetAnalisys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PieChartIncome.Series != null && PieChartSpend.Series != null)
+            if (PieChartIncome.Series != null && PieChartSpend.Series != null && _storage.actualUser.Assets.Count != 0)
             {
                 PieChartIncome.Series.Clear();
                 PieChartSpend.Series.Clear();
@@ -618,7 +619,7 @@ namespace FinTracker
 
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Deposit)
                     {
