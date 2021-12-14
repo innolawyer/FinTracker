@@ -96,7 +96,7 @@ namespace FinTracker
                      Convert.ToDateTime(DatePickerEnrollDateCashEdit.Text), Convert.ToDateTime(DatePickerEnrollDateYearInterestEdit.Text),
                      Convert.ToDateTime(DatePickerDateSpendServiceFeeEdit.Text));
             }
-            _mainWindow.FillAssetListBox();
+            //_mainWindow.FillAssetListBox();
             _mainWindow.FillAssetsStackPanel();
             _mainWindow.LabelCurrentAmount.Content = _storage.actualAsset.Amount;
             _mainWindow.IsEnabled = true;
