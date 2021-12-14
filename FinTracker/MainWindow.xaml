@@ -334,9 +334,9 @@
                     <lvc:PieChart x:Name="PieChartSpend" LegendLocation ="Bottom" Hoverable="True" InnerRadius="30" Series="{Binding SeriesCollectionSpend}" Margin="10,62,990,335" Grid.ColumnSpan="2" />
                     <ComboBox x:Name="ComboBoxAssetAnalisys" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Width="479" SelectionChanged="ComboBoxAssetAnalisys_SelectionChanged" Grid.ColumnSpan="2"/>
                     <ComboBox x:Name="ComboBoxRangeDateAnalisys" HorizontalAlignment="Left" Margin="482,10,0,0" VerticalAlignment="Top" Width="233" SelectionChanged="ComboBoxAssetAnalisys_SelectionChanged" Grid.Column="1"/>
-                    <lvc:CartesianChart Name="ColumnChartSpend" Series="{Binding SeriesCollectionColSpend}" LegendLocation="Left" Margin="0,55,442,335" Hoverable="True" Grid.Column="1" HorizontalAlignment="Right" Width="458"/>
+                    <lvc:CartesianChart Name="ColumnChartSpend" Series="{Binding SeriesCollectionColSpend}" LegendLocation="Left" Margin="0,55,41,335" Hoverable="True" Grid.Column="1" HorizontalAlignment="Right" Width="859"/>
 
-                    <lvc:CartesianChart Name="ColumnChartIncome" Series="{Binding SeriesCollectionColIncome}" LegendLocation="Left" Margin="0,339,442,51" Hoverable="True" Grid.Column="1" HorizontalAlignment="Right" Width="458"/>
+                    <lvc:CartesianChart Name="ColumnChartIncome" Series="{Binding SeriesCollectionColIncome}" LegendLocation="Left" Margin="0,339,41,51" Hoverable="True" Grid.Column="1" HorizontalAlignment="Right" Width="859"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -66,9 +66,6 @@ namespace FinTracker
                     };
                     seriesCollection.Add(tmpSeries);
                 }
-
-
-
             }
 
             return seriesCollection;
