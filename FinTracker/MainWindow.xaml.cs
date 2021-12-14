@@ -294,7 +294,7 @@ namespace FinTracker
             _storage.actualTransaction.EditTransaction(sign, Convert.ToDouble(TextBoxAmount.Text),
                                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                                         TextBoxComment.Text,
-                                                        ComboBoxCategoriesTransaction.Text, (bool)CheckBoxGroupPayment.IsChecked);
+                                                        ComboBoxCategoriesTransaction.Text);
             FillingTransactionsStackPanel(sender, e);
             LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
@@ -435,11 +435,11 @@ namespace FinTracker
                     Transaction nTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
-                                        (string)ComboBoxCategoriesTransaction.SelectedValue, (bool)CheckBoxGroupPayment.IsChecked);
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
                     _storage.actualAsset.AddTransactions(nTransaction);
 
                     Button nTransactionButton = new Button();
-                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category} {nTransaction.GroupPayment}";
+                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
                     nTransactionButton.Click += CurrentTransaction;
                     nTransactionButton.Click += SetTransactionData;
                     StackPanelTransactionList.Children.Add(nTransactionButton);
@@ -457,11 +457,11 @@ namespace FinTracker
                 Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
                                     Convert.ToDateTime(DatePickerTransaction.Text),
                                     TextBoxComment.Text,
-                                    (string)ComboBoxCategoriesTransaction.SelectedValue, (bool)CheckBoxGroupPayment.IsChecked);
+                                    (string)ComboBoxCategoriesTransaction.SelectedValue);
 
                 _storage.actualAsset.AddTransactions(nTransaction);
                 Button nTransactionButton = new Button();
-                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category} {nTransaction.GroupPayment}";
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
                 nTransactionButton.Click += CurrentTransaction;
                 nTransactionButton.Click += SetTransactionData;
                 StackPanelTransactionList.Children.Add(nTransactionButton);

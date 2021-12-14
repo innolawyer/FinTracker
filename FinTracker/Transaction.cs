@@ -15,27 +15,24 @@ namespace FinTracker
         public DateTime Date;
         public string Comment;
         public Storage.sign Sign;
-        public bool GroupPayment;
 
 
-        public Transaction(Storage.sign sign,double sum, DateTime date, string comment, string category, bool groupPayment)
+        public Transaction(Storage.sign sign,double sum, DateTime date, string comment, string category)
         {
             Sign = sign;
             Amount = sum;
             Date = date;
             Comment = comment;
             Category = category;
-            GroupPayment = groupPayment; 
         }
 
-        public void EditTransaction(Storage.sign t, double sum, DateTime date, string comment, string category, bool groupPayment)
+        public void EditTransaction(Storage.sign t, double sum, DateTime date, string comment, string category)
         {
             Sign = t;
             Amount = sum;
             Date = date;
             Comment = comment;
             Category = category;
-            GroupPayment = groupPayment;
         }
     }
 }

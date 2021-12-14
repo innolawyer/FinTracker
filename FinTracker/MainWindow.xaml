@@ -158,7 +158,6 @@
                     <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="1" Content="Перевод" HorizontalAlignment="Left" Margin="35,219,0,0" VerticalAlignment="Top" Click="RadioButtonTransfer_Click" Height="18" Width="71"/>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonConfirmTransaction" Grid.Column="1" Content="Подтвердить" HorizontalAlignment="Left" Margin="31,437,0,0" VerticalAlignment="Top" Height="37" Width="140" Click="ButtonConfirmTransaction_Click"/>
                     <Label Grid.Column="1" Content="Добавить категорию" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="32,290,0,0" VerticalAlignment="Top" Height="24" Width="126"/>
-                    <CheckBox x:Name="CheckBoxGroupPayment" Grid.Column="1" Content="Общий платеж" HorizontalAlignment="Left" Margin="31,99,0,0" VerticalAlignment="Top" Click="CheckBoxGroupPayment_Click" Height="18" Width="108"/>
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
@@ -245,9 +244,7 @@
                     <Label x:Name="LabelTextPayments" Grid.Column="1" Content="Платежи по кредитам" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="164" FontWeight="Bold" FontSize="14" Height="27"/>
                 </Grid>
             </TabItem>
-            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="auto" Header="Планирование">
-                <Label x:Name="TempLabel" Width="300" Height="100" Content="Привет" FontSize="24"/>
-
+            
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="120" Header="Планирование">
                 <Grid Background="AntiqueWhite">
                     <Grid.ColumnDefinitions>
