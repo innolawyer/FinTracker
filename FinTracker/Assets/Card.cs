@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Assets;
 using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
-    public class Card : Asset
+    public class Card : AbstractAsset
     {
         private double _startAmount;
 

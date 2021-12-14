@@ -81,7 +81,7 @@ namespace FinTracker
         private void ButtonEditAsset_Click(object sender, RoutedEventArgs e) 
         {
 
-            Asset asset = _storage.actualAsset;
+            Asset asset = (Asset)_storage.actualAsset;
             if (ComboBoxAssetTypeEdit.SelectedItem.ToString() == "Наличные")
             {
                 asset.EditAsset(TextBoxAssetNameEdit.Text, Convert.ToDouble(TextBoxAmountEdit.Text));

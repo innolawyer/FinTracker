@@ -16,6 +16,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FinTracker.Loans;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -50,7 +51,7 @@ namespace FinTracker
             }
             if (_storage.actualUser != null && _storage.actualAsset != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Card)
                     {
@@ -259,7 +260,7 @@ namespace FinTracker
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
         {
-            _storage.actualUser.DeleteAsset(_storage.actualAsset);
+            _storage.actualUser.DeleteAsset((Asset)_storage.actualAsset);
             LabelCurrentAmount.Content = "";
             StackPanelTransactionList.Children.Clear();
             _storage.actualAsset = null;
@@ -624,7 +625,7 @@ namespace FinTracker
 
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Deposit)
                     {
