@@ -63,7 +63,8 @@ namespace FinTracker
          
             Deposit deposit = new Deposit(TextBoxNameAsset.Text, TextBoxBankName.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
                 (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToInt32(TextBoxTermDeposit.Text),
-                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem));
+                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem), 
+                _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString()));
 
             _storage.actualUser.AddDeposit(deposit);
 
@@ -82,5 +83,6 @@ namespace FinTracker
                 ComboBoxDepositSpendAsset.IsEnabled = true;
             }
         }
+
     }
 }

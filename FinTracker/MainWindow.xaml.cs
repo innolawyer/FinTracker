@@ -16,6 +16,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FinTracker.Loans;
+using FinTracker.DepositWindows;
 
 namespace FinTracker
 {
@@ -68,6 +69,7 @@ namespace FinTracker
             ComboBoxRangeDateAnalisys.Items.Add(Storage.DateRange.Полгода);
             ComboBoxRangeDateAnalisys.Items.Add(Storage.DateRange.Год);
             ComboBoxRangeDateAnalisys.SelectedIndex = 0;
+
             if (_storage.actualUser != null && _storage.actualUser.Assets.Count != 0)
             {
                 ComboBoxAssetAnalisys.SelectedIndex = 0;
@@ -84,15 +86,13 @@ namespace FinTracker
                     _storage.actualUser.CategoriesSpend,
                     (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
 
-                SeriesCollectionColSpend = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesSpend,
-                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
-                                                                         _storage.actualUser.Assets[0].Name);
+                SeriesCollectionColSpend = Analisys.GetAverageAmountByCategory(
+                    _storage.actualUser.CategoriesSpend, (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem, _storage.actualUser.Assets[0].Name);
 
-                SeriesCollectionColIncome = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesIncome,
-                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
-                                                                         _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+                SeriesCollectionColIncome = Analisys.GetAverageAmountByCategory(
+                    _storage.actualUser.CategoriesIncome, (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
+                    _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
             }
-
 
             DataContext = this;
         }
@@ -104,7 +104,7 @@ namespace FinTracker
 
         public void FillingComboBoxUser(ComboBox box)
         {
-            box.Items.Clear();  //ComboBoxChangeUser
+            box.Items.Clear();
             foreach (User user in _storage.Users)
             {
                 box.Items.Add($"{user.Name}");
@@ -120,7 +120,6 @@ namespace FinTracker
         {
             _storage.actualTransaction = _storage.actualAsset.Transactions[StackPanelTransactionList.Children.IndexOf((Button)sender)];
         }
-
 
         public void FillAssetListBox(ComboBox box)
         {
@@ -371,26 +370,10 @@ namespace FinTracker
                 addCategories.Show();
         }
 
-
         private void ButtoanAddLoan_Click(object sender, RoutedEventArgs e)
         {
             AddLoanWindow addLoanWindow = new AddLoanWindow(this);
             addLoanWindow.Show();
-        }
-
-        private void ComboBoxListAsset_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBoxCategoriesTransaction_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBoxComment_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void ButtoanRemoveLoan_Click(object sender, RoutedEventArgs e)
@@ -408,11 +391,6 @@ namespace FinTracker
         private void RadioButtonСonsumption_Click(object sender, RoutedEventArgs e)
         {
             FillCategories(_storage.actualUser.CategoriesSpend);
-        }
-
-        private void RadioButtonTransfer_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
@@ -472,8 +450,6 @@ namespace FinTracker
                 LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
             }
         }
-
-       
 
         private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -633,6 +609,26 @@ namespace FinTracker
                     }
                 }
             }
+        }
+
+        private void ButtonEditDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewDeposit.SelectedItem != null)
+            {
+                EditDeposit editDeposit = new EditDeposit(this);
+                editDeposit.Show();
+            }
+            else 
+            {
+                MessageBox.Show("Выберите вклад для редактирования");
+            }
+        }
+
+        private void ButtonDeleteDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            _storage.actualUser.DeleteAsset((Deposit)ListViewDeposit.SelectedItem);
+            ListViewDeposit.Items.Remove(ListViewDeposit.SelectedItem);
+            ListViewDeposit.Items.Refresh();
         }
     }
 }

@@ -21,9 +21,12 @@ namespace FinTracker
         public double SumIncome { get; set; } // сумма начисления
         public Storage.period Period { get; set; } // период
         public DateTime SpendDate { get; set; } // дата зачисления
+        public int TermDeposit { get; set; }   // срок вклада
+        public Asset Asset { get; set; }
+
 
         public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, 
-            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
+            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period, Asset asset) : base(name, amount) //ЗАМЕНИТЬ НА АБСТРАКТНЫЙ
         {
             if (capitalization)
             {
@@ -44,6 +47,8 @@ namespace FinTracker
             Percent = percent;
             Period = period;
             SpendDate = openingDate.AddDays((int)Period * 360);
+            TermDeposit = termDeposit;
+            Asset = asset;
         }
        
             public double EnrollIncomeFromDeposit(int year)
@@ -86,6 +91,22 @@ namespace FinTracker
             {
                 Amount -= sum;
             }
+        }
+        
+        public void EditDeposit(string name, string bankName, double amount, bool withdrawable, bool putable,
+            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period)
+        {
+            Name = name;
+            BankName = bankName;
+            Amount = amount;
+            Withdrawable = withdrawable;
+            Putable = putable;
+            Сapitalization = capitalization;
+            ClosingDate = openingDate.AddYears(termDeposit);
+            OpeningDate = openingDate;
+            Percent = percent;
+            Period = period;
+            SpendDate = openingDate.AddDays((int)Period * 360);
         }
     }
 }
