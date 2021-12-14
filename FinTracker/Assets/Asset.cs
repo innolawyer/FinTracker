@@ -14,6 +14,7 @@ namespace FinTracker
         public double Amount; //Состояние счета       
         public List<Transaction> Transactions = new List<Transaction>();
         private double _StartAmount; //Стартовое состояние счета
+        
 
         public Asset(string name, double amount)
         {
@@ -21,6 +22,7 @@ namespace FinTracker
             Name = name;
             Amount = amount;
             _StartAmount = amount;
+            
         }
 
         public double GetAmount()

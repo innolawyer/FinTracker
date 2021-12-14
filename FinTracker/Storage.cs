@@ -107,12 +107,16 @@ namespace FinTracker
 
         public void Save()
         {
-            string str = JsonConvert.SerializeObject(Users, Formatting.Indented);
+            string str = JsonConvert.SerializeObject(Users,Formatting.Indented, new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
                 sw.WriteLine(str);
                 sw.Close();
             }
+
         }
 
         public void GetSave()
@@ -130,7 +134,10 @@ namespace FinTracker
             {
 
             }
-            List<User> ?newClients = JsonConvert.DeserializeObject<List<User>>(result);
+            List<User> ?newClients = JsonConvert.DeserializeObject<List<User>>(result, new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Auto
+            });
             if (newClients is not null)
             {
                 Users = newClients;

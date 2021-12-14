@@ -22,7 +22,8 @@ namespace FinTracker
         public Storage.period Period { get; set; } // период
         public DateTime SpendDate { get; set; } // дата зачисления
 
-        public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
+        public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, 
+            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
         {
             if (capitalization)
             {
@@ -44,9 +45,8 @@ namespace FinTracker
             Period = period;
             SpendDate = openingDate.AddDays((int)Period * 360);
         }
-
-        
-        public double EnrollIncomeFromDeposit(int year)
+       
+            public double EnrollIncomeFromDeposit(int year)
         {
             // если % добавляется к вкладу, этот нельзя снимать, можно пополнять
             if (Withdrawable == false && Putable == true)

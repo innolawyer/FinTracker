@@ -78,7 +78,7 @@ namespace FinTracker
             card.AddCategoryCashback(ComboBoxCashCategory.Text, Convert.ToDouble(TextBoxNewPercent.Text));
         }
 
-        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e) // НЕ РАБОТАЕТ
+        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e) 
         {
 
             Asset asset = _storage.actualAsset;

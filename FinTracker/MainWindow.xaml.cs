@@ -622,12 +622,15 @@ namespace FinTracker
         {
             ListViewDeposit.Items.Clear();
 
-            foreach (Asset asset in _storage.actualUser.Assets)
+            if (_storage.actualUser != null)
             {
-                if (asset is Deposit)
+                foreach (Asset asset in _storage.actualUser.Assets)
                 {
-                    Deposit depo = (Deposit)asset;
-                    ListViewDeposit.Items.Add(depo);
+                    if (asset is Deposit)
+                    {
+                        Deposit depo = (Deposit)asset;
+                        ListViewDeposit.Items.Add(depo);
+                    }
                 }
             }
         }
