@@ -78,5 +78,10 @@ namespace FinTracker
         {
             Loans.Remove(loan);
         }
+
+        public void RemoveDeposit(Deposit deposit)
+        {
+            Assets.Remove(deposit);
+        }
     }
 }
