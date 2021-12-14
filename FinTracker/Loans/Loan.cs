@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FinTracker.Loans;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -14,7 +15,7 @@ namespace FinTracker
         public DateTime ActualPaymentDateTime { get; set; }
         public DateTime NextPaymentDateTime { get; set;}      
         public DateTime LastPaymentDateTime { get; set;}        
-        public Asset Asset { get; set; }
+        public AbstractAsset Asset { get; set; }
         public int Id { get; set; }
         public string CreditorsName { get; set; }
         public double Percent { get; set; }
@@ -37,7 +38,7 @@ namespace FinTracker
 
         
 
-        public Loan (Asset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
+        public Loan (AbstractAsset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
                     double remainingTerm,
                     double amount)
@@ -71,22 +72,22 @@ namespace FinTracker
        
 
         //привязать актуальную дату к программе
-        public void DoRegularPayment ()
-        {          
+        //public void DoRegularPayment ()
+        //{          
 
-            while (ActualPaymentDateTime != LastPaymentDateTime)
-            {
-                if (DateTime.Today == ActualPaymentDateTime)
-                {
-                    Asset.Amount -= MonthlyPayment;
-                    TotalAmountOfLoan -= MonthlyPayment;
-                    Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
-                }
-            }
+        //    while (ActualPaymentDateTime != LastPaymentDateTime)
+        //    {
+        //        if (DateTime.Today == ActualPaymentDateTime)
+        //        {
+        //            Asset.Amount -= MonthlyPayment;
+        //            TotalAmountOfLoan -= MonthlyPayment;
+        //            Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
+        //        }
+        //    }
 
-            ActualPaymentDateTime = NextPaymentDateTime;
+        //    ActualPaymentDateTime = NextPaymentDateTime;
             
-        }
+        //}
 
 
         //метод досрочного погашения, уменьшающий ежемесячный платёж
@@ -141,6 +142,64 @@ namespace FinTracker
 
         }
 
+        //public override bool Equals(object? obj)
+        //{
+        //    Loan loan = (Loan)obj;
+        //    if (loan == null&&this==null)
+        //    {
+        //        return true;
 
+        //    }
+        //    if (loan.AmountOfReturned != this.AmountOfReturned)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.TotalAmountOfPercents != this.TotalAmountOfPercents)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.Asset.Amount != this.Asset.Amount)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.MonthlyPayment != this.MonthlyPayment)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.MonthlyPaymentRounded != this.MonthlyPaymentRounded)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.RemainingTerm != this.RemainingTerm)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm != this.TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.TotalAmountOfLoan != this.TotalAmountOfLoan)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.Amount != this.Amount)
+        //    {
+        //        return false;
+        //    }
+        //    if (loan.ActualPaymentDateTime != this.ActualPaymentDateTime)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+            
+        //}
+
+        public override string ToString()
+        {
+            return AmountOfReturned.ToString() + "\n" + TotalAmountOfPercents.ToString() + "\n" + 
+                Asset.Amount.ToString() + " " + MonthlyPayment.ToString() + " " + MonthlyPaymentRounded.ToString() + " " + 
+                RemainingTerm.ToString() + " " + TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm.ToString() + " " + TotalAmountOfLoan.ToString()
+                 + " " + Amount.ToString() + " " + ActualPaymentDateTime.ToString();
+        }
     }
 }
