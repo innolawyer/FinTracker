@@ -1,5 +1,4 @@
-﻿using FinTracker.Assets;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +36,7 @@ namespace FinTracker
 
         public void FillingComboBoxLoanAsset ()
         {
-            foreach (AbstractAsset asset in _storage.actualUser.Assets)
+            foreach (Asset asset in _storage.actualUser.Assets)
             {
                 ComboBoxLoanAsset.Items.Add(asset.Name);
             }
@@ -62,7 +61,7 @@ namespace FinTracker
                 id = _storage.actualUser.Loans.Count+1;
             }
             User user = _storage.actualUser;
-            AbstractAsset asset = user.GetAssetByName(ComboBoxLoanAsset.SelectedItem.ToString());
+            Asset asset = user.GetAssetByName(ComboBoxLoanAsset.SelectedItem.ToString());
             Loan nLoan = new Loan (asset, id, (DateTime)Convert.ToDateTime(DatePickerLoanStart.SelectedDate.Value.ToShortDateString()), (String)TextBoxLoanCreditorName.Text,
                 (Double)Convert.ToDouble(TextBoxLoanPercent.Text), (Double)Convert.ToDouble (TextBoxLoanPeriod.Text),
                 (String)Convert.ToString(ComboBoxLoanStatus.SelectedItem),(Double)Convert.ToDouble(TextBoxRemainingTerm.Text), 

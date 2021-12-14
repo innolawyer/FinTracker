@@ -81,7 +81,7 @@ namespace FinTracker
         private void ButtonEditAsset_Click(object sender, RoutedEventArgs e) 
         {
 
-            Asset asset = (Asset)_storage.actualAsset;
+            Asset asset = _storage.actualAsset;
             if (ComboBoxAssetTypeEdit.SelectedItem.ToString() == "Наличные")
             {
                 asset.EditAsset(TextBoxAssetNameEdit.Text, Convert.ToDouble(TextBoxAmountEdit.Text));
@@ -132,11 +132,6 @@ namespace FinTracker
                 TextBoxNewPercent.IsEnabled = true;
                 ButtonAddNewPercentCashbackCategory.IsEnabled = true;
             }
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _mainWindow.IsEnabled = true;
         }
     }
 }
