@@ -43,6 +43,7 @@ namespace FinTracker
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
             FillingListDeposit();
+            FillingListLoans();
 
             if (_storage.actualAsset == null)
             {
@@ -607,6 +608,19 @@ namespace FinTracker
                         Deposit depo = (Deposit)asset;
                         ListViewDeposit.Items.Add(depo);
                     }
+                }
+            }
+        }
+
+        public void FillingListLoans()
+        {
+            ListViewLoans.Items.Clear();
+
+            if (_storage.actualUser != null)
+            {
+                foreach (Loan loan in _storage.actualUser.Loans)
+                {                    
+                  ListViewLoans.Items.Add(loan);                    
                 }
             }
         }
