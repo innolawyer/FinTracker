@@ -236,8 +236,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="90"/>
-                        <RowDefinition Height="191*"/>
-                        <RowDefinition Height="69*"/>
+                        <RowDefinition Height="337*"/>
+                        <RowDefinition Height="161*"/>
                         <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtoanAddLoan" Content="Добавить" Margin="40,0,40,0" Click="ButtoanAddLoan_Click" Grid.Column="0" Height="28" VerticalAlignment="Center" />
@@ -260,24 +260,24 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime}" />
+                                <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime, StringFormat='{}{0:dd/MM/yyyy}'}" />
                                 <GridViewColumn Header="Кредитор"  DisplayMemberBinding="{Binding CreditorsName}"/>
                                 <GridViewColumn Header="%"  DisplayMemberBinding="{Binding Percent}"/>
                                 <GridViewColumn Header="Период (мес.)"  DisplayMemberBinding="{Binding Period}"/>
                                 <GridViewColumn Header="Статус"  DisplayMemberBinding="{Binding Status}"/>
                                 <GridViewColumn Header="Осталось платежей"  DisplayMemberBinding="{Binding RemainingTerm}"/>
                                 <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}" />
-                                <GridViewColumn Header="Возвращено"  DisplayMemberBinding="{Binding AmountOfReturned}"/>
-                                <GridViewColumn Header="Остаток"  DisplayMemberBinding="{Binding RemainingAmount}"/>
+                                <GridViewColumn Header="Возвращено"  DisplayMemberBinding="{Binding AmountOfReturnedRounded}"/>
+                                <GridViewColumn Header="Остаток"  DisplayMemberBinding="{Binding RemainingAmountRounded}"/>
                                 <GridViewColumn Header="Платёж"  DisplayMemberBinding="{Binding MonthlyPaymentRounded}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                     <ListView x:Name="ListViewLoanPayments" Grid.Row="2" d:ItemsSource="{d:SampleData ItemCount=1}" ItemsSource="{Binding Effects}" 
                               SelectedIndex="0" SelectionChanged="ListViewLoans_SelectionChanged" 
-                              FontSize="14" FontFamily="Bahnschrift SemiLight" FontStretch="Normal" FontStyle="Normal" FontWeight="Heavy"                              
+                              FontSize="12" FontFamily="Bahnschrift SemiLight" FontStretch="Normal" FontStyle="Normal" FontWeight="Heavy"                              
                               IsSynchronizedWithCurrentItem="True" SelectionMode="Single" BorderBrush="#891B0A3E" BorderThickness="0,0,0,0" 
-                              Background="White" Foreground="#DD0F9ECE" Margin="0,0,209,41" Grid.ColumnSpan="2" Grid.RowSpan="2" Height="176" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="435">
+                              Background="White" Foreground="#DD0F9ECE" Margin="0,52,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" Height="157" VerticalAlignment="Top" HorizontalAlignment="Center" Width="414" Grid.Column="1">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -288,7 +288,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Дата платежа"  DisplayMemberBinding="{Binding LoanTransactionDate}" />
+                                <GridViewColumn Header="Дата платежа"  DisplayMemberBinding="{Binding LoanTransactionDate, StringFormat='{}{0:dd/MM/yyyy}'}" />
                                 <GridViewColumn Header="Сумма" Width="auto" DisplayMemberBinding="{Binding LoanTransactionAmount}"/>
                                 <GridViewColumn Header="Цель" Width="auto" DisplayMemberBinding="{Binding Purpose}"/>
 
@@ -296,17 +296,18 @@
                         </ListView.View>
 
                     </ListView>
-                    <Rectangle x:Name="RectangleLW" HorizontalAlignment="Left" Height="186" Grid.RowSpan="2" Grid.Row="2" Stroke="Black" VerticalAlignment="Top" Width="440" StrokeThickness="2" Margin="1,0,0,0" Grid.ColumnSpan="2"/>
-                    <ProgressBar x:Name="ProgressBarPaymentProgress" Grid.Column="2" HorizontalAlignment="Center" Height="27" Margin="0,39,0,0" Grid.Row="2" VerticalAlignment="Top" Width="215" Background="#FFA0DB9D" Minimum="0" Maximum="100"/>
-                    <Label x:Name="LabelProgressOfRepayment" Grid.Column="2" Content="Прогресс выплаты кредита" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="169" FontWeight="Bold"/>
-                    <ProgressBar x:Name="ProgressBarPaidFromBody" Grid.Column="2" HorizontalAlignment="Center" Height="27" Margin="0,105,0,0" Grid.Row="2" VerticalAlignment="Top" Width="215" Background="#FF73A070" Minimum="0" Maximum="100"/>
-                    <Label x:Name="LabelPaidFromBody" Grid.Column="2" Content="Выплачено от тела кредита" HorizontalAlignment="Center" Margin="0,76,0,0" Grid.Row="2" VerticalAlignment="Top" Width="170" FontWeight="Bold"/>
-                    <Label x:Name="LabelUntilPayment" Grid.Column="1" Content="До платежа" HorizontalAlignment="Left" Margin="192,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="81" FontWeight="Bold"/>
-                    <Label x:Name="LabelRemainingDays" Grid.Column="1" Content="5" HorizontalAlignment="Left" Height="66" Margin="212,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto" FontSize="48" Foreground="#DDF30909"/>
-                    <Label x:Name="LabelDN" Grid.Column="1" Content="ДН" HorizontalAlignment="Left" Margin="197,130,0,0" Grid.Row="2" VerticalAlignment="Top" Width="71" FontWeight="Bold" Grid.RowSpan="2" FontSize="36"/>
-                    <Label x:Name="LabelTAOP" Grid.Column="3" Content="Общая сумма переплаты" HorizontalAlignment="Center" Margin="0,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="159" FontWeight="Bold"/>
-                    <Label x:Name="LabelTotalAmountOfPercents" Grid.Column="3" Content="5" HorizontalAlignment="Center" Height="66" Margin="0,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto" FontSize="48" Foreground="#DDF30909"/>
-                    <Label x:Name="LabelRub" Grid.Column="3" Content="РУБ" HorizontalAlignment="Center" Margin="0,130,0,0" Grid.Row="2" VerticalAlignment="Top" Width="79" FontWeight="Bold" Grid.RowSpan="2" FontSize="36"/>
+                    <Rectangle x:Name="RectangleLW" HorizontalAlignment="Left" Height="212" Grid.RowSpan="2" Grid.Row="2" VerticalAlignment="Top" Width="414" StrokeThickness="1" Margin="119,1,0,0" Grid.ColumnSpan="2" Grid.Column="1">
+                        <Rectangle.Stroke>
+                            <SolidColorBrush Color="#FF0339F3" Opacity="0.8"/>
+                        </Rectangle.Stroke>
+                    </Rectangle>
+                    <Label x:Name="LabelUntilPayment" Content="До платежа" HorizontalAlignment="Left" Margin="100,10,0,0" Grid.Row="2" VerticalAlignment="Top" Width="98" FontWeight="Bold" Height="24" FontSize="14"/>
+                    <Label x:Name="LabelRemainingDays" Content="5" HorizontalAlignment="Left" Height="66" Margin="136,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto" FontSize="36" Foreground="#DDF30909"/>
+                    <Label x:Name="LabelDN" Content="ДН" HorizontalAlignment="Left" Margin="133,121,0,0" Grid.Row="2" VerticalAlignment="Top" Width="29" FontWeight="Bold" FontSize="14" Height="28"/>
+                    <Label x:Name="LabelTAOP" Content="Общая сумма переплаты" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="2" VerticalAlignment="Top" Width="184" FontWeight="Bold" Height="24" FontSize="14" Grid.Column="3"/>
+                    <Label x:Name="LabelTotalAmountOfPercents" Content="5" HorizontalAlignment="Center" Height="66" Margin="0,52,0,0" Grid.Row="2" VerticalAlignment="Top" Width="auto" FontSize="36" Foreground="#DDF30909" Grid.Column="3"/>
+                    <Label x:Name="LabelRub" Content="РУБ" HorizontalAlignment="Center" Margin="0,118,0,0" Grid.Row="2" VerticalAlignment="Top" Width="38" FontWeight="Bold" FontSize="14" Height="34" Grid.Column="3"/>
+                    <Label x:Name="LabelTextPayments" Grid.Column="1" Content="Платежи по кредитам" HorizontalAlignment="Center" Margin="0,4,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="164" FontWeight="Bold" FontSize="14" Height="27"/>
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="auto" Header="Планирование">

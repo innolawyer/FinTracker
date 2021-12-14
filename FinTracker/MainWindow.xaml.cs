@@ -48,12 +48,17 @@ namespace FinTracker
             }
             if (_storage.actualUser != null)
             {
-                foreach (Card asset in _storage.actualUser.Assets)
+                foreach (Asset asset in _storage.actualUser.Assets)
                 {
-                    asset.GetMinAmount();
-                    asset.EnrollmentCashbak();
-                    asset.EnrollmentSumYearInterest();
-                    asset.EnrollmentServiceFee();
+                    if (asset is Card)
+                    {
+                        Card card = (Card)asset;
+                        card.GetMinAmount();
+                        card.EnrollmentCashbak();
+                        card.EnrollmentSumYearInterest();
+                        card.EnrollmentServiceFee();
+                    }
+                    
                 }
             }
         }
@@ -229,7 +234,7 @@ namespace FinTracker
         {
             Loan loan = (Loan)ListViewLoans.SelectedItem;
             LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
-            LabelTotalAmountOfPercents.Content = loan.TotalAmountOfPercents;
+            LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -536,6 +541,8 @@ namespace FinTracker
             
             AllLoanButtonsAreEnabled();
             LoanLabels_Update();
+           
+
         }
 
         
@@ -565,10 +572,8 @@ namespace FinTracker
                 LabelRub.Opacity = 0;
                 LabelUntilPayment.Opacity = 0;
                 LabelDN.Opacity = 0;
-                LabelProgressOfRepayment.Opacity = 0;
-                LabelPaidFromBody.Opacity = 0;
-                ProgressBarPaymentProgress.Opacity = 0;
-                ProgressBarPaidFromBody.Opacity = 0;
+                LabelTextPayments.Opacity = 0;
+                
 
             }
             else if (ListViewLoans.SelectedItem !=null)
@@ -588,10 +593,7 @@ namespace FinTracker
                 LabelRub.Opacity = 1;
                 LabelUntilPayment.Opacity = 1;
                 LabelDN.Opacity = 1;
-                LabelProgressOfRepayment.Opacity = 1;
-                LabelPaidFromBody.Opacity = 1;
-                ProgressBarPaymentProgress.Opacity = 1;
-                ProgressBarPaidFromBody.Opacity = 1;
+                LabelTextPayments.Opacity = 1;
             }
         }
 
@@ -606,6 +608,6 @@ namespace FinTracker
             _storage.Save();
         }
 
-        
+       
     }
 }

@@ -28,10 +28,12 @@ namespace FinTracker
         public double RemainingTerm { get; set; }
         public double RemainingAmount { get; set; }
         public double MonthlyPayment { get; set; }
-        public double MonthlyPaymentRounded { get; set; }
         public double TotalAmountOfExtraPaymentsDoneBetweenDates { get; set; }
         public double TotalAmountOfExtraPaymentsDoneInDateOfPayment { get; set; }
         public double TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm { get; set; }
+        public double MonthlyPaymentRounded { get; set; }
+        public double AmountOfReturnedRounded { get; set; }
+        public double RemainingAmountRounded { get; set; }
 
         
 
@@ -49,19 +51,21 @@ namespace FinTracker
             LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(RemainingTerm));
             CreditorsName = creditorsName;
             Percent = percent;
-            Period = period - (period-RemainingTerm);
+            Period = period;
             Status = status;
             Amount = amount;
             TotalAmountOfPercents = Amount * ((Percent / 1200) * Period);
             TotalAmountOfLoan = Amount + TotalAmountOfPercents;
-            AmountOfReturned = 0;
+            MonthlyPayment = Amount * ((Percent/1200) / (1-Math.Pow((1+(Percent/1200)), -Period)));
+            AmountOfReturned = (period-remainingTerm)*MonthlyPayment;
             RemainingAmount = Amount - AmountOfReturned;
             RemainingAmountOfPercents = RemainingAmount * (Percent / 100);
-            MonthlyPayment = Amount * ((Percent/1200) / (1-Math.Pow((1+(Percent/1200)), -Period)));
-            MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
             TotalAmountOfExtraPaymentsDoneBetweenDates = 0;
             TotalAmountOfExtraPaymentsDoneInDateOfPayment = 0;
             TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm = 0;
+            MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
+            AmountOfReturnedRounded = Math.Round(AmountOfReturned, 2);
+            RemainingAmountRounded = Math.Round(RemainingAmount, 2);
         }
 
        

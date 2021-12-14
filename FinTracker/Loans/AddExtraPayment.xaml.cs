@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FinTracker.Loans;
 using FinTracker.Assets;
+using System.Text.RegularExpressions;
 
 namespace FinTracker
 {
@@ -29,6 +30,8 @@ namespace FinTracker
         {
             InitializeComponent();
             FillingComboBoxExtraPaymentPurpose();
+            DatePickerOfExtraPayment.SelectedDate = DateTime.Now;
+            ButtonCreateExtraPayment_IsEnabled();
             _mainWindow = mainWindow;
             
         }
@@ -64,6 +67,37 @@ namespace FinTracker
             ((Loan)_mainWindow.ListViewLoans.SelectedItem).Asset.Transactions.Add(transaction);
             _mainWindow.ListViewLoanPayments.Items.Add(nLoanTransaction);
             
+        }
+
+        private void ButtonCreateExtraPayment_IsEnabled()
+        {
+            if (TextBoxAmountOfExtraPayment.Text == "" )
+            {
+                ButtonCreateExtraPayment.IsEnabled = false;
+            }
+
+            else if (TextBoxAmountOfExtraPayment.Text != "")
+            {
+                ButtonCreateExtraPayment.IsEnabled = true;
+            }
+        }
+
+        private void TextBoxAmountOfExtraPayment_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateExtraPayment_IsEnabled();
+        }
+
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
+
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        private void TextBoxAmountOfExtraPayment_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+            IsTextAllowed(TextBoxAmountOfExtraPayment.Text);
         }
     }
 }
