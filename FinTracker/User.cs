@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
@@ -19,14 +20,21 @@ namespace FinTracker
             Name = name;
             CategoriesSpend = new List<string>() { "Супермаркет", "Транспорт", "Коммунальные платежи", "Снятия",
             "Одежда и обувь", "Рестораны", "Отдых и развлечения", "Здоровье и красота", "Комиссия", "Онлайн сервисы и подписки",
-            "Связь и интернет", "Дом и ремонт", "Животные", "Перевод", "Подарки", "Прочие расходы" };
+            "Связь и интернет", "Дом и ремонт", "Животные", "Перевод", "Подарки", "Прочие расходы", "Платёж по кредиту" };
             CategoriesIncome = new List<string>() { "Зарплата", "Начисление кэшбека", "Начисление % по вкладам", "Перевод",
             "Подарок", "Случайный доход" };
         }
 
-        public void AddAsset(string name, double startAmount, double interest, double cashback, double fee) 
+        public void AddAsset(string name, double startAmount)
         {
-            Assets.Add(new Asset(name, startAmount)); // это бумажные деньги. Надом исправить как таока научимся делать другие счета
+            Assets.Add(new Asset(name, startAmount)); 
+        }
+
+        public void AddCard(string name, double startAmount, double yearInterest, double fixCashback, double serviceFee,
+            DateTime enrollDateCash, DateTime enrollDateYearInterest, DateTime dateSpendServiceFee)
+        {
+            Assets.Add(new Card(name, startAmount, yearInterest, fixCashback, serviceFee, enrollDateCash, 
+                     enrollDateYearInterest, dateSpendServiceFee));
         }
 
         public void DeleteAsset(Asset asset)
@@ -55,9 +63,14 @@ namespace FinTracker
             return false;
         }
 
-        public void AddLoan (Loan nLoan)
+        public void AddLoan (Loan loan)
         {
-            Loans.Add(nLoan);
+            Loans.Add(loan);
+        }
+
+        public void RemoveLoan (Loan loan)
+        {
+            Loans.Remove(loan);
         }
     }
 }

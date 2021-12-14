@@ -90,6 +90,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
     </Window.Resources>
     <Grid Background="#E3BA9A">
         <TabControl Margin="0,10,0,-34" Grid.RowSpan="3" Grid.ColumnSpan="3" >
@@ -127,7 +130,7 @@
                     <Label x:Name="LabelCurrentAmount" Content="Баланс &#xD;&#xA;текущего &#xA;счета" Foreground="#800000" FontWeight="Bold" HorizontalAlignment="Left" Height="59" Margin="208,5,0,0" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий &#xD;&#xA;баланс" Foreground="#800000" FontWeight="Bold" HorizontalAlignment="Left" Height="42" Margin="16,8,0,0" VerticalAlignment="Top" Width="100" Grid.Column="2"/>
 
-                    <DatePicker x:Name="DatePickerTransaction" Background="White" BorderBrush="#e38b75" Grid.Column="1" HorizontalAlignment="Left" Margin="31,134,0,0" VerticalAlignment="Top" Width="140" Height="25">
+                    <DatePicker x:Name="DatePickerTransaction" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Center" Margin="14,94,0,0" VerticalAlignment="Top" Width="140" Height="25">
                         <DatePicker.CalendarStyle>
                             <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                                 <Style.Resources>
@@ -158,32 +161,41 @@
                     <CheckBox x:Name="CheckBoxGroupPayment" Grid.Column="1" Content="Общий платеж" HorizontalAlignment="Left" Margin="31,99,0,0" VerticalAlignment="Top" Click="CheckBoxGroupPayment_Click" Height="18" Width="108"/>
                 </Grid>
             </TabItem>
-            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="120" Header="Кредиты и долги">
-                <Grid>
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemLoans" Width="auto" Header="Кредиты и долги">
+                <Grid Height="700">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="811*"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="260"/>
+                        <ColumnDefinition Width="260"/>
+
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="90"/>
                         <RowDefinition/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="90"/>
                     </Grid.RowDefinitions>
-                    <Grid x:Name="LoanButtons" Margin="0,20,0,0" HorizontalAlignment="Center" Width="567">
+                    <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtoanAddLoan" Content="Добавить" Margin="40,31,40,31" Click="ButtoanAddLoan_Click" Grid.Column="0" Height="28" VerticalAlignment="Top" />
+                    <Button Style="{StaticResource BlueButtonStyle}" Grid.Row="0" Grid.Column="1" x:Name="ButtoanEditLoan" Content="Изменить" Margin="40,31,40,31" Height="28"   Width="180" Click="ButtoanEditLoan_Click"/>
+                    <Button Style="{StaticResource RedButtonStyle}" Grid.Row="0" Grid.Column="2" x:Name="ButtoanRemoveLoan" Content="Удалить" Margin="40,31,40,31" Height="28"  Click="ButtoanRemoveLoan_Click" Width="180"/>
+                    <Button  Grid.Row="0" Grid.Column="3" x:Name="ButtonLoanPayments" Content="Платежи" Margin="40,31,40,31" Click="ButtonLoanPayments_Click" Width="180" Height="28" Background="#FFDDBDAC"/>
+                    <Button Grid.Row="0" Grid.Column="4" x:Name="ButtonAddExtraPayment" Content="Досрочное погашение" Height="28" Click="ButtonAddExtraPayment_Click" Margin="40,31,40,31" Width="180"/>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                            <ColumnDefinition Width="150*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Style="{StaticResource GreenButtonStyle}" Grid.Column="0" x:Name="ButtoanAddLoan" Content="Добавить" Width="132" Height="28" Click="ButtoanAddLoan_Click"/>
-                        <Button Style="{StaticResource BlueButtonStyle}" Grid.Column="1" x:Name="ButtoanEditLoan" Content="Изменить" Width="132" Height="28"/>
-                        <Button Style="{StaticResource RedButtonStyle}" Grid.Column="2" x:Name="ButtoanRemoveLoan" Content="Удалить" Width="132" Height="28" Click="ButtoanRemoveLoan_Click"/>
+                    <ListView x:Name="ListViewLoans" Grid.Row="1" Grid.ColumnSpan="5" d:ItemsSource="{d:SampleData ItemCount=4}" ItemsSource="{Binding Effects}" SelectedIndex="0" SelectionChanged="ListViewLoans_SelectionChanged" 
+                              FontSize="12" FontFamily="Bahnschrift SemiLight" FontStretch="Normal" FontStyle="Normal" FontWeight="Heavy" IsSynchronizedWithCurrentItem="True" SelectionMode="Single" BorderBrush="#89EF0101" BorderThickness="0,0,0,0" Background="White" Foreground="#DD0F9ECE" Margin="1,0,0,0">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Width" Value="auto" />
+                                <Setter Property="BorderBrush" Value="LightGray" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
 
-                    </Grid>
-                    <ListView x:Name="ListViewLoans" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" SelectedIndex="0" Grid.ColumnSpan="2" SelectionChanged="ListViewLoans_SelectionChanged">
+                            </Style>
+                        </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime}"/>
+                                <GridViewColumn Header="Следующий платеж"  DisplayMemberBinding="{Binding NextPaymentDateTime}" />
                                 <GridViewColumn Header="Кредитор"  DisplayMemberBinding="{Binding CreditorsName}"/>
                                 <GridViewColumn Header="%"  DisplayMemberBinding="{Binding Percent}"/>
                                 <GridViewColumn Header="Период (мес.)"  DisplayMemberBinding="{Binding Period}"/>
@@ -196,13 +208,11 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <CheckBox x:Name="CheckBoxLoanFilter" Content="Фильтр" Background="#e38b75" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="26,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.ColumnSpan="2"/>
-                    <DatePicker HorizontalAlignment="Left" Margin="162,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" Grid.Column="1"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="10,34,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold"><Run Language="ru-ru" Text=" "/><Run Text="c"/></TextBlock>
-                    <TextBlock HorizontalAlignment="Left" Margin="145,34,0,0" Grid.Row="2" TextWrapping="Wrap" Text="по" VerticalAlignment="Top" Width="16" Height="16" FontWeight="Bold" Grid.Column="1"/>
                 </Grid>
             </TabItem>
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="auto" Header="Планирование">
+                <Label x:Name="TempLabel" Width="300" Height="100" Content="Привет" FontSize="24"/>
+
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemPlanning" Width="120" Header="Планирование">
                 <Grid Background="AntiqueWhite">
                     <Grid.ColumnDefinitions>
@@ -262,6 +272,7 @@
 
             </TabItem>
         </TabControl>
-
     </Grid>
+
+
 </Window>

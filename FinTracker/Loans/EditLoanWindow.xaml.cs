@@ -12,14 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace FinTracker
+namespace FinTracker.Loans
 {
     /// <summary>
-    /// Interaction logic for AddExtraPayment.xaml
+    /// Interaction logic for EditLoanWindow.xaml
     /// </summary>
-    public partial class AddExtraPayment : Window
+    public partial class EditLoanWindow : Window
     {
-        public AddExtraPayment()
+        MainWindow _mainWindow;
+        public EditLoanWindow(MainWindow mainWindow)
         {
             InitializeComponent();
         }
