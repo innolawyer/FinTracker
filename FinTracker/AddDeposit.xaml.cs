@@ -26,16 +26,16 @@ namespace FinTracker
         {
             InitializeComponent();
             FillingComboBoxDepositSpendAsset();
-            ComboBoxPeriod.Items.Add("Год");
-            ComboBoxPeriod.Items.Add("Месяц");
-            ComboBoxPeriod.Items.Add("Неделя");
-            ComboBoxPeriod.Items.Add("День");
+            CheckBoxСapitalizationIsChecked();
+            ComboBoxPeriod.Items.Add(Storage.period.Год);
+            ComboBoxPeriod.Items.Add(Storage.period.Месяц);
+            ComboBoxPeriod.Items.Add(Storage.period.Неделя);
+            ComboBoxPeriod.Items.Add(Storage.period.День);
             DatePickerDepositStart.SelectedDate = DateTime.Today;
-            DatePickerDepositEnd.SelectedDate = DateTime.Today.AddYears(1);
             DatePickerDepositStart.SelectedDate.Value.Date.ToShortDateString();
-            DatePickerDepositEnd.SelectedDate.Value.Date.ToShortDateString();
             _mainWindow = mainWindow;
         }
+        
         public void FillingComboBoxDepositSpendAsset()
         {
             ComboBoxDepositSpendAsset.Items.Clear();
@@ -44,42 +44,47 @@ namespace FinTracker
                 ComboBoxDepositSpendAsset.Items.Add(asset.Name);
             }
         }
+
         private void ButtonSaveNewDeposit_Click(object sender, RoutedEventArgs e)
         {
             User user = _storage.actualUser;
-            Asset asset = user.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
-            Storage.period Period;
-            if (ComboBoxPeriod.SelectedIndex == 0)
+            if (CheckBoxСapitalization.IsChecked == false)
             {
-                Period = Storage.period.year;
+                if (ComboBoxDepositSpendAsset.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Выберите счет для начисления % по вкладу");
+                    return;
+                }
+                else
+                {
+                    Asset asset = user.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
+                }
             }
-            else if (ComboBoxPeriod.SelectedIndex == 1)
-            {
-                Period = Storage.period.month;
-            }
-            else if(ComboBoxPeriod.SelectedIndex == 2)
-            {
-                Period = Storage.period.week;
-            }
-            else
-            {
-                Period = Storage.period.day;
-            }
-            Deposit deposit = new Deposit(TextBoxNameAsset.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
-                (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToDateTime(DatePickerDepositEnd.Text),
-                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), Period);
+         
+            Deposit deposit = new Deposit(TextBoxNameAsset.Text, TextBoxBankName.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
+                (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToInt32(TextBoxTermDeposit.Text),
+                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem));
 
-            user.AddDeposit(TextBoxNameAsset.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
-                (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToDateTime(DatePickerDepositEnd.Text),
-                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), Period);
+            user.AddDeposit(deposit);
 
             _mainWindow.ListViewDeposit.Items.Add(deposit);
             this.Close();
         }
 
-        private void CheckBoxСapitalization_Checked(object sender, RoutedEventArgs e)
+        public void CheckBoxСapitalizationIsChecked()
         {
-            ComboBoxDepositSpendAsset.IsEnabled = false;
+            if (CheckBoxСapitalization.IsChecked == true)
+            {
+                ComboBoxDepositSpendAsset.IsEnabled = false;
+            }
+            else
+            {
+                ComboBoxDepositSpendAsset.IsEnabled = true;
+            }
         }
+
+
+        
+        
     }
 }

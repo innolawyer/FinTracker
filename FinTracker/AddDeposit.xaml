@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="AddDeposit" Height="544" Width="355">
+        Title="AddDeposit" Height="519" Width="457">
     <Grid>
         <Label Content="Добавить вклад" FontSize="13" FontWeight="Bold" HorizontalAlignment="Left" Margin="13,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.422,-0.928"/>
-        <Label Content="Сумма" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="165,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.299,0.937"/>
-        <TextBox x:Name="TextBoxDepositAmount" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Center" Margin="0,74,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
-        <DatePicker x:Name="DatePickerDepositStart" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="148,107,0,0" VerticalAlignment="Top" Width="120" Height="32">
+        <Label Content="Сумма" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="300,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.299,0.937"/>
+        <TextBox x:Name="TextBoxDepositAmount" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="300,74,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120"/>
+        <DatePicker x:Name="DatePickerDepositStart" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="158,107,0,0" VerticalAlignment="Top" Width="120" Height="32">
             <DatePicker.CalendarStyle>
                 <Style TargetType="{x:Type Calendar}">
                     <Style.Resources>
@@ -22,32 +22,27 @@
                 </Style>
             </DatePicker.CalendarStyle>
         </DatePicker>
-        <CheckBox x:Name="CheckBoxWithdrawable" Background="#e38b75" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="19,195,0,0" VerticalAlignment="Top" Width="166"/>
-        <CheckBox x:Name="CheckBoxСapitalization" Background="#e38b75" Content="Сложный %" HorizontalAlignment="Left" Margin="19,241,0,0" VerticalAlignment="Top" Width="196" Checked="CheckBoxСapitalization_Checked"/>
-        <CheckBox x:Name="CheckBoxPutable" Background="#e38b75" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="19,218,0,0" VerticalAlignment="Top" Width="196"/>
-        <DatePicker x:Name="DatePickerDepositEnd" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="148,153,0,0" VerticalAlignment="Top" Width="120">
-            <DatePicker.CalendarStyle>
-                <Style TargetType="{x:Type Calendar}">
-                    <Style.Resources>
-                        <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#61B4CF" />
-                    </Style.Resources>
-                    <Style.BasedOn>
-                        <StaticResource ResourceKey="MaterialDesignCalendarPortrait"/>
-                    </Style.BasedOn>
-                </Style>
-            </DatePicker.CalendarStyle>
-        </DatePicker>
+        <CheckBox x:Name="CheckBoxWithdrawable" Background="#e38b75" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="222,192,0,0" VerticalAlignment="Top" Width="166"/>
+        <CheckBox x:Name="CheckBoxСapitalization" Background="#e38b75" Content="Сложный %" HorizontalAlignment="Left" Margin="222,238,0,0" VerticalAlignment="Top" Width="196"/>
+        <CheckBox x:Name="CheckBoxPutable" Background="#e38b75" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="222,215,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Дата открытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="13,115,0,0" VerticalAlignment="Top"/>
-        <Label Content="Дата закрытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="19,153,0,0" VerticalAlignment="Top"/>
-        <Label Content="Комментарий" FontWeight="Bold" HorizontalAlignment="Left" Margin="50,371,0,0" VerticalAlignment="Top"/>
-        <TextBox Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="48,400,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="196" Height="32"/>
-        <Button x:Name="ButtonSaveNewDeposit" Content="Button" HorizontalAlignment="Left" Margin="48,451,0,0" VerticalAlignment="Top" Width="220" Click="ButtonSaveNewDeposit_Click"/>
-        <ComboBox x:Name="ComboBoxDepositSpendAsset" HorizontalAlignment="Left" Margin="69,325,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TextBoxNameAsset" HorizontalAlignment="Left" Margin="19,74,0,0" TextWrapping="Wrap" Text="Вклад" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TextBoxPercent" HorizontalAlignment="Left" Margin="95,278,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="37"/>
-        <ComboBox x:Name="ComboBoxPeriod" HorizontalAlignment="Center" Margin="0,277,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Название" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="19,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.299,0.937"/>
-        <Label Content="Годовой %" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,278,0,0" VerticalAlignment="Top"/>
+        <Label Content="Срок вклада" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="13,151,0,0" VerticalAlignment="Top"/>
+        <Label Content="Комментарий" FontWeight="Bold" HorizontalAlignment="Left" Margin="13,265,0,0" VerticalAlignment="Top"/>
+        <TextBox Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="13,294,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" Height="24"/>
+        <Button x:Name="ButtonSaveNewDeposit" Content="Сохранить" Background ="#60D6A9" BorderBrush="#60D6A9" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="424" Click="ButtonSaveNewDeposit_Click"/>
+        <ComboBox x:Name="ComboBoxDepositSpendAsset" HorizontalAlignment="Left" Margin="222,293,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBoxNameAsset" HorizontalAlignment="Left" Margin="13,74,0,0" TextWrapping="Wrap" Text="Вклад" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TextBoxPercent" HorizontalAlignment="Left" Margin="159,205,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="37"/>
+        <ComboBox x:Name="ComboBoxPeriod" HorizontalAlignment="Left" Margin="300,150,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Название вклада" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="13,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.299,0.937"/>
+        <Label Content="Годовой % по вкладу" FontWeight="Bold" HorizontalAlignment="Left" Margin="13,206,0,0" VerticalAlignment="Top"/>
+        <Label Content="Банк" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="158,50,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxBankName" HorizontalAlignment="Left" Margin="158,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Период начисления" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="300,115,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.299,0.937"/>
+        <Label Content="Выберите счет для начисления %" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="222,264,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxTermDeposit" HorizontalAlignment="Left" Margin="158,151,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="LabelIncomeSumSpend" Content="" HorizontalAlignment="Left" Margin="17,381,0,0" VerticalAlignment="Top" Width="420" Height="59"/>
+        <Button Content="Рассчитатть доход по вкладу" HorizontalAlignment="Left" Margin="17,334,0,0" VerticalAlignment="Top" Width="420" BorderBrush="#FF673AB7"/>
 
     </Grid>
 </Window>

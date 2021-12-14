@@ -29,10 +29,10 @@ namespace FinTracker
         [Flags]
         public enum period
         {
-            day = 1/360,
-            week = 7/360,
-            month = 30/360,
-            year = 360/360
+            День = 1/360,
+            Неделя = 7/360,
+            Месяц = 30/360,
+            Год = 360/360
         }
 
         private string path = @".\QQQ.txt";

@@ -7,19 +7,21 @@ using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
-    internal class Deposit : Asset
+    public class Deposit : Asset
     {
-        public bool Withdrawable; // возможность снятия
-        public bool Putable;  // возможность внесения
-        public bool Сapitalization; // процент к сумме вклада или нет
-        public DateTime ClosingDate; // дата закрытия
-        public DateTime OpeningDate; // дата открытия
-        public double Percent; // годовой процент
-        public double SumIncome; // сумма начисления
-        public Storage.period Period; // период
-        public DateTime SpendDate; // дата зачисления
+        public string Name { get; set; }
+        public string BankName { get; set; } // название банка
+        public bool Withdrawable { get; set; } // возможность снятия
+        public bool Putable { get; set; }  // возможность внесения
+        public bool Сapitalization { get; set; } // процент к сумме вклада или нет
+        public DateTime ClosingDate { get; set; } // дата закрытия
+        public DateTime OpeningDate { get; set; } // дата открытия
+        public double Percent { get; set; } // годовой процент
+        public double SumIncome { get; set; } // сумма начисления
+        public Storage.period Period { get; set; } // период
+        public DateTime SpendDate { get; set; } // дата зачисления
 
-        public Deposit(string name, double amount, bool withdrawable, bool putable, bool capitalization, DateTime closingDate, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
+        public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
         {
             if (capitalization)
             {
@@ -30,34 +32,38 @@ namespace FinTracker
                 calcer = new SimpleDepositFVCalc();
             }
             Name = name;
+            BankName = bankName;
             Amount = amount;
             Withdrawable = withdrawable;
             Putable = putable;
             Сapitalization = capitalization;
-            ClosingDate = closingDate;
+            ClosingDate = openingDate.AddYears(termDeposit);
             OpeningDate = openingDate;
             Percent = percent;
             Period = period;
             SpendDate = openingDate.AddDays((int)Period * 360);
         }
 
-        // если % добавляется к вкладу, расчет на 1 период, этот нельзя снимать, можно пополнять
-        public void EnrollIncomeFromDepositHardPercent()
+        
+        public void EnrollIncomeFromDeposit()
         {
-            if (DateTime.Today >= SpendDate)
+            // если % добавляется к вкладу, этот нельзя снимать, можно пополнять
+            if (Withdrawable == false && Putable == true)
             {
-                Amount += Amount * (Percent * (double)Period);
-                SpendDate = SpendDate.AddDays((int)Period * 360);
+                if (DateTime.Today >= SpendDate)
+                {
+                    Amount += Amount * (Percent * (double)Period);
+                    SpendDate = SpendDate.AddDays((double)Period * 360);
+                }
             }
-        }
-
-        // если % не добавляется к вкладу, расчет на 1 период, это можно снимать и пополнять
-        public void EnrollIncomeFromDepositSimplePercent()
-        {
-            if (DateTime.Today >= SpendDate)
+            // если % не добавляется к вкладу, это можно снимать и пополнять
+            if (Withdrawable == true && Putable == true)
             {
-                SumIncome += Amount * (Percent * (double)Period);
-                SpendDate = SpendDate.AddDays((int)Period * 360);
+                if (DateTime.Today >= SpendDate)
+                {
+                    SumIncome += Amount * (Percent * (double)Period);
+                    SpendDate = SpendDate.AddDays((double)Period * 360);
+                }
             }
         }
 

@@ -294,13 +294,14 @@
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
                 <Grid Background="AntiqueWhite">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="209*"/>
-                        <ColumnDefinition Width="1085*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="775,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
-                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="350,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
+                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="163,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="2"/>
+                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
                     <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="100,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.ColumnSpan="2" Click="ButtonCreateDeposit_Click"/>
-                    <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,72,10,3" Grid.ColumnSpan="2">
+                    <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,75,10,0" Grid.ColumnSpan="3">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -311,14 +312,15 @@
                         </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Название вклада" DisplayMemberBinding="{Binding NameDeposit}"/>
-                                <GridViewColumn Header="Банк" DisplayMemberBinding="{Binding Bank}"/>
+                                <GridViewColumn Header="Название вклада" DisplayMemberBinding="{Binding Name}"/>                                
+                                <GridViewColumn Header="Банк" DisplayMemberBinding="{Binding BankName}"/>
+                                <GridViewColumn Header="Сумма" DisplayMemberBinding="{Binding Amount}"/>
                                 <GridViewColumn Header="% ставка" DisplayMemberBinding="{Binding Percent}"/>
-                                <GridViewColumn Header="Дата открытия" DisplayMemberBinding="{Binding OpeningDate}"/>
-                                <GridViewColumn Header="Дата закрытия" DisplayMemberBinding="{Binding ClosingDate}"/>
+                                <GridViewColumn Header="Дата открытия" DisplayMemberBinding="{Binding OpeningDate,StringFormat=d}"/>
+                                <GridViewColumn Header="Дата закрытия" DisplayMemberBinding="{Binding ClosingDate,StringFormat=d}"/>
                                 <GridViewColumn Header="Период начисление" DisplayMemberBinding="{Binding Period}"/>
-                                <GridViewColumn Header="Возможность снятия" DisplayMemberBinding="{Binding Withdrawable}"/>
-                                <GridViewColumn Header="Возможность пополнения" DisplayMemberBinding="{Binding Putable}"/>
+                                <GridViewColumn Header="Cнятие" DisplayMemberBinding="{Binding Withdrawable}"/>
+                                <GridViewColumn Header="Пополнения" DisplayMemberBinding="{Binding Putable}"/>
 
                             </GridView>
                         </ListView.View>

@@ -37,6 +37,7 @@ namespace FinTracker
             FillAssetListBox();
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
+            FillingListDeposit();
 
             if (_storage.actualAsset == null)
             {
@@ -336,6 +337,7 @@ namespace FinTracker
             //FillCategories();
             //FillCategoriesIncome();
             FillAssetsStackPanel();
+            FillingListDeposit();
             GetAccessToLoans();
             if (_storage.actualUser != null)
             {
@@ -581,17 +583,24 @@ namespace FinTracker
         {
             EditAsset editAsset = new EditAsset(this);
             editAsset.Show();
-        }
-
-        private void Window_Closed_1(object sender, EventArgs e)
-        {
-
-        }
+        }      
 
         private void ButtonCreateDeposit_Click(object sender, RoutedEventArgs e)
         {
             AddDeposit addDeposit = new AddDeposit(this);
             addDeposit.Show();
+        }
+
+        public void FillingListDeposit()
+        {
+            ListViewDeposit.Items.Clear();
+            foreach (Asset asset in _storage.actualUser.Assets)
+            {
+                if (asset is Deposit)
+                {
+                    ListViewDeposit.Items.Add(asset);
+                }
+            }
         }
     }
 }
