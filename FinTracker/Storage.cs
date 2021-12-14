@@ -26,6 +26,15 @@ namespace FinTracker
             income
         }
 
+        [Flags]
+        public enum period
+        {
+            day = 1/360,
+            week = 7/360,
+            month = 30/360,
+            year = 360/360
+        }
+
         private string path = @".\QQQ.txt";
 
         Storage()

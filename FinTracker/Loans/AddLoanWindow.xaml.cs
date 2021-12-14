@@ -67,12 +67,6 @@ namespace FinTracker
             user.AddLoan(nLoan);
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
-        }        
-
-       
-
-        
-
-        
+        }                
     }
 }

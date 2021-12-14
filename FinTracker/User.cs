@@ -36,6 +36,12 @@ namespace FinTracker
                      enrollDateYearInterest, dateSpendServiceFee));
         }
 
+        public void AddDeposit(string name, double amount, bool withdrawable, bool putable, bool capitalization, DateTime closingDate, 
+            DateTime openingDate, double percent, Storage.period period)
+        {
+            Assets.Add(new Deposit(name, amount, withdrawable, putable, capitalization, closingDate, openingDate, percent, period));
+        }
+
         public void DeleteAsset(Asset asset)
         {
             Assets.Remove(asset);

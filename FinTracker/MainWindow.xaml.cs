@@ -307,7 +307,7 @@ namespace FinTracker
             LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
 
-        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)  // сделать что-то с доход и расход
+        private void ButtonEditTransaction_Click(object sender, RoutedEventArgs e)
         {
             Storage.sign sign = Storage.sign.income;
 
@@ -586,6 +586,12 @@ namespace FinTracker
         private void Window_Closed_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void ButtonCreateDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            AddDeposit addDeposit = new AddDeposit(this);
+            addDeposit.Show();
         }
     }
 }

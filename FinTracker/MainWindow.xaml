@@ -158,7 +158,7 @@
                     <Label Grid.Column="4" x:Name="LabelCurrentAmount" Content="Баланс текущего &#xD;&#xA;счета" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="6,5,0,0" VerticalAlignment="Top" Width="150"/>
                     <Label x:Name="LabelTotalAmount" Content="Общий баланс" FontWeight="Bold" HorizontalAlignment="Left" Height="25" Margin="124,61,0,0" VerticalAlignment="Top" Width="106" Grid.Column="2"/>
 
-                    <DatePicker x:Name="DatePickerTransaction" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Center" Margin="14,94,0,0" VerticalAlignment="Top" Width="140" Height="25">
+                    <DatePicker x:Name="DatePickerTransaction" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Left" Margin="14,94,0,0" VerticalAlignment="Top" Width="140" Height="25">
                         <DatePicker.CalendarStyle>
                             <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
                                 <Style.Resources>
@@ -294,44 +294,35 @@
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemDeposits" Width="auto" Header="Банковские вклады">
                 <Grid Background="AntiqueWhite">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250*"/>
-                        <ColumnDefinition Width="349*"/>
-                        <ColumnDefinition Width="250*"/>
+                        <ColumnDefinition Width="209*"/>
+                        <ColumnDefinition Width="1085*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Width="104" Height="32"/>
-                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="125,10,0,0" VerticalAlignment="Top" Height="32" Width="104"/>
-                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,47,0,0" VerticalAlignment="Top" Height="31" Width="126"/>
-                    <Label Grid.Column="1" Content="Добавить вклад" FontSize="13" FontWeight="Bold" HorizontalAlignment="Left" Margin="114,9,0,0" VerticalAlignment="Top"/>
-                    <Label Grid.Column="1" Content="Сумма" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="48,38,0,0" VerticalAlignment="Top"/>
-                    <TextBox Grid.Column="1" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Center" Margin="0,38,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                    <DatePicker x:Name="DatePickerDepositStart" Background="White" BorderBrush="#e38b75" Grid.Column="1" HorizontalAlignment="Center" Margin="0,68,0,0" VerticalAlignment="Top" Width="120" Height="32">
-                        <DatePicker.CalendarStyle>
-                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
-                                <Style.Resources>
-                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#61B4CF" />
-                                </Style.Resources>
+                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="775,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
+                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Left" Margin="350,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
+                    <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="100,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.ColumnSpan="2" Click="ButtonCreateDeposit_Click"/>
+                    <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,72,10,3" Grid.ColumnSpan="2">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                <Setter Property="Width" Value="auto" />
+                                <Setter Property="BorderBrush" Value="LightGray" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
                             </Style>
-                        </DatePicker.CalendarStyle>
-                    </DatePicker>
-                    <CheckBox Background="#e38b75" Grid.Column="1" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="38,183,0,0" VerticalAlignment="Top" Width="166"/>
-                    <CheckBox Background="#e38b75" Grid.Column="1" Content="Сложный %" HorizontalAlignment="Left" Margin="38,229,0,0" VerticalAlignment="Top" Width="196"/>
-                    <CheckBox Background="#e38b75" Grid.Column="1" Content="Простой %" HorizontalAlignment="Left" Margin="38,252,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Background="#e38b75" Grid.Column="1" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="38,206,0,0" VerticalAlignment="Top" Width="196"/>
-                    <DatePicker x:Name="DatePickerDepositEnd" Background="White" BorderBrush="#e38b75" Grid.Column="1" HorizontalAlignment="Center" Margin="0,105,0,0" VerticalAlignment="Top" Width="120">
-                        <DatePicker.CalendarStyle>
-                            <Style TargetType="Calendar" BasedOn="{StaticResource MaterialDesignCalendarPortrait}">
-                                <Style.Resources>
-                                    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#61B4CF" />
-                                </Style.Resources>
-                            </Style>
-                        </DatePicker.CalendarStyle>
-                    </DatePicker>
-                    <Label Grid.Column="1" Content="Дата открытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="3,72,0,0" VerticalAlignment="Top"/>
-                    <Label Grid.Column="1" Content="Дата закрытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="3,110,0,0" VerticalAlignment="Top"/>
-                    <Label Grid.Column="1" Content="Комментарий" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top"/>
-                    <TextBox Grid.Column="1" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="10,315,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="224" Height="63"/>
-                    <Button Style="{StaticResource GreenButtonStyle}" Grid.Column="1" Content="Подтвердить" HorizontalAlignment="Left" Margin="50,397,0,0" VerticalAlignment="Top" Height="36" Width="144"/>
-                    <Label Grid.Column="2" Content="История операций по вкладу" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Top"/>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Название вклада" DisplayMemberBinding="{Binding NameDeposit}"/>
+                                <GridViewColumn Header="Банк" DisplayMemberBinding="{Binding Bank}"/>
+                                <GridViewColumn Header="% ставка" DisplayMemberBinding="{Binding Percent}"/>
+                                <GridViewColumn Header="Дата открытия" DisplayMemberBinding="{Binding OpeningDate}"/>
+                                <GridViewColumn Header="Дата закрытия" DisplayMemberBinding="{Binding ClosingDate}"/>
+                                <GridViewColumn Header="Период начисление" DisplayMemberBinding="{Binding Period}"/>
+                                <GridViewColumn Header="Возможность снятия" DisplayMemberBinding="{Binding Withdrawable}"/>
+                                <GridViewColumn Header="Возможность пополнения" DisplayMemberBinding="{Binding Putable}"/>
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="auto" Header="Аналитика">
