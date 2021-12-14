@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
@@ -63,9 +64,9 @@ namespace FinTracker
             return false;
         }
 
-        public void AddLoan (Loan nLoan)
+        public void AddLoan (Loan loan)
         {
-            Loans.Add(nLoan);
+            Loans.Add(loan);
         }
 
         public void RemoveLoan (Loan loan)
