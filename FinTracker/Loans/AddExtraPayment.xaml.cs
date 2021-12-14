@@ -58,6 +58,8 @@ namespace FinTracker
                 this.Close();
             }
             ((Loan)_mainWindow.ListViewLoans.SelectedItem).Asset.Transactions.Add(transaction);
+
+
         }
     }
 }
