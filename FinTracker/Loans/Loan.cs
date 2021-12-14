@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Loans;
 
 namespace FinTracker
 {
     public class Loan
     {
-        
+        public List <LoanTransaction> LoanTransactions = new List<LoanTransaction>();
         public DateTime PreviousPaymentDateTime { get; set;}        
         public DateTime ActualPaymentDateTime { get; set; }
-        public DateTime NextPaymentDateTime { get; set;}      //нужно ли?  
+        public DateTime NextPaymentDateTime { get; set;}      
         public DateTime LastPaymentDateTime { get; set;}        
         public Asset Asset { get; set; }
         public int Id { get; set; }
@@ -27,10 +28,12 @@ namespace FinTracker
         public double RemainingTerm { get; set; }
         public double RemainingAmount { get; set; }
         public double MonthlyPayment { get; set; }
-        public double MonthlyPaymentRounded { get; set; }
         public double TotalAmountOfExtraPaymentsDoneBetweenDates { get; set; }
         public double TotalAmountOfExtraPaymentsDoneInDateOfPayment { get; set; }
         public double TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm { get; set; }
+        public double MonthlyPaymentRounded { get; set; }
+        public double AmountOfReturnedRounded { get; set; }
+        public double RemainingAmountRounded { get; set; }
 
         
 
@@ -44,23 +47,25 @@ namespace FinTracker
             PreviousPaymentDateTime = actualPaymentDateTime.AddMonths(-1);
             ActualPaymentDateTime = actualPaymentDateTime;
             NextPaymentDateTime = actualPaymentDateTime.AddMonths(1);
-            LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(period));
+            RemainingTerm = remainingTerm;            
+            LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(RemainingTerm));
             CreditorsName = creditorsName;
             Percent = percent;
             Period = period;
             Status = status;
-            RemainingTerm = remainingTerm;            
             Amount = amount;
             TotalAmountOfPercents = Amount * ((Percent / 1200) * Period);
             TotalAmountOfLoan = Amount + TotalAmountOfPercents;
-            AmountOfReturned = 0;
+            MonthlyPayment = Amount * ((Percent/1200) / (1-Math.Pow((1+(Percent/1200)), -Period)));
+            AmountOfReturned = (period-remainingTerm)*MonthlyPayment;
             RemainingAmount = Amount - AmountOfReturned;
             RemainingAmountOfPercents = RemainingAmount * (Percent / 100);
-            MonthlyPayment = Amount * ((Percent/1200) / (1-Math.Pow((1+(Percent/1200)), -Period)));
-            MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
             TotalAmountOfExtraPaymentsDoneBetweenDates = 0;
             TotalAmountOfExtraPaymentsDoneInDateOfPayment = 0;
             TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm = 0;
+            MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
+            AmountOfReturnedRounded = Math.Round(AmountOfReturned, 2);
+            RemainingAmountRounded = Math.Round(RemainingAmount, 2);
         }
 
        
@@ -77,7 +82,9 @@ namespace FinTracker
                     TotalAmountOfLoan -= MonthlyPayment;
                     Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
                 }
-            }    
+            }
+
+            ActualPaymentDateTime = NextPaymentDateTime;
             
         }
 
@@ -94,19 +101,21 @@ namespace FinTracker
                     double balanceForRepaymentOfLoanPercents = RemainingAmount * (((extraPaymentDate - ActualPaymentDateTime).TotalDays) * daylyPercent); //сколько из досрочного погашения уйдет на проценты
                     double balanceForRepaymentOfLoanBody = extraPaymentAmount - balanceForRepaymentOfLoanPercents; //сколько из досрочного погашения уйдет на тело кредита
                     AmountOfReturned += balanceForRepaymentOfLoanBody;
-                    Asset.Amount -= MonthlyPayment;
+                    TotalAmountOfPercents -= balanceForRepaymentOfLoanPercents;
+                    Asset.Amount -= extraPaymentAmount;
                     MonthlyPayment = (Amount - balanceForRepaymentOfLoanBody) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
                     MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
                 }
             }
-            else
+            else if (extraPaymentDate == ActualPaymentDateTime)
             {
                 if (extraPaymentAmount <= RemainingAmount && RemainingAmount > 0)
                 {
                     AmountOfReturned += extraPaymentAmount;
-                    Asset.Amount -= MonthlyPayment;
+                    Asset.Amount -= extraPaymentAmount;
                     MonthlyPayment = (Amount - extraPaymentAmount) * ((Percent / 1200) / (1 - Math.Pow((1 + (Percent / 1200)), -Period)));
                     MonthlyPaymentRounded = Math.Round(MonthlyPayment, 2);
+                    TotalAmountOfPercents = RemainingAmount * ((Percent / 1200) * Period);
                 }
             }
         }
@@ -114,17 +123,22 @@ namespace FinTracker
         public void DoExtraPaymentToDecreaseLoanTerm (DateTime extraPaymentDate, double extraPaymentAmount)
         {
             TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm += extraPaymentAmount;
-                        
+            Asset.Amount -= MonthlyPayment;
+            AmountOfReturned += extraPaymentAmount;
+
+            if (TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm >= MonthlyPayment)
+            {
                 while (MonthlyPayment <= TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm)
                 {
                     RemainingTerm -= 1;
-                    if (TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm>=MonthlyPayment)
-                    {
-                       TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm -= MonthlyPayment;
-                    }
-                    
+                    TotalAmountOfExtraPaymentsDoneToDecreaseLoanTerm -= MonthlyPayment;
                 }
-            
+
+            }
+
+            TotalAmountOfPercents = Amount * ((Percent / 1200) * RemainingTerm);
+
+
         }
 
 

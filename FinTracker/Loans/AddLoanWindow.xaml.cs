@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace FinTracker
             DatePickerLoanStart.SelectedDate.Value.Date.ToShortDateString();
             FillingComboBoxLoanAsset();
             FillingComboboxLoanStatus();
+            ButtonCreateLoan_IsEnabled();
             _mainWindow = mainWindow;
 
         }
@@ -67,6 +69,83 @@ namespace FinTracker
             user.AddLoan(nLoan);
             _mainWindow.ListViewLoans.Items.Add(nLoan);
             this.Close();
-        }                
+        }
+
+        private void ButtonCreateLoan_IsEnabled()
+        {
+            if (TextBoxLoanCreditorName.Text == "" ||
+                TextBoxLoanPercent.Text == "" ||
+                TextBoxLoanPeriod.Text == "" ||
+                TextBoxRemainingTerm.Text == "" ||
+                TextBoxLoanAmount.Text == "")
+            {
+                ButtonCreateLoan.IsEnabled = false;
+            }
+
+            else if (TextBoxLoanCreditorName.Text != "" &&
+                TextBoxLoanPercent.Text != "" &&
+                TextBoxLoanPeriod.Text != "" &&
+                TextBoxRemainingTerm.Text != "" &&
+                TextBoxLoanAmount.Text != "")
+            {
+                ButtonCreateLoan.IsEnabled = true;
+            }
+        }
+
+        private void TextBoxLoanCreditorName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateLoan_IsEnabled();
+        }
+
+        private void TextBoxLoanPercent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateLoan_IsEnabled();
+        }
+
+        private void TextBoxLoanPeriod_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateLoan_IsEnabled();
+        }
+
+        private void TextBoxLoanAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateLoan_IsEnabled();
+        }
+
+        private void TextBoxRemainingTerm_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ButtonCreateLoan_IsEnabled();
+        }
+
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
+
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        private void TextBoxLoanPercent_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+            IsTextAllowed(TextBoxLoanPercent.Text);
+        }
+
+        private void TextBoxLoanPeriod_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+            IsTextAllowed(TextBoxLoanPeriod.Text);
+        }
+
+        private void TextBoxLoanAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+            IsTextAllowed(TextBoxLoanAmount.Text);
+        }
+
+        private void TextBoxRemainingTerm_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+            IsTextAllowed(TextBoxRemainingTerm.Text);
+        }
     }
 }
