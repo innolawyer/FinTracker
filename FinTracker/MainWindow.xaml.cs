@@ -76,47 +76,6 @@ namespace FinTracker
             }
         }
 
-        //public void FillTransactionCategories()
-        //{
-        //    if(RadioButtonIncome.IsChecked == true)
-        //    {
-        //        ComboBoxCategoriesTransaction.Items.Clear();
-        //        if (_storage.actualUser != null)
-        //        {
-        //            foreach (string category in _storage.actualUser.CategoriesIncome)
-        //            {
-        //                ComboBoxCategoriesTransaction.Items.Add(category);
-        //            }
-        //        }
-        //    }
-        //    else if(RadioButtonСonsumption.IsChecked == true)
-        //    {
-        //        if (_storage.actualUser != null)
-        //        {
-        //            foreach (string category in _storage.actualUser.CategoriesSpend)
-        //            {
-        //                ComboBoxCategoriesTransaction.Items.Add(category);
-        //            }
-        //        }
-        //    }
-        //    else if(RadioButtonTransfer.IsChecked == true)
-        //    {
-
-        //    }
-        //}
-
-        //public void FillCategoriesIncome()
-        //{
-        //    ComboBoxCategoriesTransaction.Items.Clear();
-        //    if (_storage.actualUser != null)
-        //    {
-        //        foreach (string category in _storage.actualUser.CategoriesIncome)
-        //        {
-        //            ComboBoxCategoriesTransaction.Items.Add(category);
-        //        }
-        //    }
-        //}
-
         public void FillCategories(List <string> listCategories)
         {
             ComboBoxCategoriesTransaction.Items.Clear();
@@ -309,7 +268,7 @@ namespace FinTracker
             _storage.actualTransaction.EditTransaction(sign, Convert.ToDouble(TextBoxAmount.Text),
                                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                                         TextBoxComment.Text,
-                                                        ComboBoxCategoriesTransaction.Text);
+                                                        ComboBoxCategoriesTransaction.Text, (bool)CheckBoxGroupPayment.IsChecked);
             FillingTransactionsStackPanel(sender, e);
             LabelCurrentAmount.Content = Convert.ToString(_storage.actualAsset.GetAmount());
         }
@@ -350,29 +309,6 @@ namespace FinTracker
             LabelCurrentAmount.Content = "";
         }
 
-        //private void ButtonDeleteCategory_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _storage.actualUser.CategoriesSpend.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-        //    //FillCategories();
-        //}
-
-        //private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
-        //{
-        //    AddCategories addCategories = new AddCategories(this);
-        //    addCategories.Show();
-        //}
-
-        //private void ButtonAddCategoryIncome_Click(object sender, RoutedEventArgs e) 
-        //{
-        //    AddCategories addCategoriesIncome = new AddCategories(this);
-        //    addCategoriesIncome.Show();
-        //}
-
-        //private void ButtonDeleteCategoryIncome_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _storage.actualUser.CategoriesIncome.Remove((string)ComboBoxCategoriesTransaction.SelectedValue);
-        //    //FillCategoriesIncome();
-        //}
 
         private void ButtonAddCategory_Click(object sender, RoutedEventArgs e)
         {
@@ -467,11 +403,11 @@ namespace FinTracker
                     Transaction nTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
                                         Convert.ToDateTime(DatePickerTransaction.Text),
                                         TextBoxComment.Text,
-                                        (string)ComboBoxCategoriesTransaction.SelectedValue);
+                                        (string)ComboBoxCategoriesTransaction.SelectedValue, (bool)CheckBoxGroupPayment.IsChecked);
                     _storage.actualAsset.AddTransactions(nTransaction);
 
                     Button nTransactionButton = new Button();
-                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                    nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category} {nTransaction.GroupPayment}";
                     nTransactionButton.Click += CurrentTransaction;
                     nTransactionButton.Click += SetTransactionData;
                     StackPanelTransactionList.Children.Add(nTransactionButton);
@@ -484,11 +420,11 @@ namespace FinTracker
                 Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
                                     Convert.ToDateTime(DatePickerTransaction.Text),
                                     TextBoxComment.Text,
-                                    (string)ComboBoxCategoriesTransaction.SelectedValue);
+                                    (string)ComboBoxCategoriesTransaction.SelectedValue, (bool)CheckBoxGroupPayment.IsChecked);
 
                 _storage.actualAsset.AddTransactions(nTransaction);
                 Button nTransactionButton = new Button();
-                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category} {nTransaction.GroupPayment}";
                 nTransactionButton.Click += CurrentTransaction;
                 nTransactionButton.Click += SetTransactionData;
                 StackPanelTransactionList.Children.Add(nTransactionButton);
@@ -499,6 +435,19 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _storage.Save();
+        }
+
+        private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CheckBoxGroupPayment_Click(object sender, RoutedEventArgs e)
+        {
+            if(CheckBoxGroupPayment.IsChecked == true)
+            {
+                
+            }
         }
     }
 }
