@@ -66,7 +66,8 @@ namespace FinTracker
             DataContext = this;
         }
 
-        public SeriesCollection SeriesCollection { get; set;}
+        public SeriesCollection SeriesCollectionIncome { get; set;}
+        public SeriesCollection SeriesCollectionSpend { get; set; }
 
         public void FillingComboBoxUser(ComboBox box)
         {
@@ -358,8 +359,18 @@ namespace FinTracker
 
             if (_storage.actualUser.Assets.Count != 0)
             {
-                SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset(_storage.actualUser.Name, _storage.actualUser.Assets[0].Name);
-                PieChart.Update();
+                SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
+                    _storage.actualUser.Name,
+                    _storage.actualUser.Assets[0].Name,
+                    _storage.actualUser.CategoriesIncome);
+
+                SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
+                    _storage.actualUser.Name,
+                    _storage.actualUser.Assets[0].Name,
+                    _storage.actualUser.CategoriesSpend);
+
+                PieChartIncome.Update();
+                PieChartSpend.Update();
             }
         }
 
@@ -598,19 +609,31 @@ namespace FinTracker
 
         private void ComboBoxAssetAnalisys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            PieChart.Series.Clear();
+            PieChartIncome.Series.Clear();
+            PieChartSpend.Series.Clear();
 
-            SeriesCollection = Analisys.GetCategoriesSeriesCollectionByAsset(
+            SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
                 _storage.actualUser.Name,
-                _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+                _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
+                _storage.actualUser.CategoriesIncome);
 
-            for (int i = 0; i < SeriesCollection.Count; i++)
+            for (int i = 0; i < SeriesCollectionIncome.Count; i++)
             {
-                PieChart.Series.Add(SeriesCollection[i]);
+                PieChartIncome.Series.Add(SeriesCollectionIncome[i]);
             }
 
+            SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
+                _storage.actualUser.Name,
+                _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
+                _storage.actualUser.CategoriesSpend);
 
-            PieChart.Update(true, true);
+            for (int i = 0; i < SeriesCollectionSpend.Count; i++)
+            {
+                PieChartSpend.Series.Add(SeriesCollectionSpend[i]);
+            }
+
+            PieChartIncome.Update(true, true);
+            PieChartSpend.Update(true, true);
         }
     }
 }

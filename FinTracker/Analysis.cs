@@ -16,19 +16,14 @@ namespace FinTracker
     {
         private static Storage _storage = Storage.GetStorage();
 
-        public static SeriesCollection GetCategoriesSeriesCollectionByAsset(string name, string assetName)
+        public static SeriesCollection GetCategoriesSeriesCollectionByAsset(string name, string assetName, List<string> categories)
         {
             SeriesCollection seriesCollection = new SeriesCollection();
 
             User user = _storage.GetUserByName(name);
             Asset asset = user.GetAssetByName(assetName);
 
-            
-            List<string> allCategories = new List<string>();
-            allCategories.AddRange(user.CategoriesSpend);
-            allCategories.AddRange(user.CategoriesIncome);
-
-            foreach(string catName in allCategories)
+            foreach(string catName in categories)
             {
                 double tmpSum = 0;
                 foreach (Transaction transaction in asset.Transactions)
