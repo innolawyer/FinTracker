@@ -20,11 +20,12 @@ namespace FinTracker.Loans
     public partial class EditLoanWindow : Window
     {
         MainWindow _mainWindow;
-        Storage _storage;
+        private Storage _storage = Storage.GetStorage();
         public EditLoanWindow(MainWindow mainWindow)
         {
             InitializeComponent();
             _mainWindow = mainWindow;
+            
             FillingComboBoxLoanAssetEdit();
             FillingComboboxLoanStatusEdit();
             FillingEditLoanWindow();
@@ -72,6 +73,11 @@ namespace FinTracker.Loans
             loan.Amount = Convert.ToDouble(TextBoxLoanAmountEdit.Text);
             loan.Status = Convert.ToString(ComboBoxLoanStatusEdit.SelectedItem);
             loan.RemainingTerm = Convert.ToDouble(TextBoxRemainingTermEdit.Text);
+            _mainWindow.ListViewLoans.Items.Refresh();
+            _mainWindow.LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
+            loan.TotalAmountOfPercents = loan.Amount * ((loan.Percent / 1200) * loan.Period);
+            _mainWindow.LabelTotalAmountOfPercents.Content = loan.TotalAmountOfPercents;
+            this.Close();
         }
     }
 }

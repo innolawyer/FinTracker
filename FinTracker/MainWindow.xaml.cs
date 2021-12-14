@@ -225,6 +225,13 @@ namespace FinTracker
             }
         }
 
+        public void LoanLabels_Update()
+        {
+            Loan loan = (Loan)ListViewLoans.SelectedItem;
+            LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
+            LabelTotalAmountOfPercents.Content = loan.TotalAmountOfPercents;
+        }
+
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
         {
             if (_storage.IsUniqeUser(TextBoxUserName.Text) == true)
@@ -599,11 +606,6 @@ namespace FinTracker
             _storage.Save();
         }
 
-        private void LoanLabels_Update()
-        {
-            Loan loan = (Loan)ListViewLoans.SelectedItem;
-            LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
-            LabelTotalAmountOfPercents.Content = loan.TotalAmountOfPercents;
-        }
+        
     }
 }
