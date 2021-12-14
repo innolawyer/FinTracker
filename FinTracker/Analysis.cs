@@ -16,8 +16,30 @@ namespace FinTracker
     {
         private static Storage _storage = Storage.GetStorage();
 
-        public static SeriesCollection GetCategoriesSeriesCollectionByAsset(string name, string assetName, List<string> categories)
+        private static DateTime GetStartDateRange(Storage.DateRange range)
         {
+            DateTime startRange = DateTime.Now;
+            switch (range)
+            {
+                case Storage.DateRange.Месяц:
+                    startRange = DateTime.Now.AddMonths(-1);
+                    break;
+                case Storage.DateRange.Полгода:
+                    startRange = DateTime.Now.AddMonths(-6);
+                    break;
+                case Storage.DateRange.Год:
+                    startRange = DateTime.Now.AddYears(-1);
+                    break;
+            }
+
+            return startRange;
+        }
+
+        public static SeriesCollection GetCategoriesSeriesCollectionByAsset(string name, string assetName, List<string> categories, Storage.DateRange range)
+        {
+
+            DateTime startDate = GetStartDateRange(range);
+
             SeriesCollection seriesCollection = new SeriesCollection();
 
             User user = _storage.GetUserByName(name);
@@ -28,23 +50,61 @@ namespace FinTracker
                 double tmpSum = 0;
                 foreach (Transaction transaction in asset.Transactions)
                 {
-                    if (transaction.Category == catName)
+                    if (transaction.Category == catName && transaction.Date >= startDate)
                     {
                         tmpSum += transaction.Amount;
                     }
                 }
-
-                PieSeries tmpSeries = new PieSeries
+                
+                if (tmpSum != 0)
                 {
-                    Title = catName,
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(tmpSum) },
-                    DataLabels = true
-                };
+                    PieSeries tmpSeries = new PieSeries
+                    {
+                        Title = catName,
+                        Values = new ChartValues<ObservableValue> { new ObservableValue(tmpSum) },
+                        DataLabels = true
+                    };
+                    seriesCollection.Add(tmpSeries);
+                }
 
 
-                seriesCollection.Add(tmpSeries);
+
             }
 
+            return seriesCollection;
+        }
+
+        public static SeriesCollection GetAverageAmountByCategory(List<string> categories, Storage.DateRange range, string assetName)
+        {
+            SeriesCollection seriesCollection = new SeriesCollection();
+
+            Asset asset = _storage.actualUser.GetAssetByName(assetName);
+
+            DateTime startDate = GetStartDateRange(range);
+
+            foreach (String category in categories)
+            {
+                int countOfTransactions = 0;
+                double total = 0;
+                foreach (Transaction transaction in asset.Transactions)
+                {
+                    if (transaction.Category == category && transaction.Date >= startDate)
+                    {
+                        countOfTransactions++;
+                        total += transaction.Amount;
+                    }
+                }
+                if (countOfTransactions > 0)
+                {
+                    ColumnSeries tmpSeries = new ColumnSeries
+                    {
+                        Title = category,
+                        Values = new ChartValues<double> { total / countOfTransactions  }
+                    };
+
+                    seriesCollection.Add(tmpSeries);
+                }
+            }
             return seriesCollection;
         }
     }

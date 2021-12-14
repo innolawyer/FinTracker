@@ -26,6 +26,14 @@ namespace FinTracker
             income
         }
 
+        [Flags]
+        public enum DateRange
+        {
+            Месяц,
+            Полгода,
+            Год
+        }
+
         private string path = @".\QQQ.txt";
 
         Storage()
@@ -75,7 +83,7 @@ namespace FinTracker
             Users.Remove(user);
         }
 
-        public bool IsUniqeUser(string name) // узнать куда это деть (как зашить в конструктор??)
+        public bool IsUniqeUser(string name)
         {
             bool uniq = true;
             foreach (User user in Users)
@@ -90,7 +98,6 @@ namespace FinTracker
 
         public void Save()
         {
-            //StreamWriter sw = new StreamWriter(path, false, Encoding.Default);
             string str = JsonConvert.SerializeObject(Users, Formatting.Indented);
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
