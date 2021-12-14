@@ -133,5 +133,10 @@ namespace FinTracker
                 ButtonAddNewPercentCashbackCategory.IsEnabled = true;
             }
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _mainWindow.IsEnabled = true;
+        }
     }
 }

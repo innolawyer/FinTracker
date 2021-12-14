@@ -24,7 +24,7 @@ namespace FinTracker
         public DateTime SpendDate { get; set; } // дата зачисления
 
         public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, 
-            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
+            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period)
         {
             if (capitalization)
             {

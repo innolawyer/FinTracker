@@ -46,14 +46,14 @@ namespace FinTracker
             Assets.Add(deposit);
         }
 
-        public void DeleteAsset(Asset asset)
+        public void DeleteAsset(AbstractAsset asset)
         {
             Assets.Remove(asset);
         }
 
-        public Asset GetAssetByName(string name)
+        public AbstractAsset GetAssetByName(string name)
         {
-            foreach (Asset asset in Assets)
+            foreach (AbstractAsset asset in Assets)
             {
                 if (asset.Name == name)
                 {

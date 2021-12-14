@@ -10,8 +10,7 @@ namespace FinTracker
 {
     public class Asset : AbstractAsset
     {
-
-        public AbstractAsset(string name, double amount)
+        public Asset(string name, double amount)
         {
             calcer = new CashFVCalc();
             Name = name;

@@ -11,24 +11,15 @@ namespace FinTracker.Assets
     {
         protected IFVCalcer calcer { get; set; }
 
-        public string Name; //Название
-        public double Amount; //Состояние счета       
+        public string Name; 
+        public double Amount;    
         public List<Transaction> Transactions = new List<Transaction>();
-        private double _StartAmount; //Стартовое состояние счета
-
-        public AbstractAsset(string name, double amount)
-        {
-            calcer = new CashFVCalc();
-            Name = name;
-            Amount = amount;
-            _StartAmount = amount;
-        }
+        public double _StartAmount;
 
         public AbstractAsset()
         {
 
         }
-
 
         public double GetAmount()
         {

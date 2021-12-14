@@ -44,7 +44,7 @@ namespace FinTracker
             Год
         }
 
-        private string path = @".\QQQ.txt";
+        private string path = @".\..\QQQ.txt";
 
         Storage()
         {
@@ -110,7 +110,8 @@ namespace FinTracker
         {
             string str = JsonConvert.SerializeObject(Users,Formatting.Indented, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.Auto,
+                //NullValueHandling = NullValueHandling.Ignore,
             });
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
@@ -137,7 +138,8 @@ namespace FinTracker
             }
             List<User> ?newClients = JsonConvert.DeserializeObject<List<User>>(result, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto
+                TypeNameHandling = TypeNameHandling.Auto,
+                NullValueHandling = NullValueHandling.Ignore,
             });
             if (newClients is not null)
             {
