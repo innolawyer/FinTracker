@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.IO;
 //using System.Text.Json;
 using Newtonsoft.Json;
-using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -15,7 +14,7 @@ namespace FinTracker
         private static Storage _storage;
 
         public List<User> Users;
-        public AbstractAsset actualAsset;
+        public Asset actualAsset;
         public User actualUser;
         public Transaction actualTransaction;
         public Loan actualLoan;
@@ -44,7 +43,7 @@ namespace FinTracker
             Год
         }
 
-        private string path = @".\..\QQQ.txt";
+        private string path = @".\QQQ.txt";
 
         Storage()
         {
@@ -110,8 +109,7 @@ namespace FinTracker
         {
             string str = JsonConvert.SerializeObject(Users,Formatting.Indented, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto,
-                //NullValueHandling = NullValueHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.Auto
             });
             using (StreamWriter sw = new StreamWriter(path, false, Encoding.Default))
             {
@@ -138,8 +136,7 @@ namespace FinTracker
             }
             List<User> ?newClients = JsonConvert.DeserializeObject<List<User>>(result, new JsonSerializerSettings()
             {
-                TypeNameHandling = TypeNameHandling.Auto,
-                NullValueHandling = NullValueHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.Auto
             });
             if (newClients is not null)
             {

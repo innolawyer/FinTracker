@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FinTracker.Assets;
 using FinTracker.Loans;
 
 namespace FinTracker
@@ -13,7 +12,7 @@ namespace FinTracker
         public string Name { get; set; }
         public List<string> CategoriesSpend { get; set; }
         public List<string> CategoriesIncome { get; set; }
-        public List<AbstractAsset> Assets = new List<AbstractAsset>();
+        public List<Asset> Assets = new List<Asset>();
         public List<Loan> Loans = new List<Loan>();
 
         public User(string name) 
@@ -35,10 +34,8 @@ namespace FinTracker
         public void AddCard(string name, double startAmount, double yearInterest, double fixCashback, double serviceFee,
             DateTime enrollDateCash, DateTime enrollDateYearInterest, DateTime dateSpendServiceFee)
         {
-            Card nCard = new Card(name, startAmount, yearInterest, fixCashback, serviceFee, enrollDateCash,
-                     enrollDateYearInterest, dateSpendServiceFee);
-
-            Assets.Add(nCard);
+            Assets.Add(new Card(name, startAmount, yearInterest, fixCashback, serviceFee, enrollDateCash, 
+                     enrollDateYearInterest, dateSpendServiceFee));
         }
 
         public void AddDeposit(Deposit deposit) //string name, double amount, bool withdrawable, bool putable, bool capitalization, DateTime closingDate, DateTime openingDate, double percent, Storage.period period)
@@ -46,14 +43,14 @@ namespace FinTracker
             Assets.Add(deposit);
         }
 
-        public void DeleteAsset(AbstractAsset asset)
+        public void DeleteAsset(Asset asset)
         {
             Assets.Remove(asset);
         }
 
-        public AbstractAsset GetAssetByName(string name)
+        public Asset GetAssetByName(string name)
         {
-            foreach (AbstractAsset asset in Assets)
+            foreach (Asset asset in Assets)
             {
                 if (asset.Name == name)
                 {
