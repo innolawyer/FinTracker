@@ -32,8 +32,6 @@ namespace FinTracker
             
             FillingComboBoxUser();
             ComboBoxChangeUser_SelectionDone();
-            //FillCategoriesIncome();
-            //FillCategories();
             FillAssetListBox();
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
@@ -594,11 +592,13 @@ namespace FinTracker
         public void FillingListDeposit()
         {
             ListViewDeposit.Items.Clear();
+
             foreach (Asset asset in _storage.actualUser.Assets)
             {
                 if (asset is Deposit)
                 {
-                    ListViewDeposit.Items.Add(asset);
+                    Deposit depo = (Deposit)asset;
+                    ListViewDeposit.Items.Add(depo);
                 }
             }
         }

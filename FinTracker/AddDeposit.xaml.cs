@@ -47,7 +47,7 @@ namespace FinTracker
 
         private void ButtonSaveNewDeposit_Click(object sender, RoutedEventArgs e)
         {
-            User user = _storage.actualUser;
+            //User user = _storage.actualUser;
             if (CheckBoxСapitalization.IsChecked == false)
             {
                 if (ComboBoxDepositSpendAsset.SelectedIndex == -1)
@@ -57,7 +57,7 @@ namespace FinTracker
                 }
                 else
                 {
-                    Asset asset = user.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
+                    Asset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
                 }
             }
          
@@ -65,7 +65,7 @@ namespace FinTracker
                 (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToInt32(TextBoxTermDeposit.Text),
                 Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem));
 
-            user.AddDeposit(deposit);
+            _storage.actualUser.AddDeposit(deposit);
 
             _mainWindow.ListViewDeposit.Items.Add(deposit);
             this.Close();
@@ -82,9 +82,5 @@ namespace FinTracker
                 ComboBoxDepositSpendAsset.IsEnabled = true;
             }
         }
-
-
-        
-        
     }
 }

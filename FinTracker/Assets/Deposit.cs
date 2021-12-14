@@ -10,6 +10,7 @@ namespace FinTracker
     public class Deposit : Asset
     {
         public string Name { get; set; }
+        public double Amount { get; set; }
         public string BankName { get; set; } // название банка
         public bool Withdrawable { get; set; } // возможность снятия
         public bool Putable { get; set; }  // возможность внесения
@@ -45,26 +46,28 @@ namespace FinTracker
         }
 
         
-        public void EnrollIncomeFromDeposit()
+        public double EnrollIncomeFromDeposit(int year)
         {
             // если % добавляется к вкладу, этот нельзя снимать, можно пополнять
             if (Withdrawable == false && Putable == true)
             {
-                if (DateTime.Today >= SpendDate)
+                if (DateTime.Today >= SpendDate && DateTime.Today <= ClosingDate)
                 {
-                    Amount += Amount * (Percent * (double)Period);
+                    SumIncome = Amount * (Percent * (double)Period);
+                    Amount += SumIncome;
                     SpendDate = SpendDate.AddDays((double)Period * 360);
                 }
             }
             // если % не добавляется к вкладу, это можно снимать и пополнять
             if (Withdrawable == true && Putable == true)
             {
-                if (DateTime.Today >= SpendDate)
+                if (DateTime.Today >= SpendDate && DateTime.Today <= ClosingDate)
                 {
                     SumIncome += Amount * (Percent * (double)Period);
                     SpendDate = SpendDate.AddDays((double)Period * 360);
                 }
             }
+            return SumIncome;
         }
 
         // пополнение, если возможность поплнения тру
@@ -84,8 +87,5 @@ namespace FinTracker
                 Amount -= sum;
             }
         }
-
-
-
     }
 }
