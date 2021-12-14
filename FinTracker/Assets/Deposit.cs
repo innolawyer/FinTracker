@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Assets;
 using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
-    public class Deposit : Asset
+    public class Deposit : AbstractAsset
     {
         public string Name { get; set; }
         public double Amount { get; set; }
@@ -23,7 +24,7 @@ namespace FinTracker
         public DateTime SpendDate { get; set; } // дата зачисления
 
         public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, 
-            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period) : base(name, amount)
+            bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period)
         {
             if (capitalization)
             {

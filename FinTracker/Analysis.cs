@@ -9,6 +9,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using System.Windows;
 using System.Windows.Controls;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -43,7 +44,7 @@ namespace FinTracker
             SeriesCollection seriesCollection = new SeriesCollection();
 
             User user = _storage.GetUserByName(name);
-            Asset asset = user.GetAssetByName(assetName);
+            AbstractAsset asset = user.GetAssetByName(assetName);
 
             foreach(string catName in categories)
             {
@@ -75,7 +76,7 @@ namespace FinTracker
         {
             SeriesCollection seriesCollection = new SeriesCollection();
 
-            Asset asset = _storage.actualUser.GetAssetByName(assetName);
+            AbstractAsset asset = _storage.actualUser.GetAssetByName(assetName);
 
             DateTime startDate = GetStartDateRange(range);
 

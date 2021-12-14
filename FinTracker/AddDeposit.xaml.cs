@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinTracker.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +40,7 @@ namespace FinTracker
         public void FillingComboBoxDepositSpendAsset()
         {
             ComboBoxDepositSpendAsset.Items.Clear();
-            foreach (Asset asset in _storage.actualUser.Assets)
+            foreach (AbstractAsset asset in _storage.actualUser.Assets)
             {
                 ComboBoxDepositSpendAsset.Items.Add(asset.Name);
             }
@@ -57,7 +58,7 @@ namespace FinTracker
                 }
                 else
                 {
-                    Asset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
+                    AbstractAsset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
                 }
             }
          
