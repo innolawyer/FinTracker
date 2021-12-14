@@ -76,5 +76,10 @@ namespace FinTracker
             _mainWindow.ListViewDeposit.Items.Add(deposit);
             this.Close();
         }
+
+        private void CheckBoxСapitalization_Checked(object sender, RoutedEventArgs e)
+        {
+            ComboBoxDepositSpendAsset.IsEnabled = false;
+        }
     }
 }

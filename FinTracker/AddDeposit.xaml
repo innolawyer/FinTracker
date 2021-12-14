@@ -23,7 +23,7 @@
             </DatePicker.CalendarStyle>
         </DatePicker>
         <CheckBox x:Name="CheckBoxWithdrawable" Background="#e38b75" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="19,195,0,0" VerticalAlignment="Top" Width="166"/>
-        <CheckBox x:Name="CheckBoxСapitalization" Background="#e38b75" Content="Сложный %" HorizontalAlignment="Left" Margin="19,241,0,0" VerticalAlignment="Top" Width="196"/>
+        <CheckBox x:Name="CheckBoxСapitalization" Background="#e38b75" Content="Сложный %" HorizontalAlignment="Left" Margin="19,241,0,0" VerticalAlignment="Top" Width="196" Checked="CheckBoxСapitalization_Checked"/>
         <CheckBox x:Name="CheckBoxPutable" Background="#e38b75" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="19,218,0,0" VerticalAlignment="Top" Width="196"/>
         <DatePicker x:Name="DatePickerDepositEnd" Background="White" BorderBrush="#e38b75" HorizontalAlignment="Left" Margin="148,153,0,0" VerticalAlignment="Top" Width="120">
             <DatePicker.CalendarStyle>
