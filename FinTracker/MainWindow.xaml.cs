@@ -22,6 +22,7 @@ namespace FinTracker
     public partial class MainWindow : Window
     {
         private Storage _storage = Storage.GetStorage();
+        
 
         public MainWindow()
         {
@@ -38,6 +39,7 @@ namespace FinTracker
             FillAssetListBox();
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
+            
 
             if (_storage.actualAsset == null)
             {
@@ -519,17 +521,14 @@ namespace FinTracker
             }
         }
 
-        private void ButtonLoanPayments_Click(object sender, RoutedEventArgs e)
-        {
-            ViewLoanPaymentsWindow viewLoanPaymentsWindow = new ViewLoanPaymentsWindow(this);
-            viewLoanPaymentsWindow.Show();
-        }
+       
 
         private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //_storage.actualLoan = _storage.GetLoanById(ListViewLoans.Focus
             
             AllLoanButtonsAreEnabled();
+            LoanLabels_Update();
         }
 
         
@@ -547,11 +546,22 @@ namespace FinTracker
                 ButtoanEditLoan.IsEnabled = false;
                 ButtoanEditLoan.Opacity = 0;
                 ButtoanRemoveLoan.IsEnabled = false;
-                ButtoanRemoveLoan.Opacity = 0;
-                ButtonLoanPayments.IsEnabled = false;
-                ButtonLoanPayments.Opacity = 0;
+                ButtoanRemoveLoan.Opacity = 0;                
                 ButtonAddExtraPayment.IsEnabled = false;
                 ButtonAddExtraPayment.Opacity = 0;
+                RectangleLW.Opacity = 0;
+                ListViewLoanPayments.IsEnabled = false;
+                ListViewLoanPayments.Opacity = 0;
+                LabelRemainingDays.Opacity = 0;
+                LabelTAOP.Opacity = 0;
+                LabelTotalAmountOfPercents.Opacity = 0;
+                LabelRub.Opacity = 0;
+                LabelUntilPayment.Opacity = 0;
+                LabelDN.Opacity = 0;
+                LabelProgressOfRepayment.Opacity = 0;
+                LabelPaidFromBody.Opacity = 0;
+                ProgressBarPaymentProgress.Opacity = 0;
+                ProgressBarPaidFromBody.Opacity = 0;
 
             }
             else if (ListViewLoans.SelectedItem !=null)
@@ -559,11 +569,22 @@ namespace FinTracker
                 ButtoanEditLoan.IsEnabled = true;
                 ButtoanEditLoan.Opacity = 1;
                 ButtoanRemoveLoan.IsEnabled = true;
-                ButtoanRemoveLoan.Opacity = 1;
-                ButtonLoanPayments.IsEnabled = true;
-                ButtonLoanPayments.Opacity = 1;
+                ButtoanRemoveLoan.Opacity = 1;                
                 ButtonAddExtraPayment.IsEnabled = true;
                 ButtonAddExtraPayment.Opacity = 1;
+                RectangleLW.Opacity = 1;
+                ListViewLoanPayments.IsEnabled = true;
+                ListViewLoanPayments.Opacity = 1;
+                LabelRemainingDays.Opacity = 1;
+                LabelTAOP.Opacity = 1;
+                LabelTotalAmountOfPercents.Opacity = 1;
+                LabelRub.Opacity = 1;
+                LabelUntilPayment.Opacity = 1;
+                LabelDN.Opacity = 1;
+                LabelProgressOfRepayment.Opacity = 1;
+                LabelPaidFromBody.Opacity = 1;
+                ProgressBarPaymentProgress.Opacity = 1;
+                ProgressBarPaidFromBody.Opacity = 1;
             }
         }
 
@@ -576,6 +597,13 @@ namespace FinTracker
         private void Window_Closed(object sender, EventArgs e)
         {
             _storage.Save();
+        }
+
+        private void LoanLabels_Update()
+        {
+            Loan loan = (Loan)ListViewLoans.SelectedItem;
+            LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
+            LabelTotalAmountOfPercents.Content = loan.TotalAmountOfPercents;
         }
     }
 }

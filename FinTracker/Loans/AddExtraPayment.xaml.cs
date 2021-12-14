@@ -21,13 +21,16 @@ namespace FinTracker
     /// </summary>
     public partial class AddExtraPayment : Window
     {
-        MainWindow _mainWindow;        
+        MainWindow _mainWindow;
+        
+
         private Storage _storage = Storage.GetStorage();
         public AddExtraPayment(MainWindow mainWindow)
         {
             InitializeComponent();
             FillingComboBoxExtraPaymentPurpose();
             _mainWindow = mainWindow;
+            
         }
 
         public void FillingComboBoxExtraPaymentPurpose()
@@ -38,6 +41,7 @@ namespace FinTracker
 
         private void ButtonCreateExtraPayment_Click(object sender, RoutedEventArgs e)
         {
+            
             Loan loan = ((Loan)_mainWindow.ListViewLoans.SelectedItem);
             LoanTransaction nLoanTransaction = new LoanTransaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmountOfExtraPayment.Text), Convert.ToDateTime(DatePickerOfExtraPayment.SelectedDate), 
                                                                   "", "Платёж по кредиту", Convert.ToString(ComboBoxExtraPaymentPurpose.SelectedItem));
@@ -58,6 +62,8 @@ namespace FinTracker
                 this.Close();
             }
             ((Loan)_mainWindow.ListViewLoans.SelectedItem).Asset.Transactions.Add(transaction);
+            _mainWindow.ListViewLoanPayments.Items.Add(nLoanTransaction);
+            
         }
     }
 }
