@@ -147,11 +147,11 @@
                         </DatePicker.CalendarStyle>
                     </DatePicker>
 
-                    <TextBox x:Name="TextBoxComment" Background="White" BorderBrush="#800000" Grid.Column="1" HorizontalAlignment="Left" Margin="51,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" Height="60" TextChanged="TextBoxComment_TextChanged" Grid.Row="1"/>
+                    <TextBox x:Name="TextBoxComment" Background="White" BorderBrush="#800000" Grid.Column="1" HorizontalAlignment="Left" Margin="51,197,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211" Height="60" Grid.Row="1"/>
                     <TextBox x:Name="TextBoxAmount" Background="White" BorderBrush="#800000" Grid.Column="1" HorizontalAlignment="Left" Margin="51,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216" Height="33" RenderTransformOrigin="0.52,0.299"/>
                     <Label Grid.Column="1" Content="Комментарий" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="53,158,0,0" VerticalAlignment="Top" Width="144" Height="39" Grid.Row="1"/>
                     <Label Grid.Column="1" Content="Сумма" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="51,0,0,0" VerticalAlignment="Center" Width="144" Height="38"/>
-                    <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#800000" Background="White" Grid.Column="1" HorizontalAlignment="Left" Margin="51,26,0,0" VerticalAlignment="Top" Width="216" Height="35" SelectionChanged="ComboBoxCategoriesTransaction_SelectionChanged" Grid.Row="1"/>
+                    <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#800000" Background="White" Grid.Column="1" HorizontalAlignment="Left" Margin="51,26,0,0" VerticalAlignment="Top" Width="216" Height="35" Grid.Row="1"/>
                     <Label Grid.Column="1" Content="Добавить транзакцию" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,14,0,0" VerticalAlignment="Top" Height="33" Width="216"/>
                     <StackPanel x:Name="StackPanelAssetList" Margin="20,137,27,0" Grid.RowSpan="5">
                         <!--<Grid Height="533">
@@ -170,7 +170,7 @@
                     <Button Style="{StaticResource BlueButtonStyle}" x:Name="ButtonEditTransaction" Grid.Column="2" Content="Редактировать" FontSize="17" Height="45" Margin="352,74,-502,0" VerticalAlignment="Top" Click="ButtonEditTransaction_Click"/>
                     <RadioButton x:Name="RadioButtonIncome" Background="#e38b75" Grid.Column="1" Content="Доход"  FontSize="18" HorizontalAlignment="Left" Margin="67,192,0,0" VerticalAlignment="Top" Click="RadioButtonIncome_Click" Height="29" Width="116"/>
                     <RadioButton x:Name="RadioButtonСonsumption" Background="#e38b75" Grid.Column="1" Content="Расход" FontSize="18" HorizontalAlignment="Left" Margin="67,221,0,0" VerticalAlignment="Top" Click="RadioButtonСonsumption_Click" Height="30" Width="116"/>
-                    <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="1" Content="Перевод" FontSize="18" HorizontalAlignment="Left" Margin="67,251,0,0" VerticalAlignment="Top" Click="RadioButtonTransfer_Click" Height="29" Width="116" Grid.RowSpan="2"/>
+                    <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="1" Content="Перевод" FontSize="18" HorizontalAlignment="Left" Margin="67,251,0,0" VerticalAlignment="Top" Height="29" Width="116" Grid.RowSpan="2"/>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonConfirmTransaction" Grid.Column="1" Content="Подтвердить" HorizontalAlignment="Left" Margin="51,275,0,0" VerticalAlignment="Top" Height="50" Width="211" Grid.Row="1" Click="ButtonConfirmTransaction_Click"/>
                     <Label Grid.Column="1" Content="Добавить категорию"  FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top" Height="41" Width="206" Grid.Row="1"/>
                     <Button Style="{StaticResource BlueButtonStyle}" x:Name="ButtonEditAsset" Content="Редактировать" FontSize="17" HorizontalAlignment="Left" Margin="281,14,0,0" VerticalAlignment="Top" Width="144" Height="45" Click="ButtonEditAsset_Click"/>
