@@ -169,11 +169,11 @@
                         </DatePicker.CalendarStyle>
                     </DatePicker>
 
-                    <TextBox x:Name="TextBoxComment" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Left" Margin="14,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="26" TextChanged="TextBoxComment_TextChanged"/>
+                    <TextBox x:Name="TextBoxComment" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Left" Margin="14,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="26"/>
                     <TextBox x:Name="TextBoxAmount" Background="White" BorderBrush="#e38b75" Grid.Column="3" HorizontalAlignment="Left" Margin="14,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Height="23" RenderTransformOrigin="0.52,0.299"/>
                     <Label Grid.Column="3" Content="Комментарий" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
                     <Label Grid.Column="3" Content="Сумма" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="140" Height="24"/>
-                    <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#e38b75" Background="White" Grid.Column="3" HorizontalAlignment="Left" Margin="14,75,0,0" VerticalAlignment="Top" Width="140" Height="25" SelectionChanged="ComboBoxCategoriesTransaction_SelectionChanged" Grid.Row="1"/>
+                    <ComboBox x:Name="ComboBoxCategoriesTransaction" BorderBrush="#e38b75" Background="White" Grid.Column="3" HorizontalAlignment="Left" Margin="14,75,0,0" VerticalAlignment="Top" Width="140" Height="25" Grid.Row="1"/>
                     <Label Grid.Column="3" Content="Добавить транзакцию" FontWeight="Bold" HorizontalAlignment="Left" Margin="14,11,0,0" VerticalAlignment="Top" Height="24" Width="140"/>
                     <!--<Button x:Name="ButtonTransfer" Grid.Column="2" Content="Перевод между своими" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="140" Grid.ColumnSpan="2" Click="ButtonTransfer_Click"/>-->
                     <StackPanel x:Name="StackPanelAssetList" Margin="0,106,0,0" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
@@ -216,7 +216,7 @@
                     </Button>
                     <RadioButton x:Name="RadioButtonIncome" Background="#e38b75" Grid.Column="3" Content="Доход" HorizontalAlignment="Left" Margin="14,5,0,0" VerticalAlignment="Top" Click="RadioButtonIncome_Click" Height="18" Width="58" Grid.Row="1"/>
                     <RadioButton x:Name="RadioButtonСonsumption" Background="#e38b75" Grid.Column="3" Content="Расход" HorizontalAlignment="Left" Margin="14,25,0,0" VerticalAlignment="Top" Click="RadioButtonСonsumption_Click" Height="18" Width="60" Grid.Row="1"/>
-                    <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="3" Content="Перевод" HorizontalAlignment="Left" Margin="14,46,0,0" VerticalAlignment="Top" Click="RadioButtonTransfer_Click" Height="18" Width="71" Grid.Row="1"/>
+                    <RadioButton x:Name="RadioButtonTransfer" Background="#e38b75" Grid.Column="3" Content="Перевод" HorizontalAlignment="Left" Margin="14,46,0,0" VerticalAlignment="Top" Height="18" Width="71" Grid.Row="1"/>
                     <Button Style="{StaticResource GreenButtonStyle}" x:Name="ButtonConfirmTransaction" Grid.Column="3" Content="Подтвердить" HorizontalAlignment="Left" Margin="14,179,0,0" VerticalAlignment="Top" Height="31" Width="140" Grid.Row="1" Click="ButtonConfirmTransaction_Click">
                         <Button.Resources>
                             <Style TargetType="Border">
@@ -333,8 +333,8 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="163,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="2"/>
-                    <Button Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1"/>
+                    <Button x:Name="ButtonDeleteDeposit" Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="163,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="2" Click="ButtonDeleteDeposit_Click"/>
+                    <Button x:Name="ButtonEditDeposit" Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1" Click="ButtonEditDeposit_Click"/>
                     <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="100,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.ColumnSpan="2" Click="ButtonCreateDeposit_Click"/>
                     <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,75,10,0" Grid.ColumnSpan="3">
                         <ListView.ItemContainerStyle>

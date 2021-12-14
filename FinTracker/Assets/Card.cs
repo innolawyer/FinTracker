@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FinTracker.Assets;
 using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
-    public class Card : AbstractAsset
+    public class Card : Asset
     {
+        private double _startAmount;
+
         public double YearInterest; //Процент на остаток // узать как считаеться
         public double SumYearInterest;
         public DateTime EnrollDateYearInterest;
@@ -26,16 +27,16 @@ namespace FinTracker
         public double Percent; // процент кэшбека
         public List<string> CashbackCategories; //категории с повышенным кэшбэком
         public Dictionary<string, double> CashbackAndPercent = new Dictionary<string, double>();
-
-        public Card(string name, double amount,
-            double yearInterest, double fixCashback, double serviceFee,
-            DateTime enrollDateCash, DateTime enrollDateYearInterest,
-            DateTime dateSpendServiceFee)
+       
+        public Card (string name, double amount, 
+            double yearInterest, double fixCashback, double serviceFee, 
+            DateTime enrollDateCash, DateTime enrollDateYearInterest, 
+            DateTime dateSpendServiceFee) : base(name, amount)
         {
             calcer = new CardFVCalc();
             Name = name;
             Amount = amount;
-            _StartAmount = amount;
+            _startAmount = amount;
             MinAmount = amount;
             ServiceFee = serviceFee;
             DateSpendServiceFee = dateSpendServiceFee;       
@@ -149,8 +150,8 @@ namespace FinTracker
 
             if (Transactions == null)
             {
-                _StartAmount = amount;
-                Amount = _StartAmount;
+                _startAmount = amount;
+                Amount = _startAmount;
                 MinAmount = amount;
             }
         }
