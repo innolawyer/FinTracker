@@ -268,9 +268,9 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="ButtonDeleteDeposit" Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Left" Margin="163,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="2" Click="ButtonDeleteDeposit_Click"/>
-                    <Button x:Name="ButtonEditDeposit" Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.Column="1" Click="ButtonEditDeposit_Click"/>
-                    <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Left" Margin="100,19,0,0" VerticalAlignment="Top" Height="35" Width="180" Grid.ColumnSpan="2" Click="ButtonCreateDeposit_Click"/>
+                    <Button x:Name="ButtonDeleteDeposit" Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Grid.Column="2" Click="ButtonDeleteDeposit_Click"/>
+                    <Button x:Name="ButtonEditDeposit" Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Grid.Column="1" Click="ButtonEditDeposit_Click"/>
+                    <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Click="ButtonCreateDeposit_Click"/>
                     <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,75,10,0" Grid.ColumnSpan="3">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
