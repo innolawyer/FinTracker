@@ -231,8 +231,12 @@ namespace FinTracker
         public void LoanLabels_Update()
         {
             Loan loan = (Loan)ListViewLoans.SelectedItem;
-            LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
-            LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
+            if (loan != null)
+            {
+                LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
+                LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
+            }    
+            
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -644,5 +648,7 @@ namespace FinTracker
             ListViewDeposit.Items.Remove(ListViewDeposit.SelectedItem);
             ListViewDeposit.Items.Refresh();
         }
+
+        
     }
 }
