@@ -30,10 +30,13 @@ namespace FinTracker.DepositWindows
 
             FillingComboBoxDepositSpendAsset();
             CheckBoxСapitalizationIsChecked();
+
             ComboBoxEditPeriod.Items.Add(Storage.period.Год);
             ComboBoxEditPeriod.Items.Add(Storage.period.Месяц);
             ComboBoxEditPeriod.Items.Add(Storage.period.Неделя);
             ComboBoxEditPeriod.Items.Add(Storage.period.День);
+
+            ComboBoxEditPeriod.SelectedIndex = 0;
 
             TextBoxEditNameAsset.Text = Convert.ToString(deposit.Name);
             TextBoxEditBankName.Text = Convert.ToString(deposit.BankName);
@@ -44,7 +47,7 @@ namespace FinTracker.DepositWindows
 
             foreach (Object items in ComboBoxEditDepositSpendAsset.Items)
             {
-                if (deposit.Asset.Name == items.ToString())
+                if (deposit.AssetForEnroll.Name == items.ToString())
                 {
                     ComboBoxEditDepositSpendAsset.SelectedItem = items;
                 }
@@ -73,7 +76,7 @@ namespace FinTracker.DepositWindows
             deposit.TermDeposit = Convert.ToInt32(TextBoxEditTermDeposit.Text);
             deposit.Period = (Storage.period)(ComboBoxEditPeriod.SelectedItem);
             deposit.Percent = Convert.ToDouble(TextBoxEditPercent.Text);
-            deposit.Asset = _storage.actualUser.GetAssetByName(ComboBoxEditDepositSpendAsset.SelectedItem.ToString());
+            deposit.AssetForEnroll = _storage.actualUser.GetAssetByName(ComboBoxEditDepositSpendAsset.SelectedItem.ToString());
             _mainWindow.ListViewDeposit.Items.Refresh();
             this.Close();
         }
@@ -96,6 +99,16 @@ namespace FinTracker.DepositWindows
             {
                 ComboBoxEditDepositSpendAsset.Items.Add(asset.Name);
             }
+        }
+        private void CheckBoxEditСapitalization_Checked(object sender, RoutedEventArgs e)
+        {
+            ComboBoxEditDepositSpendAsset.SelectedIndex = -1;
+            ComboBoxEditDepositSpendAsset.IsEnabled = false;
+        }
+
+        private void CheckBoxEditСapitalization_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ComboBoxEditDepositSpendAsset.IsEnabled = true;
         }
     }
 }

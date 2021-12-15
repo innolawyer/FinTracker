@@ -271,7 +271,7 @@
                     <Button x:Name="ButtonDeleteDeposit" Style="{StaticResource RedButtonStyle}" Content="Удалить вклад" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Grid.Column="2" Click="ButtonDeleteDeposit_Click"/>
                     <Button x:Name="ButtonEditDeposit" Style="{StaticResource BlueButtonStyle}" Content="Редактировать" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Grid.Column="1" Click="ButtonEditDeposit_Click"/>
                     <Button x:Name="ButtonCreateDeposit" Style="{StaticResource GreenButtonStyle}" Content="Создать вклад" HorizontalAlignment="Center" Margin="0,19,0,0" VerticalAlignment="Top" Height="45" Width="250" Click="ButtonCreateDeposit_Click"/>
-                    <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,75,10,0" Grid.ColumnSpan="3">
+                    <ListView x:Name="ListViewDeposit" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,75,10,167" Grid.ColumnSpan="3" SelectionChanged="ListViewDeposit_SelectionChanged">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -294,6 +294,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Label Content="По выбранному вкладу:" HorizontalAlignment="Left" Margin="10,503,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold" Background="#FFD1E1E8" Height="41" Width="253"/>
+                    <Label x:Name="LabelSumPercentActualDeposit" Content="" HorizontalAlignment="Left" Margin="10,549,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="111" Width="667"/>
                 </Grid>
             </TabItem>
             <TabItem Background="#F1D1B7" Foreground="#800000" FontSize="17" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="150" Header="Аналитика" FocusableChanged="TabItemAnalytics_FocusableChanged">
