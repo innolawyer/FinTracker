@@ -270,7 +270,6 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox(ComboBoxCategoriesTransaction);
-            FillAssetListBox(ComboBoxAssetAnalisys);
 
             GetAccessToLoans();
             if (_storage.actualUser.Assets.Count == 0)
@@ -633,64 +632,72 @@ namespace FinTracker
             ListViewDeposit.Items.Refresh();
         }
 
-        private void TabItemAnalytics_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TabItemAnalytics_MouseDown(object sender, MouseButtonEventArgs e)
         {
             FillAssetListBox(ComboBoxAssetAnalisys);
 
-            ComboBoxAssetAnalisys.SelectedIndex = 0;
-
-            if (PieChartIncome.Series != null && PieChartSpend.Series != null && ColumnChartIncome.Series != null && ColumnChartSpend.Series != null)
+            if (ComboBoxAssetAnalisys.Items.Count > 0)
             {
-                PieChartIncome.Series.Clear();
-                PieChartSpend.Series.Clear();
-                ColumnChartSpend.Series.Clear();
-                ColumnChartIncome.Series.Clear();
+                ComboBoxAssetAnalisys.SelectedIndex = 0;
+            }
+            else
+            {
+                ComboBoxAssetAnalisys.SelectedIndex = -1;
 
-                SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
-                    _storage.actualUser.Name,
-                    _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
-                    _storage.actualUser.CategoriesIncome,
-                    (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
-
-                for (int i = 0; i < SeriesCollectionIncome.Count; i++)
-                {
-                    PieChartIncome.Series.Add(SeriesCollectionIncome[i]);
-                }
-
-                SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
-                    _storage.actualUser.Name,
-                    _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
-                    _storage.actualUser.CategoriesSpend,
-                    (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
-
-                for (int i = 0; i < SeriesCollectionSpend.Count; i++)
-                {
-                    PieChartSpend.Series.Add(SeriesCollectionSpend[i]);
-                }
-
-                SeriesCollectionColSpend = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesSpend,
-                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
-                                                                         _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
-
-                for (int i = 0; i < SeriesCollectionColSpend.Count; i++)
-                {
-                    ColumnChartSpend.Series.Add(SeriesCollectionColSpend[i]);
-                }
-
-                SeriesCollectionColIncome = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesIncome,
-                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
-                                                                         _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
-
-                for (int i = 0; i < SeriesCollectionColIncome.Count; i++)
-                {
-                    ColumnChartIncome.Series.Add(SeriesCollectionColIncome[i]);
-                }
             }
 
-            PieChartIncome.Update(true, true);
-            PieChartSpend.Update(true, true);
-            ColumnChartSpend.Update();
-            ColumnChartIncome.Update();
+            //if (PieChartIncome.Series != null && PieChartSpend.Series != null && ColumnChartIncome.Series != null && ColumnChartSpend.Series != null)
+            //{
+            //    PieChartIncome.Series.Clear();
+            //    PieChartSpend.Series.Clear();
+            //    ColumnChartSpend.Series.Clear();
+            //    ColumnChartIncome.Series.Clear();
+
+            //    SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
+            //        _storage.actualUser.Name,
+            //        _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
+            //        _storage.actualUser.CategoriesIncome,
+            //        (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
+
+            //    for (int i = 0; i < SeriesCollectionIncome.Count; i++)
+            //    {
+            //        PieChartIncome.Series.Add(SeriesCollectionIncome[i]);
+            //    }
+
+            //    SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
+            //        _storage.actualUser.Name,
+            //        _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
+            //        _storage.actualUser.CategoriesSpend,
+            //        (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
+
+            //    for (int i = 0; i < SeriesCollectionSpend.Count; i++)
+            //    {
+            //        PieChartSpend.Series.Add(SeriesCollectionSpend[i]);
+            //    }
+
+            //    SeriesCollectionColSpend = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesSpend,
+            //                                                              (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
+            //                                                             _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+
+            //    for (int i = 0; i < SeriesCollectionColSpend.Count; i++)
+            //    {
+            //        ColumnChartSpend.Series.Add(SeriesCollectionColSpend[i]);
+            //    }
+
+            //    SeriesCollectionColIncome = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesIncome,
+            //                                                              (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
+            //                                                             _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+
+            //    for (int i = 0; i < SeriesCollectionColIncome.Count; i++)
+            //    {
+            //        ColumnChartIncome.Series.Add(SeriesCollectionColIncome[i]);
+            //    }
+            //}
+
+            //PieChartIncome.Update(true, true);
+            //PieChartSpend.Update(true, true);
+            //ColumnChartSpend.Update();
+            //ColumnChartIncome.Update();
         }
     }
 }
