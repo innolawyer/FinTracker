@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinTracker.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,7 +58,7 @@ namespace FinTracker
                 }
                 else
                 {
-                    Asset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
+                    AbstractAsset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
                 }
             }
          

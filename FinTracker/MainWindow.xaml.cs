@@ -17,6 +17,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FinTracker.Loans;
 using FinTracker.DepositWindows;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -52,7 +53,7 @@ namespace FinTracker
             }
             if (_storage.actualUser != null && _storage.actualAsset != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Card)
                     {
@@ -126,7 +127,7 @@ namespace FinTracker
             box.Items.Clear();
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     box.Items.Add(asset.Name);
                 }
@@ -184,7 +185,7 @@ namespace FinTracker
             if (_storage.actualUser != null)
             {
                 StackPanelAssetList.Children.Clear();
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     Button buttonAsset = new Button();
                     buttonAsset.Content = asset.Name;
@@ -235,7 +236,6 @@ namespace FinTracker
                 LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
                 LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
             }    
-            
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -256,8 +256,8 @@ namespace FinTracker
         {
             _storage.DeleteUser(((string)ComboBoxChangeUser.SelectedValue));
 
-                StackPanelAssetList.Children.Clear();
-                FillingComboBoxUser(ComboBoxChangeUser);         
+            StackPanelAssetList.Children.Clear();
+            FillingComboBoxUser(ComboBoxChangeUser);         
         }
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
@@ -428,6 +428,7 @@ namespace FinTracker
                     nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
                     nTransactionButton.Click += CurrentTransaction;
                     nTransactionButton.Click += SetTransactionData;
+                    nTransactionButton.Click += LabelCurrentAmount_Display;
                     StackPanelTransactionList.Children.Add(nTransactionButton);
                     LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
                     if (_storage.actualAsset is Card)
@@ -526,7 +527,7 @@ namespace FinTracker
 
         private void ComboBoxAssetAnalisys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PieChartIncome.Series != null && PieChartSpend.Series != null)
+            if (PieChartIncome.Series != null && PieChartSpend.Series != null && ColumnChartIncome.Series != null && ColumnChartSpend.Series != null)
             {
                 PieChartIncome.Series.Clear();
                 PieChartSpend.Series.Clear();
@@ -603,7 +604,7 @@ namespace FinTracker
 
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Deposit)
                     {
@@ -647,6 +648,9 @@ namespace FinTracker
             ListViewDeposit.Items.Refresh();
         }
 
-        
+        private void TabItemAnalytics_GotFocus(object sender, RoutedEventArgs e)
+        {
+            FillAssetListBox(ComboBoxAssetAnalisys);
+        }
     }
 }

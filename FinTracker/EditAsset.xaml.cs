@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinTracker.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -81,7 +82,7 @@ namespace FinTracker
         private void ButtonEditAsset_Click(object sender, RoutedEventArgs e) 
         {
 
-            Asset asset = _storage.actualAsset;
+            AbstractAsset asset = _storage.actualAsset;
             if (ComboBoxAssetTypeEdit.SelectedItem.ToString() == "Наличные")
             {
                 asset.EditAsset(TextBoxAssetNameEdit.Text, Convert.ToDouble(TextBoxAmountEdit.Text));
@@ -99,7 +100,7 @@ namespace FinTracker
             //_mainWindow.FillAssetListBox();
             _mainWindow.FillAssetsStackPanel();
             _mainWindow.LabelCurrentAmount.Content = _storage.actualAsset.Amount;
-            _mainWindow.IsEnabled = true;
+            
             //НЕ РАБОТАЕТ
             this.Close();
         }
@@ -132,6 +133,11 @@ namespace FinTracker
                 TextBoxNewPercent.IsEnabled = true;
                 ButtonAddNewPercentCashbackCategory.IsEnabled = true;
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _mainWindow.IsEnabled = true;
         }
     }
 }
