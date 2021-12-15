@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinTracker.Assets;
 using FinTracker.Loans;
 
 namespace FinTracker
@@ -14,7 +15,7 @@ namespace FinTracker
         public DateTime ActualPaymentDateTime { get; set; }
         public DateTime NextPaymentDateTime { get; set;}      
         public DateTime LastPaymentDateTime { get; set;}        
-        public Asset Asset { get; set; }
+        public AbstractAsset Asset { get; set; }
         public int Id { get; set; }
         public string CreditorsName { get; set; }
         public double Percent { get; set; }
@@ -37,7 +38,7 @@ namespace FinTracker
 
         
 
-        public Loan (Asset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
+        public Loan (AbstractAsset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
                     double remainingTerm,
                     double amount)

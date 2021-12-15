@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="EditAsset" Height="477" Width="482">
+        Title="EditAsset" Height="477" Width="482" Closed="Window_Closed">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#60D6A9"/>

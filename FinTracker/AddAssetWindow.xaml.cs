@@ -83,6 +83,8 @@ namespace FinTracker
                 buttonAsset.Click += _mainWindow.FillingTransactionsStackPanel;
 
                 _mainWindow.StackPanelAssetList.Children.Add(buttonAsset);
+                _mainWindow.TabItemAnalytics.IsEnabled = true;
+                
                 this.Close();
             }
             else

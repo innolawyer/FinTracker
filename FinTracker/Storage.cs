@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 //using System.Text.Json;
 using Newtonsoft.Json;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -14,7 +15,7 @@ namespace FinTracker
         private static Storage _storage;
 
         public List<User> Users;
-        public Asset actualAsset;
+        public AbstractAsset actualAsset;
         public User actualUser;
         public Transaction actualTransaction;
         public Loan actualLoan;

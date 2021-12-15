@@ -17,6 +17,7 @@ using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 using FinTracker.Loans;
 using FinTracker.DepositWindows;
+using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -52,7 +53,7 @@ namespace FinTracker
             }
             if (_storage.actualUser != null && _storage.actualAsset != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     if (asset is Card)
                     {
@@ -126,7 +127,7 @@ namespace FinTracker
             box.Items.Clear();
             if (_storage.actualUser != null)
             {
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     box.Items.Add(asset.Name);
                 }
@@ -184,7 +185,7 @@ namespace FinTracker
             if (_storage.actualUser != null)
             {
                 StackPanelAssetList.Children.Clear();
-                foreach (Asset asset in _storage.actualUser.Assets)
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
                 {
                     Button buttonAsset = new Button();
                     buttonAsset.Content = asset.Name;
@@ -235,7 +236,6 @@ namespace FinTracker
                 LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
                 LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
             }    
-            
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -256,8 +256,8 @@ namespace FinTracker
         {
             _storage.DeleteUser(((string)ComboBoxChangeUser.SelectedValue));
 
-                StackPanelAssetList.Children.Clear();
-                FillingComboBoxUser(ComboBoxChangeUser);         
+            StackPanelAssetList.Children.Clear();
+            FillingComboBoxUser(ComboBoxChangeUser);         
         }
 
         private void ButtonDeleteAsset_Click(object sender, RoutedEventArgs e)
@@ -270,7 +270,13 @@ namespace FinTracker
             ButtonConfirmTransaction.IsEnabled = false;
             FillAssetsStackPanel();
             FillAssetListBox(ComboBoxCategoriesTransaction);
+            FillAssetListBox(ComboBoxAssetAnalisys);
+
             GetAccessToLoans();
+            if (_storage.actualUser.Assets.Count == 0)
+            {
+                TabItemAnalytics.IsEnabled = false;
+            }
         }
 
         private void ButtonAddAsset_Click(object sender, RoutedEventArgs e)
@@ -313,6 +319,8 @@ namespace FinTracker
             StackPanelAssetList.Children.Clear();
             StackPanelTransactionList.Children.Clear();
             ComboBoxChangeUser_SelectionDone();
+            //FillAssetListBox(ComboBoxAssetAnalisys);
+
             FillAssetsStackPanel();
             FillingListDeposit();
             GetAccessToLoans();
@@ -324,26 +332,9 @@ namespace FinTracker
                 }
             }
 
-            SeriesCollectionIncome = null;
-            SeriesCollectionSpend = null;
-            ComboBoxRangeDateAnalisys.SelectedIndex = 0;
-            if (_storage.actualUser != null && _storage.actualUser.Assets.Count > 0)
+            if (_storage.actualUser.Assets.Count == 0)
             {
-
-                SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
-                    _storage.actualUser.Name,
-                    _storage.actualUser.Assets[0].Name,
-                    _storage.actualUser.CategoriesIncome,
-                    Storage.DateRange.Месяц);
-
-                SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
-                    _storage.actualUser.Name,
-                    _storage.actualUser.Assets[0].Name,
-                    _storage.actualUser.CategoriesSpend,
-                    Storage.DateRange.Месяц);
-
-                PieChartIncome.Update();
-                PieChartSpend.Update();
+                TabItemAnalytics.IsEnabled = false;
             }
         }
 
@@ -361,9 +352,9 @@ namespace FinTracker
             {
                 TabItemAssets.IsEnabled = true;
                 TabItemLoans.IsEnabled = true;
-                TabItemAnalytics.IsEnabled = true;
                 TabItemPlanning.IsEnabled = true;
                 TabItemDeposits.IsEnabled = true;
+                TabItemAnalytics.IsEnabled = true;
             }
             LabelCurrentAmount.Content = "";
         }
@@ -428,6 +419,7 @@ namespace FinTracker
                     nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
                     nTransactionButton.Click += CurrentTransaction;
                     nTransactionButton.Click += SetTransactionData;
+                    nTransactionButton.Click += LabelCurrentAmount_Display;
                     StackPanelTransactionList.Children.Add(nTransactionButton);
                     LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nTransaction.Amount;
                     if (_storage.actualAsset is Card)
@@ -459,8 +451,6 @@ namespace FinTracker
         {
             AllLoanButtonsAreEnabled();
             LoanLabels_Update();
-           
-
         }
 
         private void ButtonAddExtraPayment_Click(object sender, RoutedEventArgs e)
@@ -526,7 +516,130 @@ namespace FinTracker
 
         private void ComboBoxAssetAnalisys_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (PieChartIncome.Series != null && PieChartSpend.Series != null)
+            if (PieChartIncome.Series != null && PieChartSpend.Series != null && ColumnChartIncome.Series != null && ColumnChartSpend.Series != null
+                && _storage.actualUser.Assets.Count > 0)
+            {
+                PieChartIncome.Series.Clear();
+                PieChartSpend.Series.Clear();
+                ColumnChartSpend.Series.Clear();
+                ColumnChartIncome.Series.Clear();
+
+                SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
+                    _storage.actualUser.Name,
+                    ComboBoxAssetAnalisys.SelectedItem.ToString(),
+                    _storage.actualUser.CategoriesIncome,
+                    (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
+
+                for (int i = 0; i < SeriesCollectionIncome.Count; i++)
+                {
+                    PieChartIncome.Series.Add(SeriesCollectionIncome[i]);
+                }
+
+                SeriesCollectionSpend = Analisys.GetCategoriesSeriesCollectionByAsset(
+                    _storage.actualUser.Name,
+                    _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name,
+                    _storage.actualUser.CategoriesSpend,
+                    (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem);
+
+                for (int i = 0; i < SeriesCollectionSpend.Count; i++)
+                {
+                    PieChartSpend.Series.Add(SeriesCollectionSpend[i]);
+                }
+
+                SeriesCollectionColSpend = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesSpend,
+                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
+                                                                         _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+
+                for (int i = 0; i < SeriesCollectionColSpend.Count; i++)
+                {
+                    ColumnChartSpend.Series.Add(SeriesCollectionColSpend[i]);
+                }
+
+                SeriesCollectionColIncome = Analisys.GetAverageAmountByCategory(_storage.actualUser.CategoriesIncome,
+                                                                          (Storage.DateRange)ComboBoxRangeDateAnalisys.SelectedItem,
+                                                                         _storage.actualUser.GetAssetByName(ComboBoxAssetAnalisys.SelectedItem.ToString()).Name);
+
+                for (int i = 0; i < SeriesCollectionColIncome.Count; i++)
+                {
+                    ColumnChartIncome.Series.Add(SeriesCollectionColIncome[i]);
+                }
+            }
+
+            PieChartIncome.Update(true, true);
+            PieChartSpend.Update(true, true);
+            ColumnChartSpend.Update();
+            ColumnChartIncome.Update();
+        }
+
+        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e)
+        {
+            EditAsset editAsset = new EditAsset(this);
+            editAsset.Show();
+        }      
+
+        private void ButtonCreateDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            AddDeposit addDeposit = new AddDeposit(this);
+            addDeposit.Show();
+        }
+
+        public void FillingListDeposit()
+        {
+            ListViewDeposit.Items.Clear();
+
+            if (_storage.actualUser != null)
+            {
+                foreach (AbstractAsset asset in _storage.actualUser.Assets)
+                {
+                    if (asset is Deposit)
+                    {
+                        Deposit depo = (Deposit)asset;
+                        ListViewDeposit.Items.Add(depo);
+                    }
+                }
+            }
+        }
+
+        public void FillingListLoans()
+        {
+            ListViewLoans.Items.Clear();
+
+            if (_storage.actualUser != null)
+            {
+                foreach (Loan loan in _storage.actualUser.Loans)
+                {                    
+                  ListViewLoans.Items.Add(loan);                    
+                }
+            }
+        }
+
+        private void ButtonEditDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListViewDeposit.SelectedItem != null)
+            {
+                EditDeposit editDeposit = new EditDeposit(this);
+                editDeposit.Show();
+            }
+            else 
+            {
+                MessageBox.Show("Выберите вклад для редактирования");
+            }
+        }
+
+        private void ButtonDeleteDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            _storage.actualUser.DeleteAsset((Deposit)ListViewDeposit.SelectedItem);
+            ListViewDeposit.Items.Remove(ListViewDeposit.SelectedItem);
+            ListViewDeposit.Items.Refresh();
+        }
+
+        private void TabItemAnalytics_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            FillAssetListBox(ComboBoxAssetAnalisys);
+
+            ComboBoxAssetAnalisys.SelectedIndex = 0;
+
+            if (PieChartIncome.Series != null && PieChartSpend.Series != null && ColumnChartIncome.Series != null && ColumnChartSpend.Series != null)
             {
                 PieChartIncome.Series.Clear();
                 PieChartSpend.Series.Clear();
@@ -579,74 +692,5 @@ namespace FinTracker
             ColumnChartSpend.Update();
             ColumnChartIncome.Update();
         }
-
-        private void ComboBoxAssetAnalisys_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ButtonEditAsset_Click(object sender, RoutedEventArgs e)
-        {
-            EditAsset editAsset = new EditAsset(this);
-            editAsset.Show();
-        }      
-
-        private void ButtonCreateDeposit_Click(object sender, RoutedEventArgs e)
-        {
-            AddDeposit addDeposit = new AddDeposit(this);
-            addDeposit.Show();
-        }
-
-        public void FillingListDeposit()
-        {
-            ListViewDeposit.Items.Clear();
-
-            if (_storage.actualUser != null)
-            {
-                foreach (Asset asset in _storage.actualUser.Assets)
-                {
-                    if (asset is Deposit)
-                    {
-                        Deposit depo = (Deposit)asset;
-                        ListViewDeposit.Items.Add(depo);
-                    }
-                }
-            }
-        }
-
-        public void FillingListLoans()
-        {
-            ListViewLoans.Items.Clear();
-
-            if (_storage.actualUser != null)
-            {
-                foreach (Loan loan in _storage.actualUser.Loans)
-                {                    
-                  ListViewLoans.Items.Add(loan);                    
-                }
-            }
-        }
-
-        private void ButtonEditDeposit_Click(object sender, RoutedEventArgs e)
-        {
-            if (ListViewDeposit.SelectedItem != null)
-            {
-                EditDeposit editDeposit = new EditDeposit(this);
-                editDeposit.Show();
-            }
-            else 
-            {
-                MessageBox.Show("Выберите вклад для редактирования");
-            }
-        }
-
-        private void ButtonDeleteDeposit_Click(object sender, RoutedEventArgs e)
-        {
-            _storage.actualUser.DeleteAsset((Deposit)ListViewDeposit.SelectedItem);
-            ListViewDeposit.Items.Remove(ListViewDeposit.SelectedItem);
-            ListViewDeposit.Items.Refresh();
-        }
-
-        
     }
 }
