@@ -21,6 +21,7 @@ namespace FinTracker.Assets
 
         }
 
+
         public double GetAmount()
         {
             double result = _StartAmount;
