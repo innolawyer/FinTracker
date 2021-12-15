@@ -62,7 +62,6 @@ namespace FinTracker
                         card.EnrollmentSumYearInterest();
                         card.EnrollmentServiceFee();
                     }
-                    
                 }
             }
 
@@ -328,7 +327,7 @@ namespace FinTracker
             SeriesCollectionIncome = null;
             SeriesCollectionSpend = null;
             ComboBoxRangeDateAnalisys.SelectedIndex = 0;
-            if (_storage.actualUser.Assets.Count != 0)
+            if (_storage.actualUser != null && _storage.actualUser.Assets.Count > 0)
             {
 
                 SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
@@ -574,7 +573,6 @@ namespace FinTracker
                     ColumnChartIncome.Series.Add(SeriesCollectionColIncome[i]);
                 }
             }
-
 
             PieChartIncome.Update(true, true);
             PieChartSpend.Update(true, true);

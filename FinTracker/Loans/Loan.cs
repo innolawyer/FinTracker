@@ -68,7 +68,7 @@ namespace FinTracker
             RemainingAmountRounded = Math.Round(RemainingAmount, 2);
         }
 
-       
+
 
         //привязать актуальную дату к программе
         public void DoRegularPayment ()
