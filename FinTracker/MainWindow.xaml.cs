@@ -62,7 +62,6 @@ namespace FinTracker
                         card.EnrollmentSumYearInterest();
                         card.EnrollmentServiceFee();
                     }
-                    
                 }
             }
 
@@ -231,8 +230,12 @@ namespace FinTracker
         public void LoanLabels_Update()
         {
             Loan loan = (Loan)ListViewLoans.SelectedItem;
-            LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
-            LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
+            if (loan != null)
+            {
+                LabelRemainingDays.Content = Convert.ToString((loan.ActualPaymentDateTime - DateTime.Today).TotalDays);
+                LabelTotalAmountOfPercents.Content = Math.Round(loan.TotalAmountOfPercents, 2);
+            }    
+            
         }
 
         private void ButtonCreateNewUser_Click(object sender, RoutedEventArgs e)
@@ -324,7 +327,7 @@ namespace FinTracker
             SeriesCollectionIncome = null;
             SeriesCollectionSpend = null;
             ComboBoxRangeDateAnalisys.SelectedIndex = 0;
-            if (_storage.actualUser.Assets.Count != 0)
+            if (_storage.actualUser != null && _storage.actualUser.Assets.Count > 0)
             {
 
                 SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
@@ -571,7 +574,6 @@ namespace FinTracker
                 }
             }
 
-
             PieChartIncome.Update(true, true);
             PieChartSpend.Update(true, true);
             ColumnChartSpend.Update();
@@ -644,5 +646,7 @@ namespace FinTracker
             ListViewDeposit.Items.Remove(ListViewDeposit.SelectedItem);
             ListViewDeposit.Items.Refresh();
         }
+
+        
     }
 }

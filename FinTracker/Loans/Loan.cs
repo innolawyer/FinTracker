@@ -46,7 +46,7 @@ namespace FinTracker
             Id = id;
             PreviousPaymentDateTime = actualPaymentDateTime.AddMonths(-1);
             ActualPaymentDateTime = actualPaymentDateTime;
-            NextPaymentDateTime = actualPaymentDateTime.AddMonths(1);
+            NextPaymentDateTime = ActualPaymentDateTime.AddMonths(1);
             RemainingTerm = remainingTerm;            
             LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(RemainingTerm));
             CreditorsName = creditorsName;
@@ -68,23 +68,20 @@ namespace FinTracker
             RemainingAmountRounded = Math.Round(RemainingAmount, 2);
         }
 
-       
+
 
         //привязать актуальную дату к программе
         public void DoRegularPayment ()
-        {          
-
-            while (ActualPaymentDateTime != LastPaymentDateTime)
+        {            
+            if (DateTime.Today == ActualPaymentDateTime)
             {
-                if (DateTime.Today == ActualPaymentDateTime)
-                {
-                    Asset.Amount -= MonthlyPayment;
-                    TotalAmountOfLoan -= MonthlyPayment;
-                    Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
-                }
-            }
-
-            ActualPaymentDateTime = NextPaymentDateTime;
+                Asset.Amount -= MonthlyPayment;
+                TotalAmountOfLoan -= MonthlyPayment;
+                Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
+                ActualPaymentDateTime = NextPaymentDateTime;
+                LoanTransaction nLoanTransaction = new LoanTransaction(Storage.sign.spend, MonthlyPayment, DateTime.Today,"", "Регулярный платёж по кредиту", "Регулярный платёж по кредиту");
+                Transaction transaction = (Transaction)nLoanTransaction;
+            }            
             
         }
 
