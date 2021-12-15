@@ -81,5 +81,15 @@ namespace FinTracker
         {
             Loans.Remove(loan);
         }
+
+        public double GetAllBalance()
+        {
+            double sum = 0;
+            foreach (AbstractAsset asset in Assets)
+            {
+                sum = sum + asset.Amount;
+            }
+            return sum;
+        }
     }
 }

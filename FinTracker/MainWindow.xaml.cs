@@ -39,7 +39,7 @@ namespace FinTracker
 
             FillingComboBoxUser(ComboBoxChangeUser);
             ComboBoxChangeUser_SelectionDone();
-            FillAssetListBox(ComboBoxCategoriesTransaction);
+            //FillAssetListBox(ComboBoxCategoriesTransaction);
             FillAssetListBox(ComboBoxAssetAnalisys);
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
@@ -51,6 +51,7 @@ namespace FinTracker
                 ButtonConfirmTransaction.IsEnabled = false;
                 ButtonConfirmTransaction.IsEnabled = false;
             }
+
             if (_storage.actualUser != null && _storage.actualAsset != null)
             {
                 foreach (AbstractAsset asset in _storage.actualUser.Assets)
@@ -73,6 +74,8 @@ namespace FinTracker
 
             if (_storage.actualUser != null && _storage.actualUser.Assets.Count != 0)
             {
+            FillTextBoxTotalAmount();
+
                 ComboBoxAssetAnalisys.SelectedIndex = 0;
 
                 SeriesCollectionIncome = Analisys.GetCategoriesSeriesCollectionByAsset(
@@ -111,7 +114,12 @@ namespace FinTracker
                 box.Items.Add($"{user.Name}");
             }
         }
-        
+
+        public void FillTextBoxTotalAmount()
+        {
+            LabelTotalAmount.Content = _storage.actualUser.GetAllBalance().ToString();
+        }
+
         public void LabelCurrentAmount_Display(object sender, RoutedEventArgs e)
         {
             LabelCurrentAmount.Content = _storage.actualAsset.GetAmount();
@@ -416,6 +424,7 @@ namespace FinTracker
 
                     Button nTransactionButton = new Button();
                     nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                    FillTextBoxTotalAmount();
                     nTransactionButton.Click += CurrentTransaction;
                     nTransactionButton.Click += SetTransactionData;
                     nTransactionButton.Click += LabelCurrentAmount_Display;
@@ -426,6 +435,10 @@ namespace FinTracker
                         Card card = (Card)_storage.actualAsset;
                         card.GetMinAmount();
                     }
+                }
+                else 
+                {
+                    MessageBox.Show("Сумма транзакции превышает остаток по счету");
                 }
             }
 
@@ -439,11 +452,63 @@ namespace FinTracker
                 _storage.actualAsset.AddTransactions(nTransaction);
                 Button nTransactionButton = new Button();
                 nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                FillTextBoxTotalAmount();
                 nTransactionButton.Click += CurrentTransaction;
                 nTransactionButton.Click += SetTransactionData;
                 StackPanelTransactionList.Children.Add(nTransactionButton);
                 LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
             }
+            else if (RadioButtonTransfer.IsChecked == true)
+            {
+                if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
+                {
+                    Transaction nnTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
+                                        Convert.ToDateTime(DatePickerTransaction.Text),
+                                        TextBoxComment.Text,
+                                        "Перевод");
+                    _storage.actualAsset.AddTransactions(nnTransaction);
+
+                    Button nnTransactionButton = new Button();
+                    nnTransactionButton.Content = $"{nnTransaction.Date} {nnTransaction.Sign}{nnTransaction.Amount} {nnTransaction.Category}";
+                    FillTextBoxTotalAmount();
+                    nnTransactionButton.Click += CurrentTransaction;
+                    nnTransactionButton.Click += SetTransactionData;
+                    nnTransactionButton.Click += LabelCurrentAmount_Display;
+                    StackPanelTransactionList.Children.Add(nnTransactionButton);
+                    LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) - nnTransaction.Amount;
+                    if (_storage.actualAsset is Card)
+                    {
+                        Card card = (Card)_storage.actualAsset;
+                        card.GetMinAmount();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Сумма транзакции превышает остаток по счету");
+                }
+
+                AbstractAsset tmpAsset = _storage.actualAsset;
+                _storage.actualAsset = _storage.actualUser.GetAssetByName((string)ComboBoxCategoriesTransaction.SelectedValue);
+
+                Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
+                                   Convert.ToDateTime(DatePickerTransaction.Text),
+                                   TextBoxComment.Text,
+                                   "Перевод");
+
+                _storage.actualAsset.AddTransactions(nTransaction);
+                Button nTransactionButton = new Button();
+                nTransactionButton.Content = $"{nTransaction.Date} {nTransaction.Sign}{nTransaction.Amount} {nTransaction.Category}";
+                FillTextBoxTotalAmount();
+                nTransactionButton.Click += CurrentTransaction;
+                nTransactionButton.Click += SetTransactionData;
+                StackPanelTransactionList.Children.Add(nTransactionButton);
+                LabelCurrentAmount.Content = Convert.ToDouble(LabelCurrentAmount.Content) + nTransaction.Amount;
+
+                _storage.actualAsset = tmpAsset;
+                FillingTransactionsStackPanel(sender, e);
+
+            }
+            TextBoxAmount.Text = "";
         }
 
         private void ListViewLoans_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -698,6 +763,18 @@ namespace FinTracker
             //PieChartSpend.Update(true, true);
             //ColumnChartSpend.Update();
             //ColumnChartIncome.Update();
+        }
+
+        private void RadioButtonTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (AbstractAsset asset in _storage.actualUser.Assets)
+            {
+                if (asset.Name != _storage.actualAsset.Name)
+                {
+                    ComboBoxCategoriesTransaction.Items.Add(asset.Name);
+
+                }
+            }
         }
     }
 }
