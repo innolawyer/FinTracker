@@ -40,7 +40,7 @@ namespace FinTracker
         public void FillingComboBoxDepositSpendAsset()
         {
             ComboBoxDepositSpendAsset.Items.Clear();
-            foreach (Asset asset in _storage.actualUser.Assets)
+            foreach (AbstractAsset asset in _storage.actualUser.Assets)
             {
                 ComboBoxDepositSpendAsset.Items.Add(asset.Name);
             }

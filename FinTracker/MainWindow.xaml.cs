@@ -339,7 +339,7 @@ namespace FinTracker
                 }
             }
 
-            if (_storage.actualUser.Assets.Count == 0)
+            if (_storage.actualUser != null && _storage.actualUser.Assets.Count == 0 )
             {
                 TabItemAnalytics.IsEnabled = false;
             }
