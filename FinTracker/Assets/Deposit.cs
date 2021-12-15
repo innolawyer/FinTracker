@@ -8,8 +8,11 @@ using FinTracker.Assets.FVCalc;
 
 namespace FinTracker
 {
+
     public class Deposit : AbstractAsset
     {
+        private Storage _storage = Storage.GetStorage();
+
         public string Name { get; set; }
         public double Amount { get; set; }
         public string BankName { get; set; } // название банка
@@ -23,8 +26,7 @@ namespace FinTracker
         public Storage.period Period { get; set; } // период
         public DateTime SpendDate { get; set; } // дата зачисления
         public int TermDeposit { get; set; }   // срок вклада
-        public AbstractAsset Asset { get; set; }
-
+        public AbstractAsset AssetForEnroll { get; set; }
 
         public Deposit(string name, string bankName, double amount, bool withdrawable, bool putable, 
             bool capitalization, int termDeposit, DateTime openingDate, double percent, Storage.period period, AbstractAsset asset)
@@ -47,50 +49,40 @@ namespace FinTracker
             OpeningDate = openingDate;
             Percent = percent;
             Period = period;
-            SpendDate = openingDate.AddDays((int)Period * 360);
+            SpendDate = openingDate.AddDays((int)Period);
             TermDeposit = termDeposit;
-            Asset = asset;
+            AssetForEnroll ??= asset;
         }
-       
-            public double EnrollIncomeFromDeposit(int year)
+        public double GetSumIncome()
         {
-            // если % добавляется к вкладу, этот нельзя снимать, можно пополнять
+            
+                SumIncome = Amount * (Percent * (double)Period / 360);
+            
+            return SumIncome;
+        }
+        public void EnrollIncomeFromDeposit()
+        {
+            // если % добавляется к вкладу
             if (Withdrawable == false && Putable == true)
             {
                 if (DateTime.Today >= SpendDate && DateTime.Today <= ClosingDate)
                 {
-                    SumIncome = Amount * (Percent * (double)Period);
-                    Amount += SumIncome;
+                    SumIncome = Amount * (Percent * (double)Period / 360);
+                    Transaction nTransaction = new Transaction(Storage.sign.income, SumIncome, SpendDate, "", "Начисление % по вкладам");
+                    this.AddTransactions(nTransaction);
                     SpendDate = SpendDate.AddDays((double)Period * 360);
                 }
             }
-            // если % не добавляется к вкладу, это можно снимать и пополнять
+            // если % не добавляется к вкладу
             if (Withdrawable == true && Putable == true)
             {
                 if (DateTime.Today >= SpendDate && DateTime.Today <= ClosingDate)
                 {
-                    SumIncome += Amount * (Percent * (double)Period);
+                    SumIncome += Amount * (Percent * (double)Period / 360);
+                    Transaction nTransaction = new Transaction(Storage.sign.income, SumIncome, SpendDate, "", "Начисление % по вкладам");
+                    AssetForEnroll.AddTransactions(nTransaction);
                     SpendDate = SpendDate.AddDays((double)Period * 360);
                 }
-            }
-            return SumIncome;
-        }
-
-        // пополнение, если возможность поплнения тру
-        public void SpendDeposit(double sum)
-        {
-            if (Putable == true)
-            {
-                Amount += sum;
-            }
-        }
-
-        // снятие, если возможность снятия тру
-        public void IncomeDeposit(double sum)
-        {
-            if(Withdrawable == true)
-            {
-                Amount -= sum;
             }
         }
         

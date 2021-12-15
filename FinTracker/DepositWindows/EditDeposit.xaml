@@ -59,7 +59,7 @@
             </DatePicker.CalendarStyle>
         </DatePicker>
         <CheckBox x:Name="CheckBoxEditWithdrawable" Foreground="#800000" FontWeight="SemiBold" Background="#800000" Content="С возможностью снятия" HorizontalAlignment="Left" Margin="273,214,0,0" VerticalAlignment="Top" Width="166"/>
-        <CheckBox x:Name="CheckBoxEditСapitalization" Foreground="#800000" FontWeight="SemiBold" Background="#800000" Content="Сложный %" HorizontalAlignment="Left" Margin="273,260,0,0" VerticalAlignment="Top" Width="196"/>
+        <CheckBox x:Name="CheckBoxEditСapitalization" Foreground="#800000" FontWeight="SemiBold" Background="#800000" Content="Капитализация" HorizontalAlignment="Left" Margin="273,260,0,0" VerticalAlignment="Top" Width="196" Unchecked="CheckBoxEditСapitalization_Unchecked" Checked="CheckBoxEditСapitalization_Checked"/>
         <CheckBox x:Name="CheckBoxEditPutable" Foreground="#800000" FontWeight="SemiBold" Background="#800000" Content="С возможностью пополнения" HorizontalAlignment="Left" Margin="273,237,0,0" VerticalAlignment="Top" Width="196"/>
         <Label Content="Дата открытия" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="13,115,0,0" VerticalAlignment="Top"/>
         <Label Content="Срок вклада" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="13,151,0,0" VerticalAlignment="Top"/>

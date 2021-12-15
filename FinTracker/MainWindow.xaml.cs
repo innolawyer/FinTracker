@@ -39,12 +39,14 @@ namespace FinTracker
 
             FillingComboBoxUser(ComboBoxChangeUser);
             ComboBoxChangeUser_SelectionDone();
-            //FillAssetListBox(ComboBoxCategoriesTransaction);
             FillAssetListBox(ComboBoxAssetAnalisys);
             FillAssetsStackPanel();
             AllLoanButtonsAreEnabled();
             FillingListDeposit();
             FillingListLoans();
+
+            
+            
 
             if (_storage.actualAsset == null)
             {
@@ -64,6 +66,11 @@ namespace FinTracker
                         card.EnrollmentSumYearInterest();
                         card.EnrollmentServiceFee();
                     }
+                    if (asset is Deposit)
+                    {
+                        Deposit deposit = (Deposit)asset;
+                        deposit.EnrollIncomeFromDeposit();
+                    }
                 }
             }
 
@@ -71,10 +78,12 @@ namespace FinTracker
             ComboBoxRangeDateAnalisys.Items.Add(Storage.DateRange.Полгода);
             ComboBoxRangeDateAnalisys.Items.Add(Storage.DateRange.Год);
             ComboBoxRangeDateAnalisys.SelectedIndex = 0;
-
+            if (_storage.actualUser != null)
+            {
+                FillTextBoxTotalAmount();
+            }
             if (_storage.actualUser != null && _storage.actualUser.Assets.Count != 0)
             {
-            FillTextBoxTotalAmount();
 
                 ComboBoxAssetAnalisys.SelectedIndex = 0;
 
@@ -414,6 +423,15 @@ namespace FinTracker
 
             if (RadioButtonСonsumption.IsChecked == true)
             {
+                if (_storage.actualAsset is Deposit)
+                {
+                    Deposit deposit = (Deposit)(_storage.actualAsset);
+                    if (deposit.Withdrawable == false)
+                    {
+                        MessageBox.Show("У выбранного вклада нет возможности снятия средств");
+                        return;
+                    }
+                }
                 if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
                 {
                     Transaction nTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
@@ -444,6 +462,15 @@ namespace FinTracker
 
             else if (RadioButtonIncome.IsChecked == true)
             {
+                if (_storage.actualAsset is Deposit)
+                {
+                    Deposit deposit = (Deposit)(_storage.actualAsset);
+                    if (deposit.Putable == false)
+                    {
+                        MessageBox.Show("У выбранного вклада нет возможности пополнения");
+                        return;
+                    }
+                }
                 Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
                                     Convert.ToDateTime(DatePickerTransaction.Text),
                                     TextBoxComment.Text,
@@ -460,6 +487,15 @@ namespace FinTracker
             }
             else if (RadioButtonTransfer.IsChecked == true)
             {
+                if (_storage.actualAsset is Deposit)
+                {
+                    Deposit deposit = (Deposit)(_storage.actualAsset);
+                    if (deposit.Withdrawable == false)
+                    {
+                        MessageBox.Show("У выбранного вклада нет возможности снятия средств");
+                        return;
+                    }
+                }
                 if (_storage.actualAsset.Amount >= Convert.ToDouble(TextBoxAmount.Text))
                 {
                     Transaction nnTransaction = new Transaction(Storage.sign.spend, Convert.ToDouble(TextBoxAmount.Text),
@@ -490,6 +526,15 @@ namespace FinTracker
                 AbstractAsset tmpAsset = _storage.actualAsset;
                 _storage.actualAsset = _storage.actualUser.GetAssetByName((string)ComboBoxCategoriesTransaction.SelectedValue);
 
+                if (_storage.actualAsset is Deposit)
+                {
+                    Deposit deposit = (Deposit)(_storage.actualAsset);
+                    if (deposit.Putable == false)
+                    {
+                        MessageBox.Show("У выбранного вклада нет возможности пополнения");
+                        return;
+                    }
+                }
                 Transaction nTransaction = new Transaction(Storage.sign.income, Convert.ToDouble(TextBoxAmount.Text),
                                    Convert.ToDateTime(DatePickerTransaction.Text),
                                    TextBoxComment.Text,
@@ -775,6 +820,13 @@ namespace FinTracker
 
                 }
             }
+        }
+
+        private void ListViewDeposit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Deposit deposit = (Deposit)(ListViewDeposit.SelectedItem);
+            double sum = deposit.GetSumIncome();
+            LabelSumPercentActualDeposit.Content = $"По данному вкладу {deposit.SpendDate} будет начислено {sum} ₽";
         }
     }
 }

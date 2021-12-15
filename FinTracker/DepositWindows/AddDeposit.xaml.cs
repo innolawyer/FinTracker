@@ -27,11 +27,14 @@ namespace FinTracker
         {
             InitializeComponent();
             FillingComboBoxDepositSpendAsset();
-            CheckBoxСapitalizationIsChecked();
+
             ComboBoxPeriod.Items.Add(Storage.period.Год);
             ComboBoxPeriod.Items.Add(Storage.period.Месяц);
             ComboBoxPeriod.Items.Add(Storage.period.Неделя);
             ComboBoxPeriod.Items.Add(Storage.period.День);
+
+            ComboBoxPeriod.SelectedIndex = 0;
+
             DatePickerDepositStart.SelectedDate = DateTime.Today;
             DatePickerDepositStart.SelectedDate.Value.Date.ToShortDateString();
             _mainWindow = mainWindow;
@@ -61,20 +64,30 @@ namespace FinTracker
                     AbstractAsset asset = _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString());
                 }
             }
-         
-            Deposit deposit = new Deposit(TextBoxNameAsset.Text, TextBoxBankName.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
-                (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToInt32(TextBoxTermDeposit.Text),
-                Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem), 
-                _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString()));
+            if (TextBoxNameAsset.Text != string.Empty && TextBoxBankName.Text != string.Empty && TextBoxDepositAmount.Text != string.Empty 
+                && TextBoxTermDeposit.Text != string.Empty && DatePickerDepositStart.Text != string.Empty && TextBoxPercent.Text != string.Empty)
+            {
+               
+                Deposit deposit = new Deposit(TextBoxNameAsset.Text, TextBoxBankName.Text, Convert.ToDouble(TextBoxDepositAmount.Text), (bool)CheckBoxWithdrawable.IsChecked,
+                    (bool)CheckBoxPutable.IsChecked, (bool)CheckBoxСapitalization.IsChecked, Convert.ToInt32(TextBoxTermDeposit.Text),
+                    Convert.ToDateTime(DatePickerDepositStart.Text), Convert.ToDouble(TextBoxPercent.Text), (Storage.period)(ComboBoxPeriod.SelectedItem),
+                    _storage.actualUser.GetAssetByName(ComboBoxDepositSpendAsset.SelectedItem.ToString()));
 
-            _storage.actualUser.AddDeposit(deposit);
+                _storage.actualUser.AddDeposit(deposit);
 
-            _mainWindow.ListViewDeposit.Items.Add(deposit);
-            this.Close();
+                _mainWindow.ListViewDeposit.Items.Add(deposit);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Вы заполнили не все поля");
+            }
         }
 
         public void CheckBoxСapitalizationIsChecked()
         {
+
+            
             if (CheckBoxСapitalization.IsChecked == true)
             {
                 ComboBoxDepositSpendAsset.IsEnabled = false;
@@ -85,5 +98,15 @@ namespace FinTracker
             }
         }
 
+        private void CheckBoxСapitalization_Checked(object sender, RoutedEventArgs e)
+        {
+            ComboBoxDepositSpendAsset.SelectedIndex = -1;
+            ComboBoxDepositSpendAsset.IsEnabled = false;
+        }
+
+        private void CheckBoxСapitalization_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ComboBoxDepositSpendAsset.IsEnabled = true;
+        }
     }
 }

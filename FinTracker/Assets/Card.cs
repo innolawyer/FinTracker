@@ -52,7 +52,7 @@ namespace FinTracker
             CashbackAndPercent.Add(category, percent / 100);
         }
 
-        public double GetMinAmount() //при запуске и в транзакциях
+        public void GetMinAmount() //при запуске и в транзакциях
         {
             double tmpAmount = GetAmount();
             if (tmpAmount < MinAmount)
@@ -63,7 +63,6 @@ namespace FinTracker
             {
                 MinAmount = GetAmount();
             }
-            return MinAmount;
         }
 
         public double GetCashback()
@@ -102,7 +101,8 @@ namespace FinTracker
         {
             if (DateTime.Today >= DateSpendServiceFee)
             {
-                Amount -= ServiceFee;
+                Transaction nTransaction = new Transaction(Storage.sign.spend, ServiceFee, DateSpendServiceFee, "", "Обслуживание банка");
+                this.AddTransactions(nTransaction);
                 DateSpendServiceFee = DateSpendServiceFee.AddMonths(1);
             }
         }
@@ -112,8 +112,9 @@ namespace FinTracker
             if (DateTime.Today >= EnrollDateYearInterest)
             {
                 SumYearInterest =  GetSumYearInterest();
+                Transaction nTransaction = new Transaction(Storage.sign.spend, SumYearInterest, EnrollDateYearInterest, "", "Начисление % на остаток по счету");
+                this.AddTransactions(nTransaction);
                 EnrollDateYearInterest = EnrollDateYearInterest.AddMonths(1);
-                Amount += SumYearInterest;
                 SumYearInterest = 0;
             }
 
@@ -121,16 +122,16 @@ namespace FinTracker
 
         public void EnrollmentCashbak()
         {
-
+            
             if (DateTime.Today >= EnrollDateCash)
             {
                 Cashback = GetCashback();
+                Transaction nTransaction = new Transaction(Storage.sign.spend, Cashback, EnrollDateCash, "", "Начисление кэшбека");
+                this.AddTransactions(nTransaction);
                 EnrollDateCash = EnrollDateCash.AddMonths(1);
-                Amount += Cashback;
                 Cashback = 0;
             }
 
-            // и должно быть: MessageBox.Show("За период ДАТА - ДАТА Вам начислен кэшбек за покупки в сумме $"{Cashback + CashbackAll}")
         }
 
         public void EditCard(string name, double amount,
