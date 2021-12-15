@@ -296,7 +296,7 @@
                     </ListView>
                 </Grid>
             </TabItem>
-            <TabItem Background="#F1D1B7" Foreground="#800000" FontSize="17" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="150" Header="Аналитика" GotFocus="TabItemAnalytics_GotFocus">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontSize="17" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="150" Header="Аналитика" FocusableChanged="TabItemAnalytics_FocusableChanged">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>
