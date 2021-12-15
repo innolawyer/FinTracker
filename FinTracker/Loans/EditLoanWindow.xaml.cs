@@ -36,7 +36,7 @@ namespace FinTracker.Loans
 
         public void FillingComboBoxLoanAssetEdit()
         {
-            foreach (Asset asset in _storage.actualUser.Assets)
+            foreach (AbstractAsset asset in _storage.actualUser.Assets)
             {
                 ComboBoxLoanAssetEdit.Items.Add(asset.Name);
             }
