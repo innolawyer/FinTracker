@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinTracker"
         mc:Ignorable="d"
-        Title="Досрочный платёж" Height="205" Width="194">
+        Title="Досрочный платёж" Height="228" Width="216">
     <Window.Resources>
         <Style x:Key="{x:Type Button}">
             <Setter Property="Control.Background" Value="#60D6A9"/>
@@ -50,9 +50,9 @@
             </DatePicker.CalendarStyle>
         </DatePicker>
         <TextBlock HorizontalAlignment="Left" Foreground="#800000" FontWeight="SemiBold" Grid.Row="1" TextWrapping="Wrap" Text="Сумма" VerticalAlignment="Center" Height="19" Width="50" Margin="10,0,0,0"/>
-        <TextBox x:Name="TextBoxAmountOfExtraPayment" BorderBrush="#800000" Background="White" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="112" Grid.Column="1" Height="23" TextChanged="TextBoxAmountOfExtraPayment_TextChanged" PreviewTextInput="TextBoxAmountOfExtraPayment_PreviewTextInput"/>
+        <TextBox x:Name="TextBoxAmountOfExtraPayment" BorderBrush="#800000" Background="White" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Center" Width="133" Grid.Column="1" Height="23" TextChanged="TextBoxAmountOfExtraPayment_TextChanged" PreviewTextInput="TextBoxAmountOfExtraPayment_PreviewTextInput"/>
         <TextBlock HorizontalAlignment="Left" Foreground="#800000" FontWeight="SemiBold" Grid.Row="2" TextWrapping="Wrap" Text="Цель" VerticalAlignment="Center" Margin="10,0,0,0" Width="35" Height="19"/>
-        <ComboBox x:Name="ComboBoxExtraPaymentPurpose" BorderBrush="#800000" Background="White" Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="112" Height="23" SelectedIndex="0"/>
-        <Button x:Name="ButtonCreateExtraPayment" Content="Создать" HorizontalAlignment="Left" Margin="42,10,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="110" Click="ButtonCreateExtraPayment_Click" Height="27"/>
+        <ComboBox x:Name="ComboBoxExtraPaymentPurpose" BorderBrush="#800000" Background="White" Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="133" Height="23" SelectedIndex="0"/>
+        <Button x:Name="ButtonCreateExtraPayment" Content="Создать" HorizontalAlignment="Left" Margin="39,5,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="138" Click="ButtonCreateExtraPayment_Click" Height="34"/>
     </Grid>
 </Window>

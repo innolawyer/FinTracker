@@ -298,7 +298,7 @@
                     <Label x:Name="LabelSumPercentActualDeposit" Content="" HorizontalAlignment="Left" Margin="10,549,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="111" Width="667"/>
                 </Grid>
             </TabItem>
-            <TabItem Background="#F1D1B7" Foreground="#800000" FontSize="17" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="150" Header="Аналитика" FocusableChanged="TabItemAnalytics_FocusableChanged">
+            <TabItem Background="#F1D1B7" Foreground="#800000" FontSize="17" FontWeight="SemiBold" x:Name="TabItemAnalytics" Width="150" Header="Аналитика" MouseDown="TabItemAnalytics_MouseDown">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>
