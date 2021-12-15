@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FinTracker.Loans;
-using FinTracker.Assets;
 
 namespace FinTracker
 {
@@ -15,7 +14,7 @@ namespace FinTracker
         public DateTime ActualPaymentDateTime { get; set; }
         public DateTime NextPaymentDateTime { get; set;}      
         public DateTime LastPaymentDateTime { get; set;}        
-        public AbstractAsset Asset { get; set; }
+        public Asset Asset { get; set; }
         public int Id { get; set; }
         public string CreditorsName { get; set; }
         public double Percent { get; set; }
@@ -38,7 +37,7 @@ namespace FinTracker
 
         
 
-        public Loan (AbstractAsset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
+        public Loan (Asset asset, int id, DateTime actualPaymentDateTime, string creditorsName,
                     double percent, double period, string status, 
                     double remainingTerm,
                     double amount)
@@ -47,7 +46,7 @@ namespace FinTracker
             Id = id;
             PreviousPaymentDateTime = actualPaymentDateTime.AddMonths(-1);
             ActualPaymentDateTime = actualPaymentDateTime;
-            NextPaymentDateTime = actualPaymentDateTime.AddMonths(1);
+            NextPaymentDateTime = ActualPaymentDateTime.AddMonths(1);
             RemainingTerm = remainingTerm;            
             LastPaymentDateTime = actualPaymentDateTime.AddMonths(Convert.ToInt32(RemainingTerm));
             CreditorsName = creditorsName;
@@ -69,23 +68,20 @@ namespace FinTracker
             RemainingAmountRounded = Math.Round(RemainingAmount, 2);
         }
 
-       
+
 
         //привязать актуальную дату к программе
         public void DoRegularPayment ()
-        {          
-
-            while (ActualPaymentDateTime != LastPaymentDateTime)
+        {            
+            if (DateTime.Today == ActualPaymentDateTime)
             {
-                if (DateTime.Today == ActualPaymentDateTime)
-                {
-                    Asset.Amount -= MonthlyPayment;
-                    TotalAmountOfLoan -= MonthlyPayment;
-                    Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
-                }
-            }
-
-            ActualPaymentDateTime = NextPaymentDateTime;
+                Asset.Amount -= MonthlyPayment;
+                TotalAmountOfLoan -= MonthlyPayment;
+                Amount -= (MonthlyPayment - (Amount * (Percent / 1200)));
+                ActualPaymentDateTime = NextPaymentDateTime;
+                LoanTransaction nLoanTransaction = new LoanTransaction(Storage.sign.spend, MonthlyPayment, DateTime.Today,"", "Регулярный платёж по кредиту", "Регулярный платёж по кредиту");
+                Transaction transaction = (Transaction)nLoanTransaction;
+            }            
             
         }
 

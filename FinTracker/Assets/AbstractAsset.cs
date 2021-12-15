@@ -7,7 +7,7 @@ using FinTracker.Assets.FVCalc;
 
 namespace FinTracker.Assets
 {
-    public abstract class AbstractAsset
+    public class AbstractAsset
     {
         protected IFVCalcer calcer { get; set; }
 
